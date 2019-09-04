@@ -9,21 +9,18 @@ import DAO.UsuarioDAO;
 import Model.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Erick Alessi
+ * @author Bruno F
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
-public class LoginServlet extends HttpServlet {
+@WebServlet(name = "CadastraUsuarioServlet", urlPatterns = {"/CadastraUsuarioServlet"})
+public class CadastraUsuarioServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,36 +33,53 @@ public class LoginServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+
+        String nome = "";
         String email = "";
         String senha = "";
 
-        email = request.getParameter("email");
-        senha = request.getParameter("senha");
+        nome = (String) request.getParameter("nome");
+        email = (String) request.getParameter("email");
+        senha = (String) request.getParameter("senha");
 
         UsuarioDAO uDAO = new UsuarioDAO();
-        Usuario usuarioLogado = uDAO.buscarUsuario(email);
+        Usuario usuario = new Usuario();
+        Usuario usuarioSalvo = new Usuario();
 
-        HttpSession s = request.getSession();
+        usuario.setEmail(email);
+        usuario.setNome(nome);
+        usuario.setSenha(senha);
 
-        //Condicional de erro para login
-        if (senha.equals(usuarioLogado.getSenha())) {
-            s.setAttribute("email", email);
-            RequestDispatcher rd = request.
-                    getRequestDispatcher("/PortalServlet");
-            rd.forward(request, response);
-        } else {
-            RequestDispatcher rd = request.
-                    getRequestDispatcher("/ErroServlet");
-            request.setAttribute("msg", "Senha ou Usuário incorretos!");
-            request.setAttribute("page", "index.jsp");
-            
-            rd.forward(request, response);
+        usuarioSalvo = uDAO.inserir(usuario);
+
+        if (usuarioSalvo != null) {
+            response.setContentType("text/html;charset=UTF-8");
+            try (PrintWriter out = response.getWriter()) {
+                /* TODO output your page here. You may use following sample code. */
+                out.println("<!DOCTYPE html>");
+                out.println("<html>");
+                out.println("<head>");
+                out.println("<title>Servlet CadastraUsuarioServlet</title>");
+                out.println("</head>");
+                out.println("<body>");
+                out.println("<h1>Usuario Cadastrado com Sucesso!</h1>");
+
+                out.println("<table ><tr>\n"
+                        + "    <th>Nome</th>\n"
+                        + "    <th>Email</th> \n"
+                        + "    <th>Senha</th>\n"
+                        + "  </tr>");
+
+                out.println("<tr><th>" + nome + "</th><th>" + email + "</th><th>" + senha + "</th></tr>");
+                out.println("</table></body>");
+                
+                out.println("<a href=\'PortalServlet'> Voltar ao Portal</a>");
+
+                out.println("</body>");
+                out.println("</html>");
+            }
         }
 
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
