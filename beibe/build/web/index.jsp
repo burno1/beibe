@@ -49,7 +49,7 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="senha" class="col-sm-2 col-form-label">Email</label>
+                                <label for="senha" class="col-sm-2 col-form-label">Senha</label>
                                 <div class="col-sm-10">
                                     <input type="password" class="form-control" id="senha" name="senha" required="true">
                                 </div>
