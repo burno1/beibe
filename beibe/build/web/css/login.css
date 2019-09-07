@@ -1,7 +1,3 @@
-body{
-    background-color: #fafafa;
-}
-
 .dialog {
     display: flex;
     flex-direction: column;
@@ -15,10 +11,3 @@ body{
     background-color:transparent;
 }
 
-.dialog main {
-    overflow-y: auto;
-}
-
-.error {
-    color:red;
-}
