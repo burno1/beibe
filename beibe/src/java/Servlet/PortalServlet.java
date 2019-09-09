@@ -5,15 +5,19 @@
  */
 package Servlet;
 
+import DAO.UsuarioDAO;
 import Model.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -34,50 +38,93 @@ public class PortalServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        ArrayList<Usuario> usuarios = ((ArrayList<Usuario>) request.getSession().getAttribute("listaUsuarios"));
+        HttpSession s = request.getSession();
+        ArrayList<Usuario> usuarios = ((ArrayList<Usuario>) s.getAttribute("listaUsuarios"));
+        List<Usuario> usuariosBanco = new ArrayList<Usuario>();
 
+        usuariosBanco = new UsuarioDAO().buscarTodos();
         String nome = "";
         String email = "";
         String senha = "";
+
         try {
-            if (request.getParameter("nome") != null) {
+            if (s.getAttribute("email") == null) {
+                RequestDispatcher rd = request.
+                        getRequestDispatcher("/ErroServlet");
+                request.setAttribute("msg", "Erro acessando a Servlet");
+                request.setAttribute("page", "index.jsp");
+                rd.forward(request, response);
+            }
+
+            if (request.getParameter("email") != null) {
                 nome = (String) request.getParameter("nome");
                 email = (String) request.getParameter("email");
                 senha = (String) request.getParameter("senha");
+
                 Usuario usuario = new Usuario(nome, email, senha, "");
                 usuarios.add(usuario);
             }
+
         } catch (Exception e) {
         }
         try (PrintWriter out = response.getWriter()) {
+
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
             out.println("<title>Servlet PortalServlet</title>");
+            out.println("<link href=\"./bootstrap/css/bootstrap.css\" rel=\"stylesheet\" />\n"
+                    + "        <link href=\"./bootstrap/css/bootstrap-theme.css\" rel=\"stylesheet\"/>\n"
+                    + "        <link href=\"./css/login.css\" rel=\"stylesheet\" />");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h6> User " + request.getSession().getAttribute("user") + "<a href=\'Invalidar'>   logout</a></h6>");
-            out.println("<form action=\"PortalServlet\" method=\"post\" modelAttribute=\"user\">\n"
-                    + "                    <div class=\"form-group\">\n"
-                    + "                        <label path=\"nome\">Nome</form:label>\n"
-                    + "                            <input type=\"text\" name=\"nome\" class=\"block\" required=\"true\"/>\n"
-                    + "                        <label path=\"email\">E-mail</form:label>\n"
-                    + "                            <input type=\"email\" name=\"email\" class=\"block\" required=\"true\"/>\n"
-                    + "                        <label path=\"senha\">Senha </form:label>\n"
-                    + "                            <input type=\"password\" name=\"senha\" class=\"block\" required=\"true\"/>\n"
-                    + "                        <button type=\"submit\" class=\"btn btn-success btn-block\">Adicionar</button>\n"
-                    + "                </form>");
-            if (usuarios.size() > 0) {
-                out.println("<table style=\"width:100%\"><tr>\n"
-                        + "    <th>Nome</th>\n"
-                        + "    <th>Email</th> \n"
-                        + "    <th>Senha</th>\n"
-                        + "  </tr>");
-                usuarios.forEach((u) -> {
+            out.println("<h6> User " + s.getAttribute("email") + "<a href=\'Invalidar'>   logout</a></h6>");
+            out.println("<form action=\"CadastraUsuarioServlet\" method=\"post\">\n"
+                    + "            <div class=\"container\">\n"
+                    + "                <div class=\"form-group row\">\n"
+                    + "                    <label class=\"col-sm-2 col-form-label\" for=\"nome\">Nome</label>\n"
+                    + "                    <div class=\"col-sm-10\">\n"
+                    + "                        <input type=\"text\" name=\"nome\" class=\"form-control\" required>\n"
+                    + "                    </div>\n"
+                    + "                </div>\n"
+                    + "                <div class=\"form-group row\">\n"
+                    + "                    <label class=\"col-sm-2 col-form-label\" for=\"email\">E-mail</label>\n"
+                    + "                    <div class=\"col-sm-10\">\n"
+                    + "                        <input type=\"email\" name=\"email\" class=\"form-control\" required>\n"
+                    + "                    </div>\n"
+                    + "                </div>\n"
+                    + "                <div class=\"form-group row\">\n"
+                    + "                    <label class=\"col-sm-2 col-form-label\" for=\"senha\">Senha </label>\n"
+                    + "                    <div class=\"col-sm-10\">\n"
+                    + "                        <input type=\"password\" name=\"senha\" class=\"form-control\" required>\n"
+                    + "                    </div>\n"
+                    + "                </div>\n"
+                    + "\n"
+                    + "                <div class=\"form-group row\">\n"
+                    + "                    <div class=\"col-sm-2\">\n"
+                    + "                        <button type=\"submit\" class=\"btn btn-success btn-block\">Salvar</button>\n"
+                    + "                    </div>\n"
+                    + "                </div>\n"
+                    + "\n"
+                    + "\n"
+                    + "        </form>");
+            if (usuariosBanco.size() > 0) {
+               
+                out.println("<table class=\"table\">\n"
+                        + "            <thead class=\"thead-light\">\n"
+                        + "                <tr>\n"
+                        + "                    <th scope=\"col\">Nome</th>\n"
+                        + "                    <th scope=\"col\">E-mail</th>\n"
+                        + "                    <th scope=\"col\">Senha</th>\n"
+                        + "                </tr>\n"
+                        + "            </thead>"
+                        + "            <tbody>\n");
+                usuariosBanco.forEach((u) -> {
                     out.println("<tr><th>" + u.getNome() + "</th><th>" + u.getEmail() + "</th><th>" + u.getSenha() + "</th></tr>");
                 });
-                out.println("</table></body>");
+                out.println("</tbody></table></body>");
+
                 out.println("</html>");
 
             }

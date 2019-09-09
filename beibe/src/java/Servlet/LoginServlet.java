@@ -5,10 +5,12 @@
  */
 package Servlet;
 
+import DAO.UsuarioDAO;
 import Model.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -37,30 +39,32 @@ public class LoginServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String email = "";
         String senha = "";
+
         email = request.getParameter("email");
         senha = request.getParameter("senha");
+
+        UsuarioDAO uDAO = new UsuarioDAO();
+        Usuario usuarioLogado = uDAO.buscarUsuario(email);
+
         HttpSession s = request.getSession();
+
+        //Condicional de erro para login
+        if (senha.equals(usuarioLogado.getSenha())) {
+            s.setAttribute("email", email);
+            RequestDispatcher rd = request.
+                    getRequestDispatcher("/PortalServlet");
+            rd.forward(request, response);
+        } else {
+            RequestDispatcher rd = request.
+                    getRequestDispatcher("/ErroServlet");
+            request.setAttribute("msg", "Senha ou Usuário incorretos!");
+            request.setAttribute("page", "index.jsp");
+            
+            rd.forward(request, response);
+        }
+
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet LoginServlet</title>");
-            out.println("</head>");
-            out.println("<body>");
-            if (!email.equals(senha)) {
-                out.println("<h1>Usuario " + email + " logado </h1>");
-                s.setAttribute("user", email);
-                s.setAttribute("listaUsuarios", new ArrayList<Usuario>());
-                out.println("<a href=\'PortalServlet'>Acessar Portal</a>");
-            }
-            if (email.equals(senha)){
-                out.println("Usuário ou Senha Inválida");
-                out.println("<a href=\'index.jsp'>Fazer Login</a>");
-
-            }
-            out.println("</body>");
-            out.println("</html>");
         }
     }
 

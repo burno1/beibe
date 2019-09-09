@@ -5,25 +5,37 @@
  */
 package Model;
 
+import Factories.ConnectionFactory;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Erick Alessi
  */
 public class Usuario {
+
     private String email;
     private String nome;
     private String senha;
     private String tipo;
+    private String id;
 
-    public Usuario(){
-        
+    public Usuario() {
+
     }
-    public Usuario(String nome, String email, String senha, String tipo){
+
+    public Usuario(String nome, String email, String senha, String tipo) {
         this.email = email;
         this.nome = nome;
         this.senha = senha;
         this.tipo = tipo;
     }
+
     public String getEmail() {
         return email;
     }
@@ -55,8 +67,14 @@ public class Usuario {
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
-    
-    
-    
-    
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+   
 }
