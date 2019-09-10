@@ -7,6 +7,7 @@ package DAO;
 
 import Factories.ConnectionFactory;
 import Model.Usuario;
+import Utils.MD5;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -53,7 +54,7 @@ public class UsuarioDAO {
     }
 
     public void setSenha_usuario(String senha_usuario) {
-        this.senha_usuario = senha_usuario;
+        this.senha_usuario = MD5.MD5Transformed(senha_usuario);
     }
 
     public Usuario buscarUsuario(String email) {

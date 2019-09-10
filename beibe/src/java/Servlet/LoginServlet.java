@@ -7,6 +7,7 @@ package Servlet;
 
 import DAO.UsuarioDAO;
 import Model.Usuario;
+import Utils.MD5;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -49,7 +50,7 @@ public class LoginServlet extends HttpServlet {
         HttpSession s = request.getSession();
 
         //Condicional de erro para login
-        if (senha.equals(usuarioLogado.getSenha())) {
+        if (MD5.MD5Transformed(senha).equals(usuarioLogado.getSenha())) {
             s.setAttribute("email", email);
             RequestDispatcher rd = request.
                     getRequestDispatcher("/PortalServlet");

@@ -7,6 +7,7 @@ package Servlet;
 
 import DAO.UsuarioDAO;
 import Model.Usuario;
+import Utils.MD5;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -40,7 +41,7 @@ public class CadastraUsuarioServlet extends HttpServlet {
 
         nome = (String) request.getParameter("nome");
         email = (String) request.getParameter("email");
-        senha = (String) request.getParameter("senha");
+        senha = MD5.MD5Transformed((String) request.getParameter("senha"));
 
         UsuarioDAO uDAO = new UsuarioDAO();
         Usuario usuario = new Usuario();
