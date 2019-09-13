@@ -5,69 +5,42 @@
  */
 package Servlet;
 
-import Bean.LoginBean;
-import Bean.PortalBean;
-import DAO.UsuarioDAO;
-import Model.Usuario;
-import Utils.MD5;
+import Bean.ConfigBean;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Erick Alessi
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
-public class LoginServlet extends HttpServlet {
+@WebServlet(name = "StartupServlet", urlPatterns
+        = {"/StartupServlet"}, loadOnStartup = 1)
+public class StartupServlet extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
      *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @param config
+     * @throws ServletException
      */
+    @Override
+    public void init(ServletConfig config)
+            throws ServletException {
+        ConfigBean conf = new ConfigBean();
+        conf.setEmail("dono@beibe.com");
+        ServletContext ctx = config.getServletContext();
+        ctx.setAttribute("configuracao", conf);
+    }
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String email = "";
-        String senha = "";
-
-        email = request.getParameter("email");
-        senha = request.getParameter("senha");
-
-        UsuarioDAO uDAO = new UsuarioDAO();
-        Usuario usuarioLogado = uDAO.buscarUsuario(email);
-
-        HttpSession s = request.getSession();
-        LoginBean loginBean = new LoginBean();
-        
-        //Condicional de erro para login
-        if (MD5.MD5Transformed(senha).equals(usuarioLogado.getSenha())) {
-            loginBean.setUser(email);
-            loginBean.setSenha(MD5.MD5Transformed(senha));
-            s.setAttribute("login", loginBean);
-            s.setAttribute("portalBean", new PortalBean());
-            response.sendRedirect("./portal.jsp");
-        } else {
-            RequestDispatcher rd = request.
-                    getRequestDispatcher("/ErroServlet");
-            request.setAttribute("msg", "Senha ou Usuário incorretos!");
-            request.setAttribute("page", "index.jsp");
-            
-            rd.forward(request, response);
-        }
-
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
         }
@@ -112,4 +85,5 @@ public class LoginServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    
 }

@@ -3,14 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Erick%20Alessi/Desktop/beibe/beibe/src/java/Factories/ConnectionFactory.java</file>
-            <file>file:/C:/Users/Erick%20Alessi/Desktop/beibe/beibe/src/java/DAO/UsuarioDAO.java</file>
-            <file>file:/C:/Users/Erick%20Alessi/Desktop/beibe/beibe/src/java/Utils/TestBDConnection.java</file>
-            <file>file:/C:/Users/Erick%20Alessi/Desktop/beibe/beibe/src/java/Model/Usuario.java</file>
-            <file>file:/C:/Users/Erick%20Alessi/Desktop/beibe/beibe/src/java/Servlet/CadastraUsuarioServlet.java</file>
-            <file>file:/C:/Users/Erick%20Alessi/Desktop/beibe/beibe/src/java/Utils/MD5.java</file>
-            <file>file:/C:/Users/Erick%20Alessi/Desktop/beibe/beibe/src/java/Servlet/LoginServlet.java</file>
-            <file>file:/C:/Users/Erick%20Alessi/Desktop/beibe/beibe/src/java/Servlet/PortalServlet.java</file>
+            <file>file:/C:/Users/Erick%20Alessi/Desktop/beibe/beibe/src/java/Servlet/StartupServlet.java</file>
+            <file>file:/C:/Users/Erick%20Alessi/Desktop/beibe/beibe/web/portal.jsp</file>
+            <file>file:/C:/Users/Erick%20Alessi/Desktop/beibe/beibe/web/index.jsp</file>
         </group>
     </open-files>
 </project-private>

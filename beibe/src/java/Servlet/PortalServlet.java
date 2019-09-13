@@ -5,6 +5,7 @@
  */
 package Servlet;
 
+import Bean.PortalBean;
 import DAO.UsuarioDAO;
 import Model.Usuario;
 import java.io.IOException;
@@ -38,6 +39,7 @@ public class PortalServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        PortalBean pb = new PortalBean();
         HttpSession s = request.getSession();
         ArrayList<Usuario> usuarios = ((ArrayList<Usuario>) s.getAttribute("listaUsuarios"));
         List<Usuario> usuariosBanco = new ArrayList<Usuario>();
@@ -48,14 +50,13 @@ public class PortalServlet extends HttpServlet {
         String senha = "";
 
         try {
-            if (s.getAttribute("email") == null) {
+            if (s.getAttribute("login") == null) {
                 RequestDispatcher rd = request.
                         getRequestDispatcher("/ErroServlet");
                 request.setAttribute("msg", "Erro acessando a Servlet");
                 request.setAttribute("page", "index.jsp");
                 rd.forward(request, response);
             }
-
             if (request.getParameter("email") != null) {
                 nome = (String) request.getParameter("nome");
                 email = (String) request.getParameter("email");
@@ -64,71 +65,13 @@ public class PortalServlet extends HttpServlet {
                 Usuario usuario = new Usuario(nome, email, senha, "");
                 usuarios.add(usuario);
             }
+            RequestDispatcher rd = request.
+                    getRequestDispatcher("/portal");
+            rd.forward(request, response);
 
         } catch (Exception e) {
         }
-        try (PrintWriter out = response.getWriter()) {
 
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet PortalServlet</title>");
-            out.println("<link href=\"./bootstrap/css/bootstrap.css\" rel=\"stylesheet\" />\n"
-                    + "        <link href=\"./bootstrap/css/bootstrap-theme.css\" rel=\"stylesheet\"/>\n"
-                    + "        <link href=\"./css/login.css\" rel=\"stylesheet\" />");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h6> User " + s.getAttribute("email") + "<a href=\'Invalidar'>   logout</a></h6>");
-            out.println("<form action=\"CadastraUsuarioServlet\" method=\"post\">\n"
-                    + "            <div class=\"container\">\n"
-                    + "                <div class=\"form-group row\">\n"
-                    + "                    <label class=\"col-sm-2 col-form-label\" for=\"nome\">Nome</label>\n"
-                    + "                    <div class=\"col-sm-10\">\n"
-                    + "                        <input type=\"text\" name=\"nome\" class=\"form-control\" required>\n"
-                    + "                    </div>\n"
-                    + "                </div>\n"
-                    + "                <div class=\"form-group row\">\n"
-                    + "                    <label class=\"col-sm-2 col-form-label\" for=\"email\">E-mail</label>\n"
-                    + "                    <div class=\"col-sm-10\">\n"
-                    + "                        <input type=\"email\" name=\"email\" class=\"form-control\" required>\n"
-                    + "                    </div>\n"
-                    + "                </div>\n"
-                    + "                <div class=\"form-group row\">\n"
-                    + "                    <label class=\"col-sm-2 col-form-label\" for=\"senha\">Senha </label>\n"
-                    + "                    <div class=\"col-sm-10\">\n"
-                    + "                        <input type=\"password\" name=\"senha\" class=\"form-control\" required>\n"
-                    + "                    </div>\n"
-                    + "                </div>\n"
-                    + "\n"
-                    + "                <div class=\"form-group row\">\n"
-                    + "                    <div class=\"col-sm-2\">\n"
-                    + "                        <button type=\"submit\" class=\"btn btn-success btn-block\">Salvar</button>\n"
-                    + "                    </div>\n"
-                    + "                </div>\n"
-                    + "\n"
-                    + "\n"
-                    + "        </form>");
-            if (usuariosBanco.size() > 0) {
-               
-                out.println("<table class=\"table\">\n"
-                        + "            <thead class=\"thead-light\">\n"
-                        + "                <tr>\n"
-                        + "                    <th scope=\"col\">Nome</th>\n"
-                        + "                    <th scope=\"col\">E-mail</th>\n"
-                        + "                    <th scope=\"col\">Senha</th>\n"
-                        + "                </tr>\n"
-                        + "            </thead>"
-                        + "            <tbody>\n");
-                usuariosBanco.forEach((u) -> {
-                    out.println("<tr><th>" + u.getNome() + "</th><th>" + u.getEmail() + "</th><th>" + u.getSenha() + "</th></tr>");
-                });
-                out.println("</tbody></table></body>");
-
-                out.println("</html>");
-
-            }
-        }
     }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
