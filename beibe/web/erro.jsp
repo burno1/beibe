@@ -14,21 +14,13 @@
         <title>Error</title>
     </head>
     <body>
-        <!DOCTYPE html>
-    <html>
-        <head>
-            <title>Servlet ErroServlet</title>
-        </head>
-        <body>
-            <h1>${Mensagem}</h1>
-            <h2> ${mensagem} </h2>
-            <a href="${pagina}"> Voltar</a>
-            <footer id="sticky-footer" class="py-4 bg-info text-white-50">
-                <div class="container text-center">
-                    <small> Em caso de cagada, contate: ${configuracao.email}</small>
-                </div>
-            </footer>
-        </body>
-    </html>
-</body>
+        <div>${Mensagem}</div>
+        <div> ${mensagem} </div>
+        <a href="${pagina}"> Voltar</a>
+        <footer id="sticky-footer" class="py-4 bg-info text-white-50">
+            <div class="container text-center">
+                <small> contato: ${configuracao.email}</small>
+            </div>
+        </footer>
+    </body>
 </html>

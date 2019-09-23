@@ -33,7 +33,7 @@ public class ErroServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         RequestDispatcher rd = request.
-                getRequestDispatcher("./erro.jsp");
+                getRequestDispatcher("./index.jsp");
 
         String mensagem = (String) request.getAttribute("msg");
         String pagina = (String) request.getAttribute("page");
