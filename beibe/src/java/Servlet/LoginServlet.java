@@ -5,8 +5,11 @@
  */
 package Servlet;
 
+import Bean.LoginBean;
+import Bean.PortalBean;
 import DAO.UsuarioDAO;
 import Model.Usuario;
+import Utils.MD5;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -47,13 +50,15 @@ public class LoginServlet extends HttpServlet {
         Usuario usuarioLogado = uDAO.buscarUsuario(email);
 
         HttpSession s = request.getSession();
-
+        LoginBean loginBean = new LoginBean();
+        
         //Condicional de erro para login
-        if (senha.equals(usuarioLogado.getSenha())) {
-            s.setAttribute("email", email);
-            RequestDispatcher rd = request.
-                    getRequestDispatcher("/PortalServlet");
-            rd.forward(request, response);
+        if (MD5.MD5Transformed(senha).equals(usuarioLogado.getSenha())) {
+            loginBean.setUser(email);
+            loginBean.setSenha(MD5.MD5Transformed(senha));
+            s.setAttribute("login", loginBean);
+            s.setAttribute("portalBean", new PortalBean());
+            response.sendRedirect("./portal.jsp");
         } else {
             RequestDispatcher rd = request.
                     getRequestDispatcher("/ErroServlet");

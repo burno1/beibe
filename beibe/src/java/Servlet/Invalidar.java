@@ -7,6 +7,7 @@ package Servlet;
  */
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,38 +32,32 @@ public class Invalidar extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Invalidar</title>");
-            out.println("</head>");
-            out.println("<body>");
-            if (request.getSession() != null) {
-                out.println("<h1>Logout Realizado com Sucesso</h1>");
-                request.getSession().invalidate();
-                out.println("<a href=\'index.jsp'>Fazer Login Novamente</a>");
-            }else{
-                out.println("FUDEU");
-            }
-            out.println("</body>");
-            out.println("</html>");
+        String mensagem = "logout realizado com sucesso";
+            RequestDispatcher rd = request.
+                getRequestDispatcher("./index.jsp");
+        if (request.getSession() != null) {
+            request.getSession().invalidate();
+            request.setAttribute("mensagem", mensagem);
+            rd.forward(request, response);
+        } else {
+            request.setAttribute("mensagem", "logout falhou com sucesso");
+            rd.forward(request, response);
         }
+
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+/**
+ * Handles the HTTP <code>GET</code> method.
+ *
+ * @param request servlet request
+ * @param response servlet response
+ * @throws ServletException if a servlet-specific error occurs
+ * @throws IOException if an I/O error occurs
+ */
+@Override
+        protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
@@ -76,7 +71,7 @@ public class Invalidar extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+        protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
@@ -87,7 +82,7 @@ public class Invalidar extends HttpServlet {
      * @return a String containing servlet description
      */
     @Override
-    public String getServletInfo() {
+        public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 

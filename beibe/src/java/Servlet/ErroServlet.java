@@ -7,6 +7,7 @@ package Servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,19 +32,15 @@ public class ErroServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        RequestDispatcher rd = request.
+                getRequestDispatcher("./index.jsp");
+
         String mensagem = (String) request.getAttribute("msg");
         String pagina = (String) request.getAttribute("page");
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            out.println("<!DOCTYPE html>");
-            out.println("<html><head>");
-            out.println("<title>Servlet ErroServlet</title>");
-            out.println("</head><body>");
-            out.println("<h1>Mensagem</h1>");
-            out.println("<h2>" + mensagem + "</h2>");
-            out.println("<a href=\'"+pagina+"'> Voltar</a>");
-            out.println("</body></html>");
-        }
+
+        request.setAttribute("mensagem", mensagem);
+        request.setAttribute("pagina", pagina);
+        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
