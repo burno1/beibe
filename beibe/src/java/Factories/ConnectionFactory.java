@@ -10,7 +10,7 @@ public class ConnectionFactory {
         try {
             Class.forName("org.postgresql.Driver");
             return DriverManager.getConnection(
-                    "jdbc:postgresql://localhost:5432/testeJava",
+                    "jdbc:postgresql://localhost:5432/beibe",
                     "postgres", "123");
         } catch (Exception e) {
             throw new RuntimeException(e);

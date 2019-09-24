@@ -64,7 +64,7 @@ public class UsuarioDAO {
 
         try {
             con = ConnectionFactory.getConnection();
-            st = con.prepareStatement("SELECT nome_usuario,senha_usuario,login_usuario FROM beibe.tb_usuario where login_usuario = ?");
+            st = con.prepareStatement("SELECT nome_usuario,senha_usuario,login_usuario FROM tb_usuario where login_usuario = ?");
             st.setString(1, email);
             rs = st.executeQuery();
 
@@ -105,7 +105,7 @@ public class UsuarioDAO {
         ResultSet rs = null;
         try {
             con = ConnectionFactory.getConnection();
-            st = con.prepareStatement("SELECT * FROM beibe.tb_usuario");
+            st = con.prepareStatement("SELECT * FROM tb_usuario");
             rs = st.executeQuery();
             while (rs.next()) {
                 Usuario u = new Usuario();
@@ -146,7 +146,7 @@ public class UsuarioDAO {
             Usuario usuarioSalvo = new Usuario();
             con = ConnectionFactory.getConnection();
             st = con.prepareStatement(
-                    "insert into beibe.tb_usuario (login_usuario, nome_usuario,senha_usuario) values (?, ?, ?)");
+                    "insert into tb_usuario (login_usuario, nome_usuario,senha_usuario) values (?, ?, ?)");
             st.setString(1, usuario.getEmail());
             st.setString(2, usuario.getNome());
             st.setString(3, usuario.getSenha());
