@@ -15,6 +15,7 @@ import java.util.List;
  */
 public class ClienteBean {
         List<Cliente> clienteBanco = null;
+        private String idCliente;
 
     public ClienteBean() {
 //        usuariosBanco = new UsuarioDAO().buscarTodos();
@@ -27,6 +28,15 @@ public class ClienteBean {
     public void setClienteBanco(List<Cliente> clientesBanco) {
         this.clienteBanco = clientesBanco;
     }
+
+    public String getIdCliente() {
+        return idCliente;
+    }
+
+    public void setIdCliente(String idCliente) {
+        this.idCliente = idCliente;
+    }
+    
     
     
 }

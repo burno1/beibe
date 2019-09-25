@@ -24,6 +24,7 @@
         <script src="./bootstrap/js/bootstrap.min.js"></script>
         <title>BEIBE - Beauty Embuste Indústria de Beleza e Estética
         </title>
+
     </head>
     <body>
         <nav class="navbar navbar-default">
@@ -50,7 +51,11 @@
                     <th scope="col">CPF</th>
                     <th scope="col">Nome</th>
                     <th scope="col">Email</th>
+                    <th scope="col">Detalhes</th>
+
                 </tr>
+                
+                
             </thead>
             <tbody>
                 <c:forEach items="${clienteBean.clienteBanco}" var="c">
@@ -59,6 +64,11 @@
                         <td><c:out value="${c.cpf} " /></td>
                         <td><c:out value="${c.nome}" /></td>
                         <td><c:out value="${c.email}" /></td>
+
+                        <td><form action="DetalhesClienteServlet">
+                                <input name="idCliente" hidden="true" value="${c.id}">
+                                <button>Detalhes</button>
+                        </form></td>
                     </tr>
                 </c:forEach>
 

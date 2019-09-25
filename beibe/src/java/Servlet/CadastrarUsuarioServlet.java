@@ -5,7 +5,9 @@
  */
 package Servlet;
 
+import Bean.ClienteBean;
 import Bean.PortalBean;
+import Bean.UsuarioBean;
 import DAO.UsuarioDAO;
 import Model.Usuario;
 import Utils.MD5;
@@ -20,10 +22,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Bruno F
+ * @author Bruno Fernandes
  */
-@WebServlet(name = "CadastraUsuarioServlet", urlPatterns = {"/CadastraUsuarioServlet"})
-public class CadastraUsuarioServlet extends HttpServlet {
+@WebServlet(name = "CadastrarUsuarioServlet", urlPatterns = {"/CadastrarUsuarioServlet"})
+public class CadastrarUsuarioServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,8 +38,15 @@ public class CadastraUsuarioServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        String nome = "";
+        response.setContentType("text/html;charset=UTF-8");
+        
+        if(request.getParameter("nome") == null) {
+        RequestDispatcher rd = request.
+                getRequestDispatcher("./cadastrarUsuario.jsp");
+        request.setAttribute("usuarioBean", new UsuarioBean());
+        rd.forward(request, response);
+        } else {
+             String nome = "";
         String email = "";
         String senha = "";
 
@@ -56,39 +65,12 @@ public class CadastraUsuarioServlet extends HttpServlet {
         usuarioSalvo = uDAO.inserir(usuario);
         
         RequestDispatcher rd = request.
-                getRequestDispatcher("./portal.jsp");
+                getRequestDispatcher("LoginServlet");
 
         request.setAttribute("portalBean", new PortalBean());
         request.setAttribute("msg", "Usuario Inserido com Sucesso");
         rd.forward(request, response);
-
-//       if (usuarioSalvo != null) {
-//            response.setContentType("text/html;charset=UTF-8");
-//            try (PrintWriter out = response.getWriter()) {
-//                /* TODO output your page here. You may use following sample code. */
-//                out.println("<!DOCTYPE html>");
-//                out.println("<html>");
-//                out.println("<head>");
-//                out.println("<title>Servlet CadastraUsuarioServlet</title>");
-//                out.println("</head>");
-//                out.println("<body>");
-//                out.println("<h1>Usuario Cadastrado com Sucesso!</h1>");
-//
-//                out.println("<table ><tr>\n"
-//                        + "    <th>Nome</th>\n"
-//                        + "    <th>Email</th> \n"
-//                        + "    <th>Senha</th>\n"
-//                        + "  </tr>");
-//
-//                out.println("<tr><th>" + nome + "</th><th>" + email + "</th><th>" + senha + "</th></tr>");
-//                out.println("</table></body>");
-//                
-//                out.println("<a href=\'PortalServlet'> Voltar ao Portal</a>");
-//
-//                out.println("</body>");
-//                out.println("</html>");
-//            }
-//        }
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -42,7 +42,7 @@
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
         </nav>
-        <form action="CadastraUsuarioServlet" method="post">
+        <form action="CadastraFuncionarioServlet" method="post">
             <div class="container">
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="nome">Nome</label>

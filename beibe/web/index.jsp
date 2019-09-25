@@ -38,9 +38,16 @@
                 <div class="form-group">
                     <button type="submit" class="btn btn-success btn-block">Login</button>
                 </div>
-
             </form>
             <div class="badnews">${mensagem}</div>
+            
+            <form action="CadastrarUsuarioServlet" method="post" modelAttribute="user">
+            <p>Não é usuário? Cadastre-se</p>
+             <div class="form-group">
+               <button type="submit" class="btn btn-info btn-block">Cadastrar</button>
+             </div>
+            </form>
+            
         </div>
     </body>
 </html>

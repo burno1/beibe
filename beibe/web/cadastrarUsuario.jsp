@@ -6,14 +6,6 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
-<% if (session.getAttribute("login") == null) {
-        RequestDispatcher rd = request.
-                getRequestDispatcher("/ErroServlet");
-        request.setAttribute("msg", "Não vem de hack!");
-        request.setAttribute("page", "index.jsp");
-        rd.forward(request, response);
-    }%>
-
 
 <html>
     <head>
@@ -33,23 +25,28 @@
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="portal.jsp">Cadastro Funcionário <span class="sr-only">(current)</span></a></li>
-                        <li><a href='ClienteServlet'>Cadastro Clientes</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href='Invalidar'>User ${login.user} Logout</a></li>
+                        <li class="active"><a href="portal.jsp">Cadastro Usuario <span class="sr-only">(current)</span></a></li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
         </nav>
-        <form action="CadastraFuncionarioServlet" method="post">
+
+
+
+
+
+        <form action="CadastrarUsuarioServlet" method="post">
             <div class="container">
+
+
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label" for="nome">Nome</label>
-                    <div class="col-sm-10">
-                        <input type="text" name="nome" class="form-control" required>
+                    <div class="col-sm-2">
+                        <button class="btn btn-success btn-block " type="button" name="back" onclick="history.back()">Voltar</button>
                     </div>
-                </div>
+                </div>    
+
+                <h4> Dados do Sistema </h4>
+                <hr>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="email">E-mail</label>
                     <div class="col-sm-10">
@@ -62,33 +59,42 @@
                         <input type="password" name="senha" class="form-control" required>                                        </div>
                 </div>
 
+                <h4> Dados pessoais </h4>
+                <hr>
+
                 <div class="form-group row">
-                    <div class="col-sm-2">
-                        <button type="submit" class="btn btn-success btn-block">Salvar</button>
+                    <label class="col-sm-2 col-form-label" for="nome">Nome</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="nome" class="form-control" required>
                     </div>
                 </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label" for="senha">CPF </label>
+                    <div class="col-sm-10">
+                        <input type="text" name="CPF" class="form-control" required>                                        </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label" for="senha">RUA </label>
+                    <div class="col-sm-10">
+                        <input type="text" name="RUA" class="form-control" required>                                        </div>
+                </div>
+
+
+
+                <div class="form-group row">
+                    <div class="col-sm-2">
+                        <button type="submit" class="btn btn-success btn-block">Cadastrar</button>
+                    </div>
+                </div>
+
+
+
+
         </form>
         <!--//inserção não aperencedo msg-->
-        ${msg}
-        <table class="table">
-            <thead class="thead-light">
-                <tr>
-                    <th scope="col">Nome</th>
-                    <th scope="col">E-mail</th>
-                    <th scope="col">Senha</th>
-                </tr>
-            </thead>
-            <tbody>
-                <c:forEach items="${portalBean.usuariosBanco}" var="u">
-                    <tr>
-                        <td><c:out value="${u.nome}" /></td>
-                        <td><c:out value="${u.email}" /></td>
-                        <td><c:out value="${u.senha}" /></td>
-                    </tr>
-                </c:forEach>
 
-            </tbody>
-        </table>
         <footer id="sticky-footer" class="py-4 bg-info text-white-50">
             <div class="container text-center">
                 <small> contato: ${configuracao.email}</small>
