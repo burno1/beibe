@@ -33,7 +33,7 @@
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li><a href='ClienteServlet'>Detalhes Cliente</a></li>
+                        <li><a href='DetalhesClienteServlet'>Detalhes Cliente</a></li>
                         <li><a>Detalhes Atendimento <span class="sr-only">(current)</span></a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
@@ -122,6 +122,9 @@
                 <div class="form-group row">
                     <div class="col-sm-4">
                         <button class="btn btn-success btn-block"> Salvar</button>
+                    </div>
+                    <div class="col-sm-4">
+                        <button class="btn btn-danger btn-block" disabled="true"> Finalizar</button>
                     </div>
                 </div>
             </form>

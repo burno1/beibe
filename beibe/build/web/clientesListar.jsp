@@ -32,10 +32,12 @@
                 <div class="navbar-header">
                     <a class="navbar-brand" href="#">BEIBE</a>
                 </div>
+                <!-- Cabeçalho -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li><a href="portal.jsp">Cadastro Funcionário </a></li>
-                        <li class="active"><a href='ClienteServlet'>Cadastro Clientes<span class="sr-only">(current)</span></a></li>
+                        <li><a href="portal.jsp">Portal <span class="sr-only">(current)</span></a></li>
+                        <li class="active"><a href='ClienteServlet'>Cadastro Clientes</a></li>
+                        <li><a href="admin.jsp">Admin (Portal Antigo)</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href='Invalidar'>User ${login.user} Logout</a></li>
@@ -54,8 +56,8 @@
                     <th scope="col">Detalhes</th>
 
                 </tr>
-                
-                
+
+
             </thead>
             <tbody>
                 <c:forEach items="${clienteBean.clienteBanco}" var="c">
@@ -68,7 +70,7 @@
                         <td><form action="DetalhesClienteServlet">
                                 <input name="idCliente" hidden="true" value="${c.id}">
                                 <button>Detalhes</button>
-                        </form></td>
+                            </form></td>
                     </tr>
                 </c:forEach>
 

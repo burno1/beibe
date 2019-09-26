@@ -2,30 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/Bruno%20Fernandes/Desktop/TADS/WEB%20II/BEIBE/beibe/beibe/src/java/Servlet/CadastrarFuncionarioServlet.java</file>
-            <file>file:/C:/Users/Bruno%20Fernandes/Desktop/TADS/WEB%20II/BEIBE/beibe/beibe/src/java/Bean/ConfigBean.java</file>
-            <file>file:/C:/Users/Bruno%20Fernandes/Desktop/TADS/WEB%20II/BEIBE/beibe/beibe/src/java/Servlet/DetalhesClienteServlet.java</file>
-            <file>file:/C:/Users/Bruno%20Fernandes/Desktop/TADS/WEB%20II/BEIBE/beibe/beibe/src/java/Servlet/AtendimentoServlet.java</file>
-            <file>file:/C:/Users/Bruno%20Fernandes/Desktop/TADS/WEB%20II/BEIBE/beibe/beibe/src/java/Bean/ClienteBean.java</file>
-            <file>file:/C:/Users/Bruno%20Fernandes/Desktop/TADS/WEB%20II/BEIBE/beibe/beibe/src/java/Servlet/PortalServlet.java</file>
-            <file>file:/C:/Users/Bruno%20Fernandes/Desktop/TADS/WEB%20II/BEIBE/beibe/beibe/src/java/Servlet/CadastrarUsuarioServlet.java</file>
-            <file>file:/C:/Users/Bruno%20Fernandes/Desktop/TADS/WEB%20II/BEIBE/beibe/beibe/src/java/Servlet/LoginServlet.java</file>
-            <file>file:/C:/Users/Bruno%20Fernandes/Desktop/TADS/WEB%20II/BEIBE/beibe/beibe/src/java/Servlet/DetalhesAtendimentoServlet.java</file>
-            <file>file:/C:/Users/Bruno%20Fernandes/Desktop/TADS/WEB%20II/BEIBE/beibe/beibe/src/java/Bean/AtendimentoBean.java</file>
-            <file>file:/C:/Users/Bruno%20Fernandes/Desktop/TADS/WEB%20II/BEIBE/beibe/beibe/web/detalhesCliente.jsp</file>
-            <file>file:/C:/Users/Bruno%20Fernandes/Desktop/TADS/WEB%20II/BEIBE/beibe/beibe/web/detalhesAtendimento.jsp</file>
-            <file>file:/C:/Users/Bruno%20Fernandes/Desktop/TADS/WEB%20II/BEIBE/beibe/beibe/web/index.jsp</file>
-            <file>file:/C:/Users/Bruno%20Fernandes/Desktop/TADS/WEB%20II/BEIBE/beibe/beibe/src/java/Servlet/ErroServlet.java</file>
-            <file>file:/C:/Users/Bruno%20Fernandes/Desktop/TADS/WEB%20II/BEIBE/beibe/beibe/web/cadastrarUsuario.jsp</file>
-            <file>file:/C:/Users/Bruno%20Fernandes/Desktop/TADS/WEB%20II/BEIBE/beibe/beibe/src/java/Servlet/ClienteServlet.java</file>
-            <file>file:/C:/Users/Bruno%20Fernandes/Desktop/TADS/WEB%20II/BEIBE/beibe/beibe/web/portal.jsp</file>
-            <file>file:/C:/Users/Bruno%20Fernandes/Desktop/TADS/WEB%20II/BEIBE/beibe/beibe/web/clientesListar.jsp</file>
-            <file>file:/C:/Users/Bruno%20Fernandes/Desktop/TADS/WEB%20II/BEIBE/beibe/beibe/src/java/Servlet/Session.java</file>
-            <file>file:/C:/Users/Bruno%20Fernandes/Desktop/TADS/WEB%20II/BEIBE/beibe/beibe/src/java/Bean/LoginBean.java</file>
-            <file>file:/C:/Users/Bruno%20Fernandes/Desktop/TADS/WEB%20II/BEIBE/beibe/beibe/src/java/Bean/PortalBean.java</file>
-            <file>file:/C:/Users/Bruno%20Fernandes/Desktop/TADS/WEB%20II/BEIBE/beibe/beibe/src/java/Servlet/StartupServlet.java</file>
-            <file>file:/C:/Users/Bruno%20Fernandes/Desktop/TADS/WEB%20II/BEIBE/beibe/beibe/src/java/Bean/UsuarioBean.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

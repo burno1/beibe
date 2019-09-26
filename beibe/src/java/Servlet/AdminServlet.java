@@ -5,23 +5,27 @@
  */
 package Servlet;
 
-import Bean.ClienteBean;
-import Bean.UsuarioBean;
+import Bean.PortalBean;
+import DAO.UsuarioDAO;
+import Model.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Bruno Fernandes
  */
-@WebServlet(name = "DetalhesClienteServlet", urlPatterns = {"/DetalhesClienteServlet"})
-public class DetalhesClienteServlet extends HttpServlet {
+@WebServlet(name = "AdminServlet", urlPatterns = {"/AdminServlet"})
+public class AdminServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,13 +38,39 @@ public class DetalhesClienteServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            ClienteBean clienteBean = new ClienteBean();
-        clienteBean.setIdCliente((String) request.getParameter("idCliente"));   
-        
-        RequestDispatcher rd = request.
-                getRequestDispatcher("./portal.jsp");
-        request.setAttribute("clienteBean",  clienteBean);
-        rd.forward(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        PortalBean pb = new PortalBean();
+        HttpSession s = request.getSession();
+        ArrayList<Usuario> usuarios = ((ArrayList<Usuario>) s.getAttribute("listaUsuarios"));
+        List<Usuario> usuariosBanco = new ArrayList<Usuario>();
+
+        usuariosBanco = new UsuarioDAO().buscarTodos();
+        String nome = "";
+        String email = "";
+        String senha = "";
+
+        try {
+            if (s.getAttribute("login") == null) {
+                RequestDispatcher rd = request.
+                        getRequestDispatcher("/ErroServlet");
+                request.setAttribute("msg", "Erro acessando a Servlet");
+                request.setAttribute("page", "index.jsp");
+                rd.forward(request, response);
+            }
+            if (request.getParameter("email") != null) {
+                nome = (String) request.getParameter("nome");
+                email = (String) request.getParameter("email");
+                senha = (String) request.getParameter("senha");
+
+                Usuario usuario = new Usuario(nome, email, senha, "");
+                usuarios.add(usuario);
+            }
+            RequestDispatcher rd = request.
+                    getRequestDispatcher("/portal");
+            rd.forward(request, response);
+
+        } catch (Exception e) {
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

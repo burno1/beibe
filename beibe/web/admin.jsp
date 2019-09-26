@@ -24,7 +24,6 @@
         <script src="./bootstrap/js/bootstrap.min.js"></script>
         <title>BEIBE - Beauty Embuste Indústria de Beleza e Estética
         </title>
-
     </head>
     <body>
         <nav class="navbar navbar-default">
@@ -36,8 +35,8 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li><a href="portal.jsp">Portal <span class="sr-only">(current)</span></a></li>
-                        <li class="active"><a href='ClienteServlet'>Cadastro Clientes</a></li>
-                        <li><a href="admin.jsp">Admin (Portal Antigo)</a></li>
+                        <li><a href='ClienteServlet'>Cadastro Clientes</a></li>
+                        <li class="active"><a href="admin.jsp">Admin (Portal Antigo)</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href='Invalidar'>User ${login.user} Logout</a></li>
@@ -45,32 +44,48 @@
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
         </nav>
+        <form action="CadastraFuncionarioServlet" method="post">
+            <div class="container">
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label" for="nome">Nome</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="nome" class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label" for="email">E-mail</label>
+                    <div class="col-sm-10">
+                        <input type="email" name="email" class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label" for="senha">Senha </label>
+                    <div class="col-sm-10">
+                        <input type="password" name="senha" class="form-control" required>                                        </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-2">
+                        <button type="submit" class="btn btn-success btn-block">Salvar</button>
+                    </div>
+                </div>
+        </form>
         <!--//inserção não aperencedo msg-->
         ${msg}
         <table class="table">
             <thead class="thead-light">
                 <tr>
-                    <th scope="col">CPF</th>
                     <th scope="col">Nome</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Detalhes</th>
-
+                    <th scope="col">E-mail</th>
+                    <th scope="col">Senha</th>
                 </tr>
-
-
             </thead>
             <tbody>
-                <c:forEach items="${clienteBean.clienteBanco}" var="c">
+                <c:forEach items="${portalBean.usuariosBanco}" var="u">
                     <tr>
-                        <td hidden="true"><c:out value="${c.id}"/></td>
-                        <td><c:out value="${c.cpf} " /></td>
-                        <td><c:out value="${c.nome}" /></td>
-                        <td><c:out value="${c.email}" /></td>
-
-                        <td><form action="DetalhesClienteServlet">
-                                <input name="idCliente" hidden="true" value="${c.id}">
-                                <button>Detalhes</button>
-                            </form></td>
+                        <td><c:out value="${u.nome}" /></td>
+                        <td><c:out value="${u.email}" /></td>
+                        <td><c:out value="${u.senha}" /></td>
                     </tr>
                 </c:forEach>
 
