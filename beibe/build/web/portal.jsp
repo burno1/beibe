@@ -26,7 +26,7 @@
         </title>
     </head>
     <body>
-        <nav class="navbar navbar-default">
+        <nav  class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="#">BEIBE</a>
@@ -35,20 +35,18 @@
                 <!-- Cabeçalho -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="portal.jsp">Portal (Cliente) <span class="sr-only">(current)</span></a></li>
-                        <li><a href="portalFuncionario.jsp">Portal (Funcionario) <span class="sr-only">(current)</span></a></li>
-                        <li><a href="portalGerente.jsp">Portal (Gerente) <span class="sr-only">(current)</span></a></li>
-                        <li><a href='ClienteServlet'>Cadastro Clientes</a></li>
-                        <li><a href="admin.jsp">Admin (Portal Antigo)</a></li>
+                        <li class="nav-item active"><a class="nav-link" href="portal.jsp">Portal (Cliente) <span class="sr-only">(current)</span></a></li>
+                        <li class="nav-item"><a class="nav-link" href="portalFuncionario.jsp">Portal (Funcionario) <span class="sr-only">(current)</span></a></li>
+                        <li class="nav-item"><a class="nav-link" href="portalGerente.jsp">Portal (Gerente) <span class="sr-only">(current)</span></a></li>
                     </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href='Invalidar'>User ${login.user} Logout</a></li>
+                    <ul class="nav navbar-nav ml-auto">
+                        <li nav-item><a href='Invalidar'>User ${login.user} Logout</a></li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
-            </div><!-- /.container-fluid -->
+            </div> 
         </nav>
 
-               <div class="container">
+        <div class="container">
             <h3>Detalhes do Cliente</h3>
             <form action="atualizaClienteServlet"  method="post">
                 <div class="form-group row">
@@ -101,11 +99,11 @@
                 </div>
                 <div class="col-sm-4">
                     <form action='AtendimentoServlet'>
-                    <button type="submit" class="btn btn-success btn-block">Novo Atendimento</button>
+                        <button type="submit" class="btn btn-success btn-block">Novo Atendimento</button>
                     </form>
                 </div>
             </div>
-            
+
             <hr>
 
             <table class="table">
@@ -128,7 +126,7 @@
                         <td><form action="DetalhesAtendimentoServlet">
                                 <input name="idCliente" hidden="true" value="1">
                                 <button type="submit">Detalhes</button>
-                        </form></td>
+                            </form></td>
                     </tr>
                     <tr>
                         <td>2</td>
@@ -138,7 +136,7 @@
                         <td><form action="DetalhesAtendimentoServlet">
                                 <input name="idCliente" hidden="true" value="1">
                                 <button type="submit">Detalhes</button>
-                        </form></td>
+                            </form></td>
                         <td><button>Remover</button></td>
                     </tr>
                 </tbody>

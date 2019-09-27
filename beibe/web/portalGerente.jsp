@@ -19,14 +19,14 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="./css/login.css" rel="stylesheet" />
-        <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="./bootstrap/css/bootstrap.css">
         <script src="./bootstrap/js/jquery.min.js"></script>
         <script src="./bootstrap/js/bootstrap.min.js"></script>
         <title>BEIBE - Beauty Embuste Indústria de Beleza e Estética
         </title>
     </head>
     <body>
-        <nav class="navbar navbar-default">
+        <nav  class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="#">BEIBE</a>
@@ -35,22 +35,23 @@
                 <!-- Cabeçalho -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li><a href="portal.jsp">Portal (Cliente) <span class="sr-only">(current)</span></a></li>
-                        <li><a href="portalFuncionario.jsp">Portal (Funcionario) <span class="sr-only">(current)</span></a></li>
-                        <li class="active"><a href="portalGerente.jsp">Portal (Gerente) <span class="sr-only">(current)</span></a></li>
-                        <li><a href='ClienteServlet'>Cadastro Clientes</a></li>
-                        <li><a href="admin.jsp">Admin (Portal Antigo)</a></li>
+                        <li class="nav-item"><a class="nav-link" href="portal.jsp">Portal (Cliente) <span class="sr-only">(current)</span></a></li>
+                        <li class="nav-item "><a class="nav-link" href="portalFuncionario.jsp">Portal (Funcionario) <span class="sr-only">(current)</span></a></li>
+                        <li class="nav-item active"><a class="nav-link" href="portalGerente.jsp">Portal (Gerente) <span class="sr-only">(current)</span></a></li>
+                        <li class="nav-item"><a class="nav-link" href='ClienteServlet'>Cadastro Clientes</a></li>
+                        <li class="nav-item"><a class="nav-link" href="admin.jsp">Admin (Portal Antigo)</a></li>
                     </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href='Invalidar'>User ${login.user} Logout</a></li>
+                    <ul class="nav navbar-nav ml-auto">
+                        <li nav-item><a href='Invalidar'>User ${login.user} Logout</a></li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
-            </div><!-- /.container-fluid -->
+            </div> 
         </nav>
+        <br/>
 
         <div class="container">
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-sm-6">
                     <div class="card">
                         <div class="card-header">
                             <h3>Atendimentos Realizados</h3>
@@ -61,7 +62,9 @@
                             </blockquote>
                         </div>
                     </div>
+                </div>
 
+                <div class="col-sm-4">
                     <div class="card">
                         <div class="card-header">
                             <h3>Atendimentos Abertos:</h3>
@@ -75,11 +78,14 @@
                 </div>
             </div>
 
-            <hr>
-            <h4><strong>Atendimentos por Tipo:</strong></h4>
+
+
+
 
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-sm-10">
+                    <hr>
+                    <h4><strong>Atendimentos por Tipo:</strong></h4>
                     <table class="table">
                         <thead class="thead-light">
                             <tr>
@@ -109,8 +115,10 @@
                 </div>
             </div>
 
-        </div>       
-        <footer id="sticky-footer" class="py-4 bg-info text-white-50">
+        </div>    
+
+
+        <footer id="sticky-footer" class="mt-auto py-4 bg-info text-white-50">
             <div class="container text-center">
                 <small> contato: ${configuracao.email}</small>
             </div>

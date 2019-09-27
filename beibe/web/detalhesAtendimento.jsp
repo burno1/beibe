@@ -26,22 +26,27 @@
         </title>
     </head>
     <body>
-        <nav class="navbar navbar-default">
+         
+         <nav  class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="portal.jsp">BEIBE</a>
                 </div>
+
+                <!-- Cabeçalho -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li><a href='DetalhesClienteServlet'>Detalhes Cliente</a></li>
-                        <li><a>Detalhes Atendimento <span class="sr-only">(current)</span></a></li>
+                        <li class="nav-item active"><a class="nav-link" href='DetalhesClienteServlet'>Detalhes Cliente</a></li>
+                        <li class="nav-item"><a class="nav-link">Detalhes Atendimento <span class="sr-only">(current)</span></a></li>
                     </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href='Invalidar'>User ${login.user} Logout</a></li>
+                    <ul class="nav navbar-nav ml-auto">
+                        <li nav-item><a href='Invalidar'>User ${login.user} Logout</a></li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
-            </div><!-- /.container-fluid -->
+            </div> 
         </nav>
+            
+                    
 
         <div class="container">
             <h3>Detalhes do Atendimento</h3>
@@ -59,7 +64,7 @@
                     <div class="col-sm-2">
                         Cliente
                     </div>
-                    <div class="input-group">
+                    <div class="input-group col-sm-10">
                         <select class="custom-select" id="inputGroupSelect01">
                             <option selected>Choose...</option>
                             <option value="1">One</option>
@@ -73,7 +78,7 @@
                     <div class="col-sm-2">
                         Situação
                     </div>
-                    <div class="input-group">
+                    <div class="input-group col-sm-10">
                         <select class="custom-select" id="inputGroupSelect02">
                             <option selected>Choose...</option>
                             <option value="1">One</option>

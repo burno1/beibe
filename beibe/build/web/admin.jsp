@@ -26,75 +26,85 @@
         </title>
     </head>
     <body>
-        <nav class="navbar navbar-default">
+        <nav  class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="#">BEIBE</a>
                 </div>
+
                 <!-- Cabeçalho -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li><a href="portal.jsp">Portal <span class="sr-only">(current)</span></a></li>
-                        <li><a href='ClienteServlet'>Cadastro Clientes</a></li>
-                        <li class="active"><a href="admin.jsp">Admin (Portal Antigo)</a></li>
+                        <li class="nav-item"><a class="nav-link" href="portalGerente.jsp">Portal (Gerente) <span class="sr-only">(current)</span></a></li>
+                        <li class="nav-item"><a class="nav-link" href="admin.jsp">Admin (Portal Antigo)</a></li>
                     </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href='Invalidar'>User ${login.user} Logout</a></li>
+                    <ul class="nav navbar-nav ml-auto">
+                        <li nav-item><a href='Invalidar'>User ${login.user} Logout</a></li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
-            </div><!-- /.container-fluid -->
+            </div> 
         </nav>
-        <form action="CadastraFuncionarioServlet" method="post">
-            <div class="container">
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label" for="nome">Nome</label>
-                    <div class="col-sm-10">
-                        <input type="text" name="nome" class="form-control" required>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label" for="email">E-mail</label>
-                    <div class="col-sm-10">
-                        <input type="email" name="email" class="form-control" required>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label" for="senha">Senha </label>
-                    <div class="col-sm-10">
-                        <input type="password" name="senha" class="form-control" required>                                        </div>
-                </div>
 
-                <div class="form-group row">
-                    <div class="col-sm-2">
-                        <button type="submit" class="btn btn-success btn-block">Salvar</button>
-                    </div>
-                </div>
-        </form>
-        <!--//inserção não aperencedo msg-->
-        ${msg}
-        <table class="table">
-            <thead class="thead-light">
-                <tr>
-                    <th scope="col">Nome</th>
-                    <th scope="col">E-mail</th>
-                    <th scope="col">Senha</th>
-                </tr>
-            </thead>
-            <tbody>
-                <c:forEach items="${portalBean.usuariosBanco}" var="u">
-                    <tr>
-                        <td><c:out value="${u.nome}" /></td>
-                        <td><c:out value="${u.email}" /></td>
-                        <td><c:out value="${u.senha}" /></td>
-                    </tr>
-                </c:forEach>
 
-            </tbody>
-        </table>
-        <footer id="sticky-footer" class="py-4 bg-info text-white-50">
-            <div class="container text-center">
-                <small> contato: ${configuracao.email}</small>
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <br/>
+                    <form action="CadastraFuncionarioServlet" method="post">
+
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label" for="nome">Nome</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="nome" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label" for="email">E-mail</label>
+                            <div class="col-sm-10">
+                                <input type="email" name="email" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label" for="senha">Senha </label>
+                            <div class="col-sm-10">
+                                <input type="password" name="senha" class="form-control" required>                                        </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-sm-2">
+                                <button type="submit" class="btn btn-success btn-block">Salvar</button>
+                            </div>
+                        </div>
+                    </form>
+                    <!--//inserção não aperencedo msg-->
+                    ${msg}
+                    <table class="table">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">Nome</th>
+                                <th scope="col">E-mail</th>
+                                <th scope="col">Senha</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach items="${portalBean.usuariosBanco}" var="u">
+                                <tr>
+                                    <td><c:out value="${u.nome}" /></td>
+                                    <td><c:out value="${u.email}" /></td>
+                                    <td><c:out value="${u.senha}" /></td>
+                                </tr>
+                            </c:forEach>
+
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </footer>
+        </div>
+            <footer id="sticky-footer" class="py-4 bg-info text-white-50">
+                <div class="container text-center">
+                    <small> contato: ${configuracao.email}</small>
+                </div>
+            </footer>
     </body>
 </html>

@@ -27,24 +27,27 @@
 
     </head>
     <body>
-        <nav class="navbar navbar-default">
+        <nav  class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="#">BEIBE</a>
                 </div>
+
                 <!-- Cabeçalho -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li><a href="portal.jsp">Portal <span class="sr-only">(current)</span></a></li>
-                        <li class="active"><a href='ClienteServlet'>Cadastro Clientes</a></li>
-                        <li><a href="admin.jsp">Admin (Portal Antigo)</a></li>
+                        <li class="nav-item"><a class="nav-link" href="portal.jsp">Portal (Cliente)</span></a></li>
+                        <li class="nav-item"><a class="nav-link" href="portalFuncionario.jsp">Portal (Funcionario)</a></li>
+                        <li class="nav-item"><a class="nav-link" href="portalGerente.jsp">Portal (Gerente) </span></a></li>
+                        <li class="nav-item active"><a class="nav-link" href='ClienteServlet'>Cadastro Clientes <span class="sr-only">(current)</a></li>
+                        <li class="nav-item"><a class="nav-link" href="admin.jsp">Admin (Portal Antigo)</a></li>
                     </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href='Invalidar'>User ${login.user} Logout</a></li>
+                    <ul class="nav navbar-nav ml-auto">
+                        <li nav-item><a href='Invalidar'>User ${login.user} Logout</a></li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
-            </div><!-- /.container-fluid -->
-        </nav>
+            </div> 
+        </nav> 
         <!--//inserção não aperencedo msg-->
         ${msg}
         <table class="table">
