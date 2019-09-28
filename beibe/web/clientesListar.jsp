@@ -46,8 +46,17 @@
                         <li nav-item><a href='Invalidar'>User ${login.user} Logout</a></li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
+<<<<<<< HEAD
             </div> 
         </nav> 
+=======
+            </div><!-- /.container-fluid -->
+        </nav>
+        <div class="row">
+            <div class="col-sm-12"> <a href="./clientesNovo.jsp"><button type="button" class="btn btn-primary">Novo Cliente</button> </a>
+            </div>
+        </div>
+>>>>>>> Erick
         <!--//inserção não aperencedo msg-->
         ${msg}
         <table class="table">
@@ -56,8 +65,12 @@
                     <th scope="col">CPF</th>
                     <th scope="col">Nome</th>
                     <th scope="col">Email</th>
+<<<<<<< HEAD
                     <th scope="col">Detalhes</th>
 
+=======
+                    <th scope="col">Opções</th>
+>>>>>>> Erick
                 </tr>
 
 
@@ -69,11 +82,19 @@
                         <td><c:out value="${c.cpf} " /></td>
                         <td><c:out value="${c.nome}" /></td>
                         <td><c:out value="${c.email}" /></td>
+<<<<<<< HEAD
 
                         <td><form action="DetalhesClienteServlet">
                                 <input name="idCliente" hidden="true" value="${c.id}">
                                 <button>Detalhes</button>
                             </form></td>
+=======
+                        <td>
+                            <a href="./VisualizarClienteServlet?id=${c.id}"><button type="button" class="btn btn-info">Visualizar</button> </a>
+                            <a href="./FormAlterarClienteServlet?id=${c.id}"><button type="button" class="btn btn-secondary">Alterar</button> </a>
+                            <a href="./RemoverClienteServlet?id=${c.id}"><button type="button" class="btn btn-danger">Remover</button> </a>
+                        </td>
+>>>>>>> Erick
                     </tr>
                 </c:forEach>
 
