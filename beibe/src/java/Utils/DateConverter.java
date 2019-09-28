@@ -28,4 +28,9 @@ public class DateConverter {
         String result = fmt.format(data);
         return result;
     }
+    
+    static public java.sql.Date converterUtilSql(java.util.Date uDate) {
+        java.sql.Date sDate = new java.sql.Date(uDate.getTime());
+        return sDate;
+    }
 }
