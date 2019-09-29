@@ -50,35 +50,41 @@
         </nav> 
         <!--//inserção não aperencedo msg-->
         ${msg}
-        <table class="table">
-            <thead class="thead-light">
-                <tr>
-                    <th scope="col">CPF</th>
-                    <th scope="col">Nome</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Detalhes</th>
+        <br/>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12"></div>
+                <table class="table">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">CPF</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Detalhes</th>
 
-                </tr>
+                        </tr>
 
 
-            </thead>
-            <tbody>
-                <c:forEach items="${clienteBean.clienteBanco}" var="c">
-                    <tr>
-                        <td hidden="true"><c:out value="${c.id}"/></td>
-                        <td><c:out value="${c.cpf} " /></td>
-                        <td><c:out value="${c.nome}" /></td>
-                        <td><c:out value="${c.email}" /></td>
+                    </thead>
+                    <tbody>
+                        <c:forEach items="${clienteBean.clienteBanco}" var="c">
+                            <tr>
+                                <td hidden="true"><c:out value="${c.id}"/></td>
+                                <td><c:out value="${c.cpf} " /></td>
+                                <td><c:out value="${c.nome}" /></td>
+                                <td><c:out value="${c.email}" /></td>
 
-                        <td><form action="DetalhesClienteServlet">
-                                <input name="idCliente" hidden="true" value="${c.id}">
-                                <button>Detalhes</button>
-                            </form></td>
-                    </tr>
-                </c:forEach>
+                                <td><form action="DetalhesClienteServlet">
+                                        <input name="idCliente" hidden="true" value="${c.id}">
+                                        <button>Detalhes</button>
+                                    </form></td>
+                            </tr>
+                        </c:forEach>
 
-            </tbody>
-        </table>
+                    </tbody>
+                </table>
+            </div>
+        </div>
         <footer id="sticky-footer" class="py-4 bg-info text-white-50">
             <div class="container text-center">
                 <small> contato: ${configuracao.email}</small>

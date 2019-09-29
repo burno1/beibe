@@ -58,8 +58,8 @@
                         <li class="nav-item"><a class="nav-link" href="portal.jsp">Portal (Cliente) <span class="sr-only">(current)</span></a></li>
                         <li class="nav-item active"><a class="nav-link" href="portalFuncionario.jsp">Portal (Funcionario) <span class="sr-only">(current)</span></a></li>
                         <li class="nav-item"><a class="nav-link" href="portalGerente.jsp">Portal (Gerente) <span class="sr-only">(current)</span></a></li>
-                        <li class="nav-item"><a class="nav-link" href='#'>Cadastrar Produtos</a></li>
-                        <li class="nav-item"><a class="nav-link" href='#'>Cadastrar Categorias</a></li>
+                        <li class="nav-item"><a class="nav-link" href='produtos.jsp'>Produtos</a></li>
+                        <li class="nav-item"><a class="nav-link" href='categoria.jsp'>Categorias</a></li>
                     </ul>
                     <ul class="nav navbar-nav ml-auto">
                         <li nav-item><a href='Invalidar'>User ${login.user} Logout</a></li>
