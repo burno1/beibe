@@ -88,7 +88,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach items="${portalBean.usuariosBanco}" var="u">
+                            <c:forEach items="${portalBean.listaUsuarios}" var="u">
                                 <tr>
                                     <td><c:out value="${u.nome}" /></td>
                                     <td><c:out value="${u.email}" /></td>

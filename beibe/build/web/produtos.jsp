@@ -43,6 +43,7 @@
             }
             #box{
             }
+            
         </style>
     </head>
     <body>
@@ -96,23 +97,86 @@
                             <tr>
                                 <td>1</td>
                                 <td>Shampoo</td>
-                                <td><form action="">
-                                        <input name="idCliente" hidden="true" value="1">
-                                        <button type="submit">Detalhes</button>
-                                    </form></td>
-                                <td>Remover</td>
+                                <td>
+
+                                    <button class="btn btn-primary" data-toggle="modal" data-target="#modalExemplo" >Detalhes</button>
+                                </td>
+                                 <td><button class="btn btn-danger">Remover</button> </td>
                             </tr>
                             <tr>
                                 <td>2</td>
                                 <td>Batom</td>
-                                <td><form action="">
-                                        <input name="idCliente" hidden="true" value="1">
-                                        <button type="submit">Detalhes</button>
-                                    </form></td>
-                                <td>Remover</td>
+                                <td>
+
+                                    <button class="btn btn-primary" data-toggle="modal" data-target="#modalExemplo" >Detalhes</button>
+                                </td>
+                                <td><button class="btn btn-danger">Remover</button></td>
                             </tr>
                         </tbody>
                     </table>
+                </div>
+            </div>
+
+            <div class="modal fade" id="modalExemplo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Descrição Produto</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                      Nome
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <input class="form-control" value="Produto A" name="data" disabled="true">
+                                    </div>
+                                </div>
+
+                               
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        Categoria
+                                    </div>
+                                    <div class="input-group col-sm-4">
+                                        <select class="custom-select" id="inputGroupSelect02">
+                                            <option selected>Choose...</option>
+                                            <option value="1">One</option>
+                                            <option value="2">Two</option>
+                                            <option value="3">Three</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        Descrição Produto
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <textarea class="form-control" value="" name="descAtendimento"></textarea>
+                                    </div>
+                                </div>
+
+                                 <div class="form-group row">
+                                    <div class="col-sm-4">
+                                      Peso (g)
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control" value="100" name="data" disabled="true">
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                            <button type="button" class="btn btn-primary">Alterar</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>       

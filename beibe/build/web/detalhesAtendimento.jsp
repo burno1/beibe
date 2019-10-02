@@ -49,6 +49,13 @@
                     
 
         <div class="container">
+            
+              <div class="form-group row">
+                    <div class="col-sm-2">
+                        <button class="btn btn-success btn-block " type="button" name="back" onclick="history.back()">Voltar</button>
+                    </div>
+                </div>   
+            
             <h3>Detalhes do Atendimento</h3>
             <form>
                 <div class="form-group row">
@@ -111,7 +118,7 @@
                         Descrição Atendimento
                     </div>
                     <div class="col-sm-4">
-                        <textarea class="form-control" value="${atendimentoBean.descricaoAtendimento}" name="descAtendimento"></textarea>
+                        <textarea class="form-control" value="" name="descAtendimento"></textarea>
                     </div>
                 </div>
 
@@ -129,7 +136,7 @@
                         <button class="btn btn-success btn-block"> Salvar</button>
                     </div>
                     <div class="col-sm-4">
-                        <button class="btn btn-danger btn-block" disabled="true"> Finalizar</button>
+                        <button class="btn btn-danger btn-block" disabled="true"> Finalizar (So p/ Funcionario)</button>
                     </div>
                 </div>
             </form>

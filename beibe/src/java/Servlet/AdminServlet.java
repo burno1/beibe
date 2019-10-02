@@ -42,9 +42,9 @@ public class AdminServlet extends HttpServlet {
         PortalBean pb = new PortalBean();
         HttpSession s = request.getSession();
         ArrayList<Usuario> usuarios = ((ArrayList<Usuario>) s.getAttribute("listaUsuarios"));
-        List<Usuario> usuariosBanco = new ArrayList<Usuario>();
+        List<Usuario> listaUsuarios = new ArrayList<Usuario>();
 
-        usuariosBanco = new UsuarioDAO().buscarTodos();
+        listaUsuarios = new UsuarioDAO().buscarTodos();
         String nome = "";
         String email = "";
         String senha = "";

@@ -14,19 +14,19 @@ import java.util.List;
  * @author Erick Alessi
  */
 public class ClienteBean {
-        List<Cliente> clienteBanco = null;
+        List<Cliente> listaClientes = null;
         private String idCliente;
 
     public ClienteBean() {
 //        usuariosBanco = new UsuarioDAO().buscarTodos();
     }
 
-    public List<Cliente> getClienteBanco() {
-        return clienteBanco = new ClienteDAO().buscarTodos();
+    public List<Cliente> getListaClientes() {
+        return listaClientes = new ClienteDAO().buscarTodos();
     }
 
-    public void setClienteBanco(List<Cliente> clientesBanco) {
-        this.clienteBanco = clientesBanco;
+    public void setListaClientes(List<Cliente> clientesBanco) {
+        this.listaClientes = clientesBanco;
     }
 
     public String getIdCliente() {

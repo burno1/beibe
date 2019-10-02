@@ -91,7 +91,7 @@
                             <td>Não sei os tipos</td>
                             <td><form action="DetalhesAtendimentoServlet">
                                     <input name="idCliente" hidden="true" value="1">
-                                    <button type="submit">Detalhes</button>
+                                    <button class="btn btn-primary" type="submit">Detalhes</button>
                                 </form></td>
                         </tr>
                         <tr>
@@ -101,7 +101,7 @@
                             <td>Não sei os tipos</td>
                             <td><form action="DetalhesAtendimentoServlet">
                                     <input name="idCliente" hidden="true" value="1">
-                                    <button type="submit">Detalhes</button>
+                                    <button class="btn btn-primary" type="submit">Detalhes</button>
                                 </form></td>
 
                         </tr>
@@ -112,7 +112,7 @@
                             <td>Não sei os tipos</td>
                             <td><form action="DetalhesAtendimentoServlet">
                                     <input name="idCliente" hidden="true" value="1">
-                                    <button type="submit">Detalhes</button>
+                                    <button class="btn btn-primary" type="submit">Detalhes</button>
                                 </form></td>
 
                         </tr>
@@ -123,7 +123,7 @@
                             <td>Não sei os tipos</td>
                             <td><form action="DetalhesAtendimentoServlet">
                                     <input name="idCliente" hidden="true" value="1">
-                                    <button type="submit">Detalhes</button>
+                                    <button class="btn btn-primary" type="submit">Detalhes</button>
                                 </form></td>
 
                         </tr>
@@ -158,7 +158,7 @@
                             <td>Não sei os tipos</td>
                             <td><form action="DetalhesAtendimentoServlet">
                                     <input name="idCliente" hidden="true" value="1">
-                                    <button type="submit">Detalhes</button>
+                                    <button class="btn btn-primary" type="submit">Detalhes</button>
                                 </form></td>
                         </tr>
                         <tr class="atencao">
@@ -168,7 +168,7 @@
                             <td>Não sei os tipos</td>
                             <td><form action="DetalhesAtendimentoServlet">
                                     <input name="idCliente" hidden="true" value="1">
-                                    <button type="submit">Detalhes</button>
+                                    <button class="btn btn-primary" type="submit">Detalhes</button>
                                 </form></td>
 
                         </tr>
@@ -179,7 +179,7 @@
                             <td>Não sei os tipos</td>
                             <td><form action="DetalhesAtendimentoServlet">
                                     <input name="idCliente" hidden="true" value="1">
-                                    <button type="submit">Detalhes</button>
+                                    <button class="btn btn-primary" type="submit">Detalhes</button>
                                 </form></td>
 
                         </tr>
@@ -190,7 +190,7 @@
                             <td>Não sei os tipos</td>
                             <td><form action="DetalhesAtendimentoServlet">
                                     <input name="idCliente" hidden="true" value="1">
-                                    <button type="submit">Detalhes</button>
+                                    <button class="btn btn-primary" type="submit">Detalhes</button>
                                 </form></td>
 
                         </tr>

@@ -35,8 +35,8 @@
 
 
 
-        <form action="CadastrarUsuarioServlet" method="post">
-            <div class="container">
+        <div class="container">
+            <form action="CadastrarUsuarioServlet" method="post">
 
 
                 <div class="form-group row">
@@ -54,7 +54,7 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label" for="senha">Senha </label>
+                    <label class="col-sm-2 col-form-label" for="senha">Senha</label>
                     <div class="col-sm-10">
                         <input type="password" name="senha" class="form-control" required>                                        </div>
                 </div>
@@ -70,18 +70,40 @@
                 </div>
 
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label" for="senha">CPF </label>
+                    <label class="col-sm-2 col-form-label" for="senha">CPF</label>
                     <div class="col-sm-10">
                         <input type="text" name="CPF" class="form-control" required>                                        </div>
                 </div>
 
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label" for="senha">RUA </label>
+                    <label class="col-sm-2 col-form-label" for="senha">RUA</label>
                     <div class="col-sm-10">
                         <input type="text" name="RUA" class="form-control" required>                                        </div>
                 </div>
 
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label" for="senha">NÚMERO</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="numero" class="form-control" required>                                        </div>
+                </div>
 
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label" for="senha">CEP</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="CEP" class="form-control" required>                                        </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label" for="senha">CIDADE</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="cidade" class="form-control" required>                                        </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label" for="senha">UF</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="cidade" class="form-control" required>                                        </div>
+                </div>
 
                 <div class="form-group row">
                     <div class="col-sm-2">
@@ -92,7 +114,8 @@
 
 
 
-        </form>
+            </form>
+        </div>
         <!--//inserção não aperencedo msg-->
 
         <footer id="sticky-footer" class="py-4 bg-info text-white-50">

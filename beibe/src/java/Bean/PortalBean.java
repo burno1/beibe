@@ -15,18 +15,18 @@ import java.util.List;
  */
 public class PortalBean {
 
-    List<Usuario> usuariosBanco = null;
+    List<Usuario> listaUsuarios = null;
 
     public PortalBean() {
-//        usuariosBanco = new UsuarioDAO().buscarTodos();
+//        listaUsuarios = new UsuarioDAO().buscarTodos();
     }
 
-    public List<Usuario> getUsuariosBanco() {
-        return usuariosBanco = new UsuarioDAO().buscarTodos();
+    public List<Usuario> getListaUsuarios() {
+        return listaUsuarios = new UsuarioDAO().buscarTodos();
     }
 
-    public void setUsuariosBanco(List<Usuario> usuariosBanco) {
-        this.usuariosBanco = usuariosBanco;
+    public void setListaUsuarios(List<Usuario> listaUsuarios) {
+        this.listaUsuarios = listaUsuarios;
     }
 
 }

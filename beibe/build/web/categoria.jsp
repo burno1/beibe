@@ -96,26 +96,51 @@
                             <tr>
                                 <td>1</td>
                                 <td>Produtos de Cabelo</td>
-                                <td><form action="">
-                                        <input name="idCliente" hidden="true" value="1">
-                                        <button type="submit">Detalhes</button>
-                                    </form></td>
-                                <td>Remover</td>
+                                <td>                                 <button class="btn btn-primary" data-toggle="modal" data-target="#modalExemplo" typ>Detalhes</button>
+                                </td>
+                                <td><button class="btn btn-danger">Remover</button> </td>
                             </tr>
                             <tr>
                                 <td>2</td>
                                 <td>Maquiagem</td>
-                                <td><form action="">
-                                        <input name="idCategoria" hidden="true" value="2">
-                                        <button type="submit">Detalhes</button>
-                                    </form></td>
-                                <td>Remover</td>
+                                <td>                                 <button class="btn btn-primary" data-toggle="modal" data-target="#modalExemplo" typ>Detalhes</button>
+                                </td>
+                                <td><button class="btn btn-danger">Remover</button> </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-        </div>       
+        </div>    
+        <div class="modal fade" id="modalExemplo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Categoria</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group row">
+                                <div class="col-sm-4">
+                                    Nome
+                                </div>
+                                <div class="col-sm-4">
+                                    <input class="form-control" value="Categoria A" name="data" disabled="true">
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                        <button type="button" class="btn btn-primary">Alterar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <footer id="sticky-footer" class="py-4 bg-info text-white-50">
             <div class="container text-center">
                 <small> contato: ${configuracao.email}</small>
