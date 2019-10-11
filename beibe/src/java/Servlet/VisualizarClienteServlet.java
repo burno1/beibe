@@ -51,6 +51,8 @@ public class VisualizarClienteServlet extends HttpServlet {
         String id = request.getParameter("id");
         Cliente cl = new ClienteDAO().buscarCliente(id);
         
+        System.out.println(cl.getData());
+        
         RequestDispatcher rd = request.
                 getRequestDispatcher("./clientesVisualizar.jsp");
         request.setAttribute("cliente", cl);

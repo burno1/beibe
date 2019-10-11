@@ -53,13 +53,15 @@
                 <div class="navbar-header">
                     <a class="navbar-brand" href="#">BEIBE</a>
                 </div>
+                <!-- Cabeçalho -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li class="nav-item"><a class="nav-link" href="portal.jsp">Portal (Cliente) <span class="sr-only">(current)</span></a></li>
-                        <li class="nav-item"><a class="nav-link" href="portalFuncionario.jsp">Portal (Funcionario) <span class="sr-only">(current)</span></a></li>
-                        <li class="nav-item"><a class="nav-link" href="portalGerente.jsp">Portal (Gerente) <span class="sr-only">(current)</span></a></li>
-                        <li class="nav-item active"><a class="nav-link" href='#'>Produtos</a></li>
-                        <li class="nav-item"><a class="nav-link" href='categoria.jsp'>Categorias</a></li>
+                        <li class="nav-item active"><a class="nav-link" href="portalGerente.jsp">Portal (Gerente) <span class="sr-only">(current)</span></a></li>
+                        <li class="nav-item"><a class="nav-link" href="atendimentos.jsp">Atendimentos</a></li>
+                        <li class="nav-item"><a class="nav-link" href='ClienteServlet'>Cadastro Clientes</a></li>
+                        <li class="nav-item"><a class="nav-link" href="funcionarioListar.jsp">Cadastro Funcionarios</a></li>
+                        <li class="nav-item"><a class="nav-link" href="relatorios.jsp">Relatórios</a></li>
+                        
                     </ul>
                     <ul class="nav navbar-nav ml-auto">
                         <li nav-item><a href='Invalidar'>User ${login.user} Logout</a></li>
@@ -99,7 +101,7 @@
                                 <td>Shampoo</td>
                                 <td>
 
-                                    <button class="btn btn-primary" data-toggle="modal" data-target="#modalExemplo" >Detalhes</button>
+                                    <button class="btn btn-primary" data-toggle="modal" data-target="#target" >Detalhes</button>
                                 </td>
                                  <td><button class="btn btn-danger">Remover</button> </td>
                             </tr>
@@ -117,7 +119,7 @@
                 </div>
             </div>
 
-            <div class="modal fade" id="modalExemplo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="target" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -132,7 +134,7 @@
                                     <div class="col-sm-4">
                                       Nome
                                     </div>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-6">
                                         <input class="form-control" value="Produto A" name="data" disabled="true">
                                     </div>
                                 </div>
@@ -142,8 +144,8 @@
                                     <div class="col-sm-4">
                                         Categoria
                                     </div>
-                                    <div class="input-group col-sm-4">
-                                        <select class="custom-select" id="inputGroupSelect02">
+                                    <div class="input-group col-sm-6">
+                                        <select class="custom-select" id="inputGroupSelect02" disabled="true">
                                             <option selected>Choose...</option>
                                             <option value="1">One</option>
                                             <option value="2">Two</option>
@@ -156,8 +158,8 @@
                                     <div class="col-sm-4">
                                         Descrição Produto
                                     </div>
-                                    <div class="col-sm-4">
-                                        <textarea class="form-control" value="" name="descAtendimento"></textarea>
+                                    <div class="col-sm-6">
+                                        <textarea class="form-control" value="" name="descProduto" disabled="true"></textarea>
                                     </div>
                                 </div>
 
@@ -165,7 +167,7 @@
                                     <div class="col-sm-4">
                                       Peso (g)
                                     </div>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-6">
                                         <input type="text" class="form-control" value="100" name="data" disabled="true">
                                     </div>
                                 </div>
@@ -174,7 +176,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                            <button type="button" class="btn btn-primary">Alterar</button>
+                            <button type="button" id="buttonModal" class="btn btn-primary">Alterar</button>
                         </div>
                     </div>
                 </div>
@@ -197,4 +199,11 @@
         }
         $("#box").slideToggle();
     });
+    
+    $("#buttonModal").click (function(){
+        $("#target :input").prop("disabled", false);
+        
+        $("#buttonModal").prop("disabled",false);
+
+    })
 </script>

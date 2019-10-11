@@ -69,14 +69,14 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="nome">E-MAIL</label>
                     <div class="col-sm-6">
-                        <input type="email" value="${cliente.email}" name="email" id="email">
+                        <input class="form-control" type="email" value="${cliente.email}" name="email" id="email">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="nome">DATA</label>
                     <div class="col-sm-6">
-                        <% String data = (DateConverter.converter(((Cliente) request.getAttribute("cliente")).getData()));%>
-                        <input class="form-control" type="text" value="<%=data%>" name="data" id="data">
+                       
+                        <input class="form-control" type="date" value="${cliente.data}" name="data" id="data">
                     </div>
                 </div>
                 <div class="form-group row">

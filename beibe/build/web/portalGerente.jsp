@@ -41,6 +41,8 @@
                         <li class="nav-item"><a class="nav-link" href="atendimentos.jsp">Atendimentos</a></li>
                         <li class="nav-item"><a class="nav-link" href='ClienteServlet'>Cadastro Clientes</a></li>
                         <li class="nav-item"><a class="nav-link" href="funcionarioListar.jsp">Cadastro Funcionarios</a></li>
+                        <li class="nav-item"><a class="nav-link" href="relatorios.jsp">Relatórios</a></li>
+                        
                     </ul>
                     <ul class="nav navbar-nav ml-auto">
                         <li nav-item><a href='Invalidar'>User ${login.user} Logout</a></li>
@@ -72,7 +74,7 @@
                         </div>
                         <div class="card-body">
                             <blockquote class="blockquote mb-0">
-                                <p>24%</p>
+                                <p>24% (2435)</p>
                             </blockquote>
                         </div>
                     </div>

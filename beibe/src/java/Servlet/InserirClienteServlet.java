@@ -11,7 +11,11 @@ import DAO.ClienteDAO;
 import Model.Cliente;
 import Utils.DateConverter;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.sql.Date;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -47,12 +51,25 @@ public class InserirClienteServlet extends HttpServlet {
             request.setAttribute("msg", "Não vem de hack");
             request.setAttribute("page", "index.jsp");
             rd.forward(request, response);
+
         }
+
+        java.sql.Date date = null;
+        try {
+            String sDate1 = request.getParameter("data");
+
+            
+            date = Date.valueOf(sDate1);//converting string into sql date  
+            
+            System.out.println(date + "aaaaaaaaaa");
+        } catch (Exception e) {
+        }
+
         Cliente cl = new Cliente();
         cl.setCpf(request.getParameter("cpf"));
         cl.setNome(request.getParameter("nome"));
         cl.setEmail(request.getParameter("email"));
-//        cl.setData(DateConverter.converter(request.getParameter("data")));
+        cl.setData(date);
         cl.setRua(request.getParameter("rua"));
         cl.setNumero(Integer.valueOf(request.getParameter("numero")));
         cl.setCep(Integer.valueOf(request.getParameter("cep")));

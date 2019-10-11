@@ -56,9 +56,10 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li class="nav-item"><a class="nav-link" href="portalGerente.jsp">Portal (Gerente) <span class="sr-only">(current)</span></a></li>
-                        <li class="nav-item active"><a class="nav-link" href='#'>Atendimentos</a></li>
+                        <li class="nav-item active"><a class="nav-link" href="atendimentos.jsp">Atendimentos</a></li>
                         <li class="nav-item"><a class="nav-link" href='ClienteServlet'>Cadastro Clientes</a></li>
                         <li class="nav-item"><a class="nav-link" href="funcionarioListar.jsp">Cadastro Funcionarios</a></li>
+                        <li class="nav-item"><a class="nav-link" href="relatorios.jsp">Relatórios</a></li>
                         
                     </ul>
                     <ul class="nav navbar-nav ml-auto">

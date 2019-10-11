@@ -7,17 +7,16 @@ package DAO;
 
 import Factories.ConnectionFactory;
 import Model.Cliente;
-import Model.Usuario;
 import Utils.DateConverter;
-import Utils.MD5;
+import static com.sun.xml.bind.util.CalendarConv.formatter;
 import java.sql.Connection;
-import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLData;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -43,7 +42,17 @@ public class ClienteDAO {
                 cl.setCpf(rs.getString("cpf_cliente"));
                 cl.setNome((rs.getString("nome_cliente")));
                 cl.setEmail(rs.getString("email_cliente"));
-                cl.setData(DateConverter.converter((rs.getString("data_cliente")))); //arrumar no front
+
+
+
+                String pattern = "dd/MM/yyyy";
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+
+                
+                
+
+                cl.setData(rs.getDate("data_cliente"));
+
                 cl.setRua(rs.getString("rua_cliente"));
                 cl.setNumero(Integer.valueOf(rs.getString("nr_cliente")));
                 cl.setCep(Integer.valueOf(rs.getString("cep_cliente")));
@@ -125,7 +134,9 @@ public class ClienteDAO {
                 cl.setCpf(rs.getString("cpf_cliente"));
                 cl.setNome((rs.getString("nome_cliente")));
                 cl.setEmail(rs.getString("email_cliente"));
-                cl.setData(DateConverter.converter((rs.getString("data_cliente")))); //arrumar no front
+
+                cl.setData(rs.getDate("data_cliente")); //arrumar no front
+
                 cl.setRua(rs.getString("rua_cliente"));
                 cl.setNumero(Integer.valueOf(rs.getString("nr_cliente")));
                 cl.setCep(Integer.valueOf(rs.getString("cep_cliente")));
@@ -161,6 +172,7 @@ public class ClienteDAO {
     public void inserirCliente(Cliente cliente) {
         Connection con = null;
         PreparedStatement st = null;
+
         try {
             con = ConnectionFactory.getConnection();
             st = con.prepareStatement(
@@ -168,7 +180,7 @@ public class ClienteDAO {
             st.setString(1, cliente.getCpf());
             st.setString(2, cliente.getNome());
             st.setString(3, cliente.getEmail());
-            st.setDate(4, new java.sql.Date(Calendar.getInstance().getTime().getTime()));
+            st.setDate(4, new java.sql.Date(cliente.getData().getTime()));
             st.setString(5, cliente.getRua());
             st.setInt(6, cliente.getNumero());
             st.setInt(7, cliente.getCep());
@@ -205,13 +217,13 @@ public class ClienteDAO {
             st.setString(1, cliente.getCpf());
             st.setString(2, cliente.getNome());
             st.setString(3, cliente.getEmail());
-            st.setDate(4, new java.sql.Date(Calendar.getInstance().getTime().getTime()));
+            st.setDate(4, new java.sql.Date(cliente.getData().getTime()));
             st.setString(5, cliente.getRua());
             st.setInt(6, cliente.getNumero());
             st.setInt(7, cliente.getCep());
             st.setString(8, cliente.getCidade());
             st.setString(9, cliente.getUf());
-            st.setInt(10,cliente.getId());
+            st.setInt(10, cliente.getId());
             st.executeUpdate();
 
         } catch (Exception e) {

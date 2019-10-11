@@ -73,8 +73,8 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label" for="nome">DATA</label>
                 <div class="col-sm-6">
-                    <% String data = (DateConverter.converter(((Cliente) request.getAttribute("cliente")).getData()));%>
-                    <input class="form-control" type="text" value="<%=data%>" disabled="true">
+                    
+                    <input class="form-control" type="text" value="${cliente.data}" disabled="true">
                 </div>
             </div>
             <div class="form-group row">
