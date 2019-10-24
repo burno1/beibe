@@ -6,10 +6,9 @@
 package Servlet;
 
 import Bean.PortalBean;
-import DAO.UsuarioDAO;
+import Facade.UsuarioService;
 import Model.Usuario;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -43,8 +42,9 @@ public class AdminServlet extends HttpServlet {
         HttpSession s = request.getSession();
         ArrayList<Usuario> usuarios = ((ArrayList<Usuario>) s.getAttribute("listaUsuarios"));
         List<Usuario> listaUsuarios = new ArrayList<Usuario>();
+        UsuarioService usuarioService = new UsuarioService(); 
 
-        listaUsuarios = new UsuarioDAO().buscarTodos();
+        listaUsuarios = usuarioService.listar();
         String nome = "";
         String email = "";
         String senha = "";
@@ -66,7 +66,7 @@ public class AdminServlet extends HttpServlet {
                 usuarios.add(usuario);
             }
             RequestDispatcher rd = request.
-                    getRequestDispatcher("/portal");
+                    getRequestDispatcher("/admin.jsp");
             rd.forward(request, response);
 
         } catch (Exception e) {

@@ -6,7 +6,8 @@
 package Servlet;
 
 import Bean.PortalBean;
-import DAO.UsuarioDAO;
+
+import Facade.UsuarioService;
 import Model.Usuario;
 import Utils.MD5;
 import java.io.IOException;
@@ -40,12 +41,12 @@ public class CadastrarFuncionarioServlet extends HttpServlet {
         String nome = "";
         String email = "";
         String senha = "";
-
+        UsuarioService usuarioService = new UsuarioService();
         nome = (String) request.getParameter("nome");
         email = (String) request.getParameter("email");
         senha = MD5.MD5Transformed((String) request.getParameter("senha"));
 
-        UsuarioDAO uDAO = new UsuarioDAO();
+        
         Usuario usuario = new Usuario();
         Usuario usuarioSalvo = new Usuario();
 
@@ -53,7 +54,7 @@ public class CadastrarFuncionarioServlet extends HttpServlet {
         usuario.setNome(nome);
         usuario.setSenha(senha);
 
-        usuarioSalvo = uDAO.inserir(usuario);
+        usuarioSalvo = usuarioService.inserir(usuario);
         
         RequestDispatcher rd = request.
                 getRequestDispatcher("./portal.jsp");
@@ -62,33 +63,7 @@ public class CadastrarFuncionarioServlet extends HttpServlet {
         request.setAttribute("msg", "Usuario Inserido com Sucesso");
         rd.forward(request, response);
 
-//       if (usuarioSalvo != null) {
-//            response.setContentType("text/html;charset=UTF-8");
-//            try (PrintWriter out = response.getWriter()) {
-//                /* TODO output your page here. You may use following sample code. */
-//                out.println("<!DOCTYPE html>");
-//                out.println("<html>");
-//                out.println("<head>");
-//                out.println("<title>Servlet CadastraUsuarioServlet</title>");
-//                out.println("</head>");
-//                out.println("<body>");
-//                out.println("<h1>Usuario Cadastrado com Sucesso!</h1>");
-//
-//                out.println("<table ><tr>\n"
-//                        + "    <th>Nome</th>\n"
-//                        + "    <th>Email</th> \n"
-//                        + "    <th>Senha</th>\n"
-//                        + "  </tr>");
-//
-//                out.println("<tr><th>" + nome + "</th><th>" + email + "</th><th>" + senha + "</th></tr>");
-//                out.println("</table></body>");
-//                
-//                out.println("<a href=\'PortalServlet'> Voltar ao Portal</a>");
-//
-//                out.println("</body>");
-//                out.println("</html>");
-//            }
-//        }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

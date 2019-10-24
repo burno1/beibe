@@ -6,7 +6,8 @@
 package Servlet;
 
 import Bean.PortalBean;
-import DAO.UsuarioDAO;
+import Facade.UsuarioService;
+
 import Model.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -43,8 +44,8 @@ public class PortalServlet extends HttpServlet {
         HttpSession s = request.getSession();
         ArrayList<Usuario> usuarios = ((ArrayList<Usuario>) s.getAttribute("listaUsuarios"));
         List<Usuario> listaUsuarios = new ArrayList<Usuario>();
-
-        listaUsuarios = new UsuarioDAO().buscarTodos();
+        UsuarioService usuarioService = new UsuarioService();
+        listaUsuarios = usuarioService.listar();
         String nome = "";
         String email = "";
         String senha = "";

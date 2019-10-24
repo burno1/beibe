@@ -4,6 +4,7 @@
     Author     : Erick Alessi
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page isErrorPage="true" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,10 +17,11 @@
     <body>
         <div>${Mensagem}</div>
         <div> ${mensagem} </div>
+        <%=exception %>
         <a href="${pagina}"> Voltar</a>
         <footer id="sticky-footer" class="py-4 bg-info text-white-50">
             <div class="container text-center">
-                <small> contato: ${configuracao.email}</small>
+                <small> Em caso de problemas, favor contatar o administrador pelo email: ${configuracao.email}</small>
             </div>
         </footer>
     </body>

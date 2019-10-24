@@ -35,13 +35,13 @@
                 <!-- Cabeçalho -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li class="nav-item"><a class="nav-link" href="portal.jsp">Portal (Cliente) <span class="sr-only">(current)</span></a></li>
-                        <li class="nav-item "><a class="nav-link" href="portalFuncionario.jsp">Portal (Funcionario) <span class="sr-only">(current)</span></a></li>
+                       
+                       
                         <li class="nav-item active"><a class="nav-link" href="portalGerente.jsp">Portal (Gerente) <span class="sr-only">(current)</span></a></li>
-                        <li class="nav-item"><a class="nav-link" href="atendimentos.jsp">Atendimentos</a></li>
+                       
                         <li class="nav-item"><a class="nav-link" href='ClienteServlet'>Cadastro Clientes</a></li>
                         <li class="nav-item"><a class="nav-link" href="funcionarioListar.jsp">Cadastro Funcionarios</a></li>
-                        <li class="nav-item"><a class="nav-link" href="relatorios.jsp">Relatórios</a></li>
+                       
                         
                     </ul>
                     <ul class="nav navbar-nav ml-auto">
@@ -123,7 +123,7 @@
 
         <footer id="sticky-footer" class="mt-auto py-4 bg-info text-white-50">
             <div class="container text-center">
-                <small> contato: ${configuracao.email}</small>
+                <small> Em caso de problemas, favor contatar o administrador pelo email: ${configuracao.email}</small>
             </div>
         </footer>
     </body>

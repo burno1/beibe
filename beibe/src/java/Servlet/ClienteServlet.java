@@ -7,8 +7,12 @@ package Servlet;
 
 import Bean.ClienteBean;
 import Bean.PortalBean;
+
+import Facade.ClienteService;
 import Model.Cliente;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -38,19 +42,130 @@ public class ClienteServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession s = request.getSession();
-        
+
         if (s.getAttribute("login") == null) {
             RequestDispatcher rd = request.
                     getRequestDispatcher("/ErroServlet");
-            request.setAttribute("msg", "Não vem de hack");
+            request.setAttribute("msg", "Usuário deve se autenticar para acessar o sistema");
             request.setAttribute("page", "index.jsp");
             rd.forward(request, response);
         }
-                
-        RequestDispatcher rd = request.
-                getRequestDispatcher("./clientesListar.jsp");
-        request.setAttribute("clienteBean", new ClienteBean());
-        rd.forward(request, response);
+
+        ClienteBean cbean = new ClienteBean();
+        ClienteService clienteService = new ClienteService();
+
+        String acao = request.getParameter("action");
+
+        if (null == acao || "listar".equals(acao)) {
+            cbean.setListaClientes(clienteService.listar());
+
+            RequestDispatcher rd = request.
+                    getRequestDispatcher("/clientesListar.jsp");
+            request.setAttribute("clienteBean", cbean);
+
+            rd.forward(request, response);
+        }
+        if ("show".equals(acao)) {
+            String id = request.getParameter("id");
+            Cliente cl = clienteService.buscar(id);
+
+            RequestDispatcher rd = request.
+                    getRequestDispatcher("./clientesVisualizar.jsp");
+            request.setAttribute("cliente", cl);
+            rd.forward(request, response);
+        }
+        if ("formUpdate".equals(acao)) {
+            String id = request.getParameter("id");
+            Cliente cl = clienteService.buscar(id);
+
+            RequestDispatcher rd = request.
+                    getRequestDispatcher("./clientesAlterar.jsp");
+            request.setAttribute("cliente", cl);
+            rd.forward(request, response);
+        }
+        if ("remove".equals(acao)) {
+            String id = request.getParameter("id");
+            clienteService.remover(id);
+            cbean.setListaClientes(clienteService.listar());
+
+            RequestDispatcher rd = request.
+                    getRequestDispatcher("/clientesListar.jsp");
+            request.setAttribute("clienteBean", cbean);
+            rd.forward(request, response);
+
+        }
+        if ("update".equals(acao)) {
+            LocalDate data = null;
+            Cliente cl = new Cliente();
+            try {
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                String str = request.getParameter("data");   // Data como String
+
+                data = LocalDate.parse(str);
+
+            } catch (Exception e) {
+
+            }
+
+            cl.setId(Integer.valueOf(request.getParameter("id")));
+            cl.setCpf(request.getParameter("cpf"));
+            cl.setNome(request.getParameter("nome"));
+            cl.setEmail(request.getParameter("email"));
+            cl.setData(data);
+            cl.setRua(request.getParameter("rua"));
+            cl.setNumero(Integer.valueOf(request.getParameter("numero")));
+            cl.setCep(Integer.valueOf(request.getParameter("cep")));
+            cl.setCidade(request.getParameter("cidade"));
+            cl.setUf(request.getParameter("uf"));
+
+            clienteService.alterar(cl);
+
+            cbean.setListaClientes(clienteService.listar());
+
+            RequestDispatcher rd = request.
+                    getRequestDispatcher("/clientesListar.jsp");
+            request.setAttribute("clienteBean", cbean);
+            request.setAttribute("action", "listar");
+
+            rd.forward(request, response);
+        }
+        if ("formNew".equals(acao)) {
+            RequestDispatcher rd = request.
+                    getRequestDispatcher("/clientesNovo.jsp");
+            rd.forward(request, response);
+        }
+        if ("new".equals(acao)) {
+            LocalDate data = null;
+
+            try {
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                String str = request.getParameter("data");   // Data como String
+
+                data = LocalDate.parse(str);
+
+            } catch (Exception e) {
+
+            }
+
+            Cliente cl = new Cliente();
+            cl.setCpf(request.getParameter("cpf"));
+            cl.setNome(request.getParameter("nome"));
+            cl.setEmail(request.getParameter("email"));
+            cl.setData(data);
+            cl.setRua(request.getParameter("rua"));
+            cl.setNumero(Integer.valueOf(request.getParameter("numero")));
+            cl.setCep(Integer.valueOf(request.getParameter("cep")));
+            cl.setCidade(request.getParameter("cidade"));
+            cl.setUf(request.getParameter("uf"));
+            clienteService.inserir(cl);
+
+            cbean.setListaClientes(clienteService.listar());
+
+            RequestDispatcher rd = request.
+                    getRequestDispatcher("./clientesListar.jsp");
+            request.setAttribute("clienteBean", cbean);
+            rd.forward(request, response);
+        }
 
     }
 

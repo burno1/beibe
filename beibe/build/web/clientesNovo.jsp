@@ -2,13 +2,12 @@
 <%@page import="Model.Cliente"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
-<% if (session.getAttribute("login") == null) {
-        RequestDispatcher rd = request.
-                getRequestDispatcher("/ErroServlet");
-        request.setAttribute("msg", "Não vem de hack!");
-        request.setAttribute("page", "index.jsp");
-        rd.forward(request, response);
-    }%>
+<% if (session.getAttribute("login") == null) {%>
+        <jsp:forward page="index.jsp">
+            <jsp:param name="msg" value="Usuário deve se autenticar para acessar o sistema"/>
+        </jsp:forward>
+    <% }%>    
+
 
 
 <html>
@@ -49,7 +48,7 @@
             <br/>
             <h4>Cadastrar Novo Cliente</h4>
             <hr>
-                <form action="InserirClienteServlet" method="post">
+                <form action="ClienteServlet?action=new" method="post">
 
                     
                     <div class="form-group row">
@@ -122,7 +121,7 @@
         <!-- seu conteudo aqui -->
         <footer id="sticky-footer" class="py-4 bg-info text-white-50">
             <div class="container text-center">
-                <small> contato: ${configuracao.email}</small>
+                <small> Em caso de problemas, favor contatar o administrador pelo email: ${configuracao.email}</small>
             </div>
         </footer>
     </body>

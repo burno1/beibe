@@ -8,7 +8,9 @@ package Servlet;
 import Bean.ClienteBean;
 import Bean.PortalBean;
 import Bean.UsuarioBean;
-import DAO.UsuarioDAO;
+import Facade.ClienteService;
+import Facade.UsuarioService;
+
 import Model.Usuario;
 import Utils.MD5;
 import java.io.IOException;
@@ -46,7 +48,10 @@ public class CadastrarUsuarioServlet extends HttpServlet {
         request.setAttribute("usuarioBean", new UsuarioBean());
         rd.forward(request, response);
         } else {
-             String nome = "";
+        
+        UsuarioService clienteService = new UsuarioService();
+            
+        String nome = "";
         String email = "";
         String senha = "";
 
@@ -54,7 +59,7 @@ public class CadastrarUsuarioServlet extends HttpServlet {
         email = (String) request.getParameter("email");
         senha = MD5.MD5Transformed((String) request.getParameter("senha"));
 
-        UsuarioDAO uDAO = new UsuarioDAO();
+        
         Usuario usuario = new Usuario();
         Usuario usuarioSalvo = new Usuario();
 
@@ -62,7 +67,7 @@ public class CadastrarUsuarioServlet extends HttpServlet {
         usuario.setNome(nome);
         usuario.setSenha(senha);
 
-        usuarioSalvo = uDAO.inserir(usuario);
+        usuarioSalvo = clienteService.inserir(usuario);
         
         RequestDispatcher rd = request.
                 getRequestDispatcher("LoginServlet");

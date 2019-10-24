@@ -5,24 +5,27 @@
  */
 package Bean;
 
-import DAO.ClienteDAO;
+
 import Model.Cliente;
+
 import java.util.List;
+
 
 /**
  *
  * @author Erick Alessi
  */
-public class ClienteBean {
-        List<Cliente> listaClientes = null;
-        private String idCliente;
+public class ClienteBean  {
 
+    List<Cliente> listaClientes = null;
+    private String idCliente = "1";
+
+   
     public ClienteBean() {
-//        usuariosBanco = new UsuarioDAO().buscarTodos();
     }
 
     public List<Cliente> getListaClientes() {
-        return listaClientes = new ClienteDAO().buscarTodos();
+        return listaClientes;
     }
 
     public void setListaClientes(List<Cliente> clientesBanco) {
@@ -36,7 +39,7 @@ public class ClienteBean {
     public void setIdCliente(String idCliente) {
         this.idCliente = idCliente;
     }
-    
-    
+
+
     
 }

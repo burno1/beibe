@@ -40,7 +40,7 @@
                    <!-- seu conteudo aqui -->
         <footer id="sticky-footer" class="py-4 bg-info text-white-50">
             <div class="container text-center">
-                <small> contato: ${configuracao.email}</small>
+                <small> Em caso de problemas, favor contatar o administrador pelo email: ${configuracao.email}/small>
             </div>
         </footer>
     </body>
