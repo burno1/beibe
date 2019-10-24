@@ -4,10 +4,11 @@
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 
 <% if (session.getAttribute("login") == null) {%>
-        <jsp:forward page="index.jsp">
-            <jsp:param name="msg" value="Usuário deve se autenticar para acessar o sistema"/>
-        </jsp:forward>
-    <% }%>    
+<jsp:forward page="index.jsp">
+    <jsp:param name="msg" value="Usuário deve se autenticar para acessar o sistema"/>
+</jsp:forward>
+<% }%>    
+<%@page errorPage="erro.jsp"%>
 
 
 <html>
@@ -23,7 +24,7 @@
     <body>
         <jsp:useBean id="p" class="Model.Cliente" />
         <jsp:setProperty name="p" property="*" />
-        
+
         <nav  class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -75,7 +76,7 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label" for="nome">DATA</label>
                 <div class="col-sm-6">
-                    
+
                     <input class="form-control" type="text" value="${cliente.data}" disabled="true">
                 </div>
             </div>

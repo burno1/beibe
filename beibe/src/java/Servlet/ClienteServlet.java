@@ -76,13 +76,21 @@ public class ClienteServlet extends HttpServlet {
             rd.forward(request, response);
         }
         if ("formUpdate".equals(acao)) {
-            String id = request.getParameter("id");
-            Cliente cl = clienteService.buscar(id);
+            try {
+                String id = request.getParameter("id");
+                Cliente cl = clienteService.buscar(id);
+                RequestDispatcher rd = request.
+                        getRequestDispatcher("./clientesAlterar.jsp");
+                request.setAttribute("cliente", cl);
+                rd.forward(request, response);
+            } catch (Exception e) {
+                request.setAttribute("exception", e);
 
-            RequestDispatcher rd = request.
-                    getRequestDispatcher("./clientesAlterar.jsp");
-            request.setAttribute("cliente", cl);
-            rd.forward(request, response);
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/erro.jsp");
+                rd.forward(request, response);
+
+            }
+
         }
         if ("remove".equals(acao)) {
             String id = request.getParameter("id");
@@ -147,25 +155,33 @@ public class ClienteServlet extends HttpServlet {
             } catch (Exception e) {
 
             }
+            try {
+                Cliente cl = new Cliente();
+                cl.setCpf(request.getParameter("cpf"));
+                cl.setNome(request.getParameter("nome"));
+                cl.setEmail(request.getParameter("email"));
+                cl.setData(data);
+                cl.setRua(request.getParameter("rua"));
+                cl.setNumero(Integer.valueOf(request.getParameter("numero")));
+                cl.setCep(Integer.valueOf(request.getParameter("cep")));
+                cl.setCidade(request.getParameter("cidade"));
+                cl.setUf(request.getParameter("uf"));
+                clienteService.inserir(cl);
 
-            Cliente cl = new Cliente();
-            cl.setCpf(request.getParameter("cpf"));
-            cl.setNome(request.getParameter("nome"));
-            cl.setEmail(request.getParameter("email"));
-            cl.setData(data);
-            cl.setRua(request.getParameter("rua"));
-            cl.setNumero(Integer.valueOf(request.getParameter("numero")));
-            cl.setCep(Integer.valueOf(request.getParameter("cep")));
-            cl.setCidade(request.getParameter("cidade"));
-            cl.setUf(request.getParameter("uf"));
-            clienteService.inserir(cl);
+                cbean.setListaClientes(clienteService.listar());
 
-            cbean.setListaClientes(clienteService.listar());
+                RequestDispatcher rd = request.
+                        getRequestDispatcher("./clientesListar.jsp");
+                request.setAttribute("clienteBean", cbean);
+                rd.forward(request, response);
 
-            RequestDispatcher rd = request.
-                    getRequestDispatcher("./clientesListar.jsp");
-            request.setAttribute("clienteBean", cbean);
-            rd.forward(request, response);
+            } catch (Exception e) {
+                request.setAttribute("javax.servlet.jsp.jspException", e);
+                request.setAttribute("javax.servlet.error.status_code", 500);
+
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/erro.jsp");
+                rd.forward(request, response);
+            }
         }
 
     }

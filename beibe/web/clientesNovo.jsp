@@ -7,6 +7,7 @@
             <jsp:param name="msg" value="Usuário deve se autenticar para acessar o sistema"/>
         </jsp:forward>
     <% }%>    
+    <%@page errorPage="erro.jsp"%>
 
 
 

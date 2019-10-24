@@ -6,13 +6,12 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
-<% if (session.getAttribute("login") == null) {
-        RequestDispatcher rd = request.
-                getRequestDispatcher("/ErroServlet");
-        request.setAttribute("msg", "Não vem de hack!");
-        request.setAttribute("page", "index.jsp");
-        rd.forward(request, response);
-    }%>
+<% if (session.getAttribute("login") == null) {%>
+        <jsp:forward page="/index.jsp">
+            <jsp:param name="msg" value="Usuário deve se autenticar para acessar o sistema"/>
+        </jsp:forward>
+    <% }%>  
+    <%@page errorPage="erro.jsp"%>
 
 
 <html>
@@ -41,7 +40,8 @@
                        
                         <li class="nav-item"><a class="nav-link" href='ClienteServlet'>Cadastro Clientes</a></li>
                         <li class="nav-item"><a class="nav-link" href="funcionarioListar.jsp">Cadastro Funcionarios</a></li>
-                       
+                        <li class="nav-item"><a class="nav-link" href="admin.jsp">Usuario</a></li>
+                        <li class="nav-item"><a class="nav-link" href="testeErro.jsp">Teste Exception</a></li>
                         
                     </ul>
                     <ul class="nav navbar-nav ml-auto">
