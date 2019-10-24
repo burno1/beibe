@@ -37,8 +37,10 @@ public class ErroServlet extends HttpServlet {
 
         String mensagem = (String) request.getAttribute("msg");
         String pagina = (String) request.getAttribute("page");
-
+        
+        System.out.println("mensagem" + mensagem);
         request.setAttribute("mensagem", mensagem);
+        
         request.setAttribute("pagina", pagina);
         rd.forward(request, response);
     }

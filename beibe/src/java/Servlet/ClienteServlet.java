@@ -44,8 +44,9 @@ public class ClienteServlet extends HttpServlet {
         HttpSession s = request.getSession();
 
         if (s.getAttribute("login") == null) {
+            System.out.println("true");
             RequestDispatcher rd = request.
-                    getRequestDispatcher("/ErroServlet");
+                    getRequestDispatcher("ErroServlet");
             request.setAttribute("msg", "Usuário deve se autenticar para acessar o sistema");
             request.setAttribute("page", "index.jsp");
             rd.forward(request, response);

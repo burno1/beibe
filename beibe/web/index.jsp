@@ -18,6 +18,7 @@
         </title>
     </head>
     <body>
+        
         <div class="dialog">
             <h6> BEIBE - Beauty Embuste Indústria de Beleza e Estética </h6><br>
 
@@ -39,7 +40,7 @@
                     <button type="submit" class="btn btn-success btn-block">Login</button>
                 </div>
             </form>
-            <div class="badnews">${mensagem}</div>
+            <div class="badnews">${param["msg"]} ${mensagem}</div>
             
             <form action="CadastrarUsuarioServlet" method="post" modelAttribute="user">
             <p>Não é usuário? Cadastre-se</p>
