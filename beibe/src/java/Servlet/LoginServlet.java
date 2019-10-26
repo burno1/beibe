@@ -7,7 +7,8 @@ package Servlet;
 
 import Bean.LoginBean;
 import Bean.PortalBean;
-import DAO.UsuarioDAO;
+import Facade.UsuarioService;
+
 import Model.Usuario;
 import Utils.MD5;
 import java.io.IOException;
@@ -40,14 +41,15 @@ public class LoginServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        UsuarioService usuarioService  = new UsuarioService();
         String email = "";
         String senha = "";
 
         email = request.getParameter("email");
         senha = request.getParameter("senha");
 
-        UsuarioDAO uDAO = new UsuarioDAO();
-        Usuario usuarioLogado = uDAO.buscarUsuario(email);
+        
+        Usuario usuarioLogado = usuarioService.buscar(email);
 
         HttpSession s = request.getSession();
         LoginBean loginBean = new LoginBean();
@@ -58,7 +60,7 @@ public class LoginServlet extends HttpServlet {
             loginBean.setSenha(MD5.MD5Transformed(senha));
             s.setAttribute("login", loginBean);
             s.setAttribute("portalBean", new PortalBean());
-            response.sendRedirect("./portal.jsp");
+            response.sendRedirect("./portalGerente.jsp");
         } else {
             RequestDispatcher rd = request.
                     getRequestDispatcher("/ErroServlet");

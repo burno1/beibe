@@ -5,7 +5,8 @@
  */
 package Bean;
 
-import DAO.UsuarioDAO;
+
+import Facade.UsuarioService;
 import Model.Usuario;
 import java.util.List;
 
@@ -15,18 +16,14 @@ import java.util.List;
  */
 public class PortalBean {
 
-    List<Usuario> usuariosBanco = null;
+    List<Usuario> listaUsuarios = null;
+    UsuarioService usuarioService = new UsuarioService();
 
     public PortalBean() {
-//        usuariosBanco = new UsuarioDAO().buscarTodos();
+
     }
 
-    public List<Usuario> getUsuariosBanco() {
-        return usuariosBanco = new UsuarioDAO().buscarTodos();
+    public List<Usuario> getListaUsuarios() {
+        return usuarioService.listar();
     }
-
-    public void setUsuariosBanco(List<Usuario> usuariosBanco) {
-        this.usuariosBanco = usuariosBanco;
-    }
-
 }

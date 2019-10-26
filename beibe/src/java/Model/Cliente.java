@@ -5,7 +5,7 @@
  */
 package Model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  *
@@ -16,7 +16,7 @@ public class Cliente {
     String cpf;
     String nome;
     String email;
-    Date  data;
+    LocalDate  data;
     String rua;
     int numero;
     int cep;
@@ -55,11 +55,11 @@ public class Cliente {
         this.email = email;
     }
 
-    public Date getData() {
+    public LocalDate getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(LocalDate data) {
         this.data = data;
     }
 
