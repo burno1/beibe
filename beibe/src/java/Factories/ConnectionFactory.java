@@ -3,13 +3,15 @@ package Factories;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-
-
 public class ConnectionFactory {
 
+//    final private static String urlMysql = "jdbc:mysql://localhost:3306/beibe?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false";
+//    final private static String userMysql = "root";
+//    final private static String passwordMysql = "1234";
+//    
     final private static String urlMysql = "jdbc:mysql://localhost:3306/beibe?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false";
     final private static String userMysql = "root";
-    final private static String passwordMysql = "1234";
+    final private static String passwordMysql = "admin";
 
     final private static String urlPost = "jdbc:postgresql://localhost:5432/testeJava";
     final private static String userPost = "postgres";

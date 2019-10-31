@@ -12,16 +12,15 @@ import java.time.LocalDate;
  * @author Erick Alessi
  */
 public class Cliente {
-    int id;
-    String cpf;
-    String nome;
-    String email;
-    LocalDate  data;
-    String rua;
-    int numero;
-    int cep;
-    String cidade;
-    String uf;
+    private int id;
+    private String cpf;
+    private String nome;
+    private String email;
+    private LocalDate  data;
+    private String rua;
+    private int numero;
+    private int cep;
+    private Cidade cidade;
 
     public int getId() {
         return id;
@@ -87,20 +86,12 @@ public class Cliente {
         this.cep = cep;
     }
 
-    public String getCidade() {
+    public Cidade getCidade() {
         return cidade;
     }
 
-    public void setCidade(String cidade) {
+    public void setCidade(Cidade cidade) {
         this.cidade = cidade;
     }
 
-    public String getUf() {
-        return uf;
-    }
-
-    public void setUf(String uf) {
-        this.uf = uf;
-    }
-    
 }

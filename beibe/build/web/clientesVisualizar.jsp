@@ -101,13 +101,13 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label" for="nome">CIDADE</label>
                 <div class="col-sm-6">
-                    <input class="form-control" type="text" value="${cliente.cidade}" disabled="true">
+                    <input class="form-control" type="text" value="${cliente.cidade.nome}" disabled="true">
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label" for="nome">UF</label>
                 <div class="col-sm-6">
-                    <input class="form-control" type="text" value="${cliente.uf}" disabled="true">
+                    <input class="form-control" type="text" value="${cliente.cidade.estado.uf}" disabled="true">
                 </div>
             </div>
             <div class="row">

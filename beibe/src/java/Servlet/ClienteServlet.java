@@ -9,6 +9,7 @@ import Bean.ClienteBean;
 import Bean.PortalBean;
 
 import Facade.ClienteService;
+import Model.Cidade;
 import Model.Cliente;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -124,9 +125,7 @@ public class ClienteServlet extends HttpServlet {
             cl.setRua(request.getParameter("rua"));
             cl.setNumero(Integer.valueOf(request.getParameter("numero")));
             cl.setCep(Integer.valueOf(request.getParameter("cep")));
-            cl.setCidade(request.getParameter("cidade"));
-            cl.setUf(request.getParameter("uf"));
-
+            cl.setCidade(new Cidade(request.getParameter("cidade"), request.getParameter("uf")));
             clienteService.alterar(cl);
 
             cbean.setListaClientes(clienteService.listar());
@@ -164,9 +163,9 @@ public class ClienteServlet extends HttpServlet {
                 cl.setRua(request.getParameter("rua"));
                 cl.setNumero(Integer.valueOf(request.getParameter("numero")));
                 cl.setCep(Integer.valueOf(request.getParameter("cep")));
-                cl.setCidade(request.getParameter("cidade"));
-                cl.setUf(request.getParameter("uf"));
+                cl.setCidade(new Cidade(request.getParameter("cidade"), request.getParameter("uf")));
                 clienteService.inserir(cl);
+                
 
                 cbean.setListaClientes(clienteService.listar());
 

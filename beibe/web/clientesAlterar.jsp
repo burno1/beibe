@@ -104,13 +104,13 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="nome">CIDADE</label>
                     <div class="col-sm-6">
-                        <input class="form-control" type="text" value="${cliente.cidade}" name="cidade" id="cidade">
+                        <input class="form-control" type="text" value="${cliente.cidade.nome}" name="cidade" id="cidade">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="nome">UF</label>
                     <div class="col-sm-6">
-                        <input class="form-control" type="text" value="${cliente.uf}" name="uf" id="uf">
+                        <input class="form-control" type="text" value="${cliente.cidade.estado.uf}" name="uf" id="uf">
                     </div>
                 </div>
                 <div class="form-group row">

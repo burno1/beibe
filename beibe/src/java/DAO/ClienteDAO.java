@@ -6,9 +6,10 @@
 package DAO;
 
 import Factories.ConnectionFactory;
+import Model.Cidade;
 import Model.Cliente;
 import Utils.DateConverter;
-import static com.sun.xml.bind.util.CalendarConv.formatter;
+//import static com.sun.xml.bind.util.CalendarConv.formatter;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -35,7 +36,7 @@ public class ClienteDAO {
 
         try {
             con = ConnectionFactory.getConnection();
-            st = con.prepareStatement("SELECT id_cliente, cpf_cliente, nome_cliente, email_cliente, data_cliente, rua_cliente, nr_cliente, cep_cliente, cidade_cliente, uf_cliente FROM beibe.tb_cliente WHERE id_cliente = ?");
+            st = con.prepareStatement("SELECT id_cliente, cpf_cliente, nome_cliente, email_cliente, data_cliente, rua_cliente, nr_cliente, cep_cliente, id_cidade_cliente FROM beibe.tb_cliente WHERE id_cliente = ?");
             st.setString(1, id);
             rs = st.executeQuery();
 
@@ -49,8 +50,8 @@ public class ClienteDAO {
                 cl.setRua(rs.getString("rua_cliente"));
                 cl.setNumero(Integer.valueOf(rs.getString("nr_cliente")));
                 cl.setCep(Integer.valueOf(rs.getString("cep_cliente")));
-                cl.setCidade(rs.getString("cidade_cliente"));
-                cl.setUf(rs.getString("uf_cliente"));
+                Cidade cidade = new CidadeDAO().buscarCidadeId(rs.getInt("id_cidade_cliente"));
+                cl.setCidade(cidade);
             }
             return cl;
         } catch (Exception e) {
@@ -119,7 +120,7 @@ public class ClienteDAO {
         ResultSet rs = null;
         try {
             con = ConnectionFactory.getConnection();
-            st = con.prepareStatement("SELECT id_cliente, cpf_cliente, nome_cliente, email_cliente, data_cliente, rua_cliente, nr_cliente, cep_cliente, cidade_cliente, uf_cliente FROM beibe.tb_cliente");
+            st = con.prepareStatement("SELECT id_cliente, cpf_cliente, nome_cliente, email_cliente, data_cliente, rua_cliente, nr_cliente, cep_cliente, id_cidade_cliente FROM beibe.tb_cliente");
             rs = st.executeQuery();
             while (rs.next()) {
                 Cliente cl = new Cliente();
@@ -132,8 +133,8 @@ public class ClienteDAO {
                 cl.setRua(rs.getString("rua_cliente"));
                 cl.setNumero(Integer.valueOf(rs.getString("nr_cliente")));
                 cl.setCep(Integer.valueOf(rs.getString("cep_cliente")));
-                cl.setCidade(rs.getString("cidade_cliente"));
-                cl.setUf(rs.getString("uf_cliente"));
+                Cidade cidade = new CidadeDAO().buscarCidadeId(rs.getInt("id_cidade_cliente"));
+                cl.setCidade(cidade);
                 clientes.add(cl);
             }
             return clientes;
@@ -171,7 +172,7 @@ public class ClienteDAO {
         try {
             con = ConnectionFactory.getConnection();
             st = con.prepareStatement(
-                    "insert into beibe.tb_cliente(cpf_cliente, nome_cliente, email_cliente, data_cliente, rua_cliente, nr_cliente, cep_cliente, cidade_cliente, uf_cliente) values (?, ?, ?, ?, ?, ?, ? , ?, ?)");
+                    "insert into beibe.tb_cliente(cpf_cliente, nome_cliente, email_cliente, data_cliente, rua_cliente, nr_cliente, cep_cliente, id_cidade_cliente) values (?, ?, ?, ?, ?, ?, ? , ?)");
             st.setString(1, cliente.getCpf());
             st.setString(2, cliente.getNome());
             st.setString(3, cliente.getEmail());
@@ -180,8 +181,7 @@ public class ClienteDAO {
             st.setString(5, cliente.getRua());
             st.setInt(6, cliente.getNumero());
             st.setInt(7, cliente.getCep());
-            st.setString(8, cliente.getCidade());
-            st.setString(9, cliente.getUf());
+            st.setInt(8, new CidadeDAO().buscarIdCidade(cliente.getCidade()));
             st.executeUpdate();
 
         } catch (Exception e) {
@@ -211,7 +211,7 @@ public class ClienteDAO {
             System.out.println(cliente.getData()+ "bbbbbb");
             con = ConnectionFactory.getConnection();
             st = con.prepareStatement(
-                    "update beibe.tb_cliente set cpf_cliente = ?, nome_cliente = ?, email_cliente = ?, data_cliente = ?, rua_cliente = ?, nr_cliente = ?, cep_cliente = ?, cidade_cliente = ?, uf_cliente = ? where id_cliente = ?");
+                    "update beibe.tb_cliente set cpf_cliente = ?, nome_cliente = ?, email_cliente = ?, data_cliente = ?, rua_cliente = ?, nr_cliente = ?, cep_cliente = ?, id_cidade_cliente = ?, id_uf_cliente = ? where id_cliente = ?");
             st.setString(1, cliente.getCpf());
             st.setString(2, cliente.getNome());
             st.setString(3, cliente.getEmail());
@@ -219,8 +219,8 @@ public class ClienteDAO {
             st.setString(5, cliente.getRua());
             st.setInt(6, cliente.getNumero());
             st.setInt(7, cliente.getCep());
-            st.setString(8, cliente.getCidade());
-            st.setString(9, cliente.getUf());
+            st.setInt(8, new CidadeDAO().buscarIdCidade(cliente.getCidade()));
+            st.setInt(9, new EstadoDAO().buscarIdEstado(cliente.getCidade().getEstado()));
             st.setInt(10, cliente.getId());
             st.executeUpdate();
 

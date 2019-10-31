@@ -3,17 +3,29 @@
     Created on : Sep 10, 2019, 8:47:22 PM
     Author     : Erick Alessi
 --%>
+<script>
+    function confirmRemove(id) {
+        var txt;
+        var r = confirm("Deseja Remover? :(");
+        if (r == true) {
+            window.location.replace("./ClienteServlet?action=remove&id=" + id);
+        } else {
+            confirm("Are you Sure? Doesn't matter, click whatever you want.");
+        }
+        console.log(txt);
+    }
+</script>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 
-    
-    <% if (session.getAttribute("login") == null) {%>
-        <jsp:forward page="index.jsp">
-            <jsp:param name="msg" value="Usuário deve se autenticar para acessar o sistema"/>
-        </jsp:forward>
-    <% }%> 
-    <%@page errorPage="erro.jsp"%>
+
+<% if (session.getAttribute("login") == null) {%>
+<jsp:forward page="index.jsp">
+    <jsp:param name="msg" value="Usuário deve se autenticar para acessar o sistema"/>
+</jsp:forward>
+<% }%> 
+<%@page errorPage="erro.jsp"%>
 
 
 <html>
@@ -30,8 +42,8 @@
     <body>
         <jsp:useBean id="clienteBean" class="Bean.ClienteBean" scope="request" />
         <jsp:setProperty name="clienteBean" property="*" />
-        
-        
+
+
         <nav  class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -91,7 +103,9 @@
                                 <td>
                                     <a href="ClienteServlet?action=show&id=${c.id}"><button type="button" class="btn btn-info">Visualizar</button> </a>
                                     <a href="ClienteServlet?action=formUpdate&id=${c.id}"><button type="button" class="btn btn-secondary">Alterar</button> </a>
-                                    <a href="ClienteServlet?action=remove&id=${c.id}"><button type="button" class="btn btn-danger">Remover</button> </a>
+                                    <button type="button" class="btn btn-danger" onclick="confirmRemove(${c.id})">Remover</button>
+<!--                                    <a href="ClienteServlet?action=remove&id=${c.id}"><button type="button" class="btn btn-danger" onclick="confirmRemove()">Remover</button> </a>-->
+
                                 </td>
                             </tr>
                         </c:forEach>
