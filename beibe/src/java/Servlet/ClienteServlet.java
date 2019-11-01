@@ -6,6 +6,7 @@
 package Servlet;
 
 import Bean.ClienteBean;
+import Bean.EstadosBean;
 import Bean.PortalBean;
 
 import Facade.ClienteService;

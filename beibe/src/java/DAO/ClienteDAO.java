@@ -211,7 +211,7 @@ public class ClienteDAO {
             System.out.println(cliente.getData()+ "bbbbbb");
             con = ConnectionFactory.getConnection();
             st = con.prepareStatement(
-                    "update beibe.tb_cliente set cpf_cliente = ?, nome_cliente = ?, email_cliente = ?, data_cliente = ?, rua_cliente = ?, nr_cliente = ?, cep_cliente = ?, id_cidade_cliente = ?, id_uf_cliente = ? where id_cliente = ?");
+                    "update beibe.tb_cliente set cpf_cliente = ?, nome_cliente = ?, email_cliente = ?, data_cliente = ?, rua_cliente = ?, nr_cliente = ?, cep_cliente = ?, id_cidade_cliente = ?, id_estado_cliente = ? where id_cliente = ?");
             st.setString(1, cliente.getCpf());
             st.setString(2, cliente.getNome());
             st.setString(3, cliente.getEmail());

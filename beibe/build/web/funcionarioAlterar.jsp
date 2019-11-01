@@ -22,7 +22,6 @@
         </title>
     </head>
     <body>
-
         <nav  class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -52,7 +51,7 @@
                     <input class="form-control" type="text" value="Cliente" readonly="true">
                 </div>
             </div>
-            
+
             <div class="form-group row">
                 <div class="col-sm-2">
                     Categoria
@@ -62,11 +61,11 @@
                         <option selected>Selecione...</option>
                         <option value="1">Funcionário</option>
                         <option value="2">Gerente</option>
-                        
+
                     </select>
                 </div>
             </div>
-            
+
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label" for="nome">CPF</label>
                 <div class="col-sm-6">
@@ -110,15 +109,15 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label" for="nome">CIDADE</label>
-                <div class="col-sm-6">
-                    <input class="form-control" type="text" value="cidade" >
-                </div>
-            </div>
-            <div class="form-group row">
                 <label class="col-sm-2 col-form-label" for="nome">UF</label>
                 <div class="col-sm-6">
                     <input class="form-control" type="text" value="uf" >
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" for="nome">CIDADE</label>
+                <div class="col-sm-6">
+                    <input class="form-control" type="text" value="cidade" >
                 </div>
             </div>
             <div class="form-group row">

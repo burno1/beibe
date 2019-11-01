@@ -4,11 +4,11 @@
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 
 <% if (session.getAttribute("login") == null) {%>
-        <jsp:forward page="index.jsp">
-            <jsp:param name="msg" value="Usuário deve se autenticar para acessar o sistema"/>
-        </jsp:forward>
-    <% }%>   
-    <%@page errorPage="erro.jsp"%>
+<jsp:forward page="index.jsp">
+    <jsp:param name="msg" value="Usuário deve se autenticar para acessar o sistema"/>
+</jsp:forward>
+<% }%>   
+<%@page errorPage="erro.jsp"%>
 
 
 
@@ -25,7 +25,9 @@
     <body>
         <jsp:useBean id="p" class="Bean.ClienteBean" />
         <jsp:setProperty name="p" property="*" />
-        
+        <jsp:useBean id="estadosBean" class="Bean.EstadosBean" scope="request" />
+        <jsp:setProperty name="estadosBean" property="*" />
+
         <nav  class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -79,7 +81,7 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="nome">DATA</label>
                     <div class="col-sm-6">
-                       
+
                         <input class="form-control" type="date" value="${cliente.data}" name="data" id="data">
                     </div>
                 </div>
@@ -102,15 +104,20 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label" for="nome">CIDADE</label>
+                    <label class="col-sm-2 col-form-label" for="nome">UF</label>
                     <div class="col-sm-6">
-                        <input class="form-control" type="text" value="${cliente.cidade.nome}" name="cidade" id="cidade">
+                        <select class="custom-select custom-select-md">
+                            <option selected><c:out value="${cliente.cidade.estado.uf}"/></option>
+                            <c:forEach items="${estadosBean.estados}" var="e">                        
+                                <option value="${e.uf}">${e.uf}</option>
+                            </c:forEach>
+                        </select>   
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label" for="nome">UF</label>
+                    <label class="col-sm-2 col-form-label" for="nome">CIDADE</label>
                     <div class="col-sm-6">
-                        <input class="form-control" type="text" value="${cliente.cidade.estado.uf}" name="uf" id="uf">
+                        <input class="form-control" type="text" value="${cliente.cidade.nome}" name="cidade" id="cidade">
                     </div>
                 </div>
                 <div class="form-group row">
