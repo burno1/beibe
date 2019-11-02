@@ -211,7 +211,7 @@ public class ClienteDAO {
             System.out.println(cliente.getData()+ "bbbbbb");
             con = ConnectionFactory.getConnection();
             st = con.prepareStatement(
-                    "update beibe.tb_cliente set cpf_cliente = ?, nome_cliente = ?, email_cliente = ?, data_cliente = ?, rua_cliente = ?, nr_cliente = ?, cep_cliente = ?, id_cidade_cliente = ?, id_estado_cliente = ? where id_cliente = ?");
+                    "update beibe.tb_cliente set cpf_cliente = ?, nome_cliente = ?, email_cliente = ?, data_cliente = ?, rua_cliente = ?, nr_cliente = ?, cep_cliente = ?, id_cidade_cliente = ? where id_cliente = ?");
             st.setString(1, cliente.getCpf());
             st.setString(2, cliente.getNome());
             st.setString(3, cliente.getEmail());
@@ -219,9 +219,13 @@ public class ClienteDAO {
             st.setString(5, cliente.getRua());
             st.setInt(6, cliente.getNumero());
             st.setInt(7, cliente.getCep());
-            st.setInt(8, new CidadeDAO().buscarIdCidade(cliente.getCidade()));
-            st.setInt(9, new EstadoDAO().buscarIdEstado(cliente.getCidade().getEstado()));
-            st.setInt(10, cliente.getId());
+            //gambi
+            String s2 = new String(cliente.getCidade().getNome().getBytes("ISO-8859-1"), "UTF-8");
+            cliente.getCidade().setNome(s2);
+            int test = new CidadeDAO().buscarIdCidade(cliente.getCidade());
+            
+            st.setInt(8, test);
+            st.setInt(9, cliente.getId());
             st.executeUpdate();
 
         } catch (Exception e) {

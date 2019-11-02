@@ -5,9 +5,11 @@
  */
 package Servlet;
 
+import Bean.CidadesBean;
 import Bean.ClienteBean;
 import Bean.EstadosBean;
 import Bean.PortalBean;
+import DAO.CidadeDAO;
 
 import Facade.ClienteService;
 import Model.Cidade;
@@ -84,6 +86,10 @@ public class ClienteServlet extends HttpServlet {
                 RequestDispatcher rd = request.
                         getRequestDispatcher("./clientesAlterar.jsp");
                 request.setAttribute("cliente", cl);
+                CidadesBean cidadeBean = new CidadesBean();
+                CidadeDAO cidadeDao = new CidadeDAO();
+                cidadeBean.setCidades(cidadeDao.buscarTodosPorEstado(cl.getCidade().getEstado()));
+                request.setAttribute("cidadesBean", cidadeBean);
                 rd.forward(request, response);
             } catch (Exception e) {
                 request.setAttribute("exception", e);

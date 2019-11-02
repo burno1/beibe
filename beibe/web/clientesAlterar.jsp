@@ -3,13 +3,12 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 
-<% if (session.getAttribute("login") == null) {%>
-<jsp:forward page="index.jsp">
-    <jsp:param name="msg" value="Usuário deve se autenticar para acessar o sistema"/>
-</jsp:forward>
-<% }%>   
+<c:if test="${empty login}">
+    <jsp:forward page="index.jsp">
+        <jsp:param name="msg" value="Usuário deve se autenticar para acessar o sistema"/>
+    </jsp:forward>
+</c:if>
 <%@page errorPage="erro.jsp"%>
-
 
 
 <html>
@@ -27,6 +26,7 @@
         <jsp:setProperty name="p" property="*" />
         <jsp:useBean id="estadosBean" class="Bean.EstadosBean" scope="request" />
         <jsp:setProperty name="estadosBean" property="*" />
+
 
         <nav  class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
@@ -61,7 +61,7 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label" for="nome">CPF</label>
+                    <label class="col-sm-2 col-form-label" for="cpf">CPF</label>
                     <div class="col-sm-6">
                         <input class="form-control" type="text" value="${cliente.cpf}" name="cpf" id="cpf">
                     </div>
@@ -73,40 +73,40 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label" for="nome">E-MAIL</label>
+                    <label class="col-sm-2 col-form-label" for="email">E-MAIL</label>
                     <div class="col-sm-6">
                         <input class="form-control" type="email" value="${cliente.email}" name="email" id="email">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label" for="nome">DATA</label>
+                    <label class="col-sm-2 col-form-label" for="data">DATA</label>
                     <div class="col-sm-6">
 
                         <input class="form-control" type="date" value="${cliente.data}" name="data" id="data">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label" for="nome">RUA</label>
+                    <label class="col-sm-2 col-form-label" for="rua">RUA</label>
                     <div class="col-sm-6">
                         <input class="form-control" type="text" value="${cliente.rua}" name="rua" id="rua">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label" for="nome">NÚMERO</label>
+                    <label class="col-sm-2 col-form-label" for="numero">NÚMERO</label>
                     <div class="col-sm-6">
                         <input class="form-control" type="text" value="${cliente.numero}" name="numero" id="numero">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label" for="nome">CEP</label>
+                    <label class="col-sm-2 col-form-label" for="cep">CEP</label>
                     <div class="col-sm-6">
                         <input class="form-control" type="text" value="${cliente.cep}" name="cep" id="cep">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label" for="nome">UF</label>
+                    <label class="col-sm-2 col-form-label" for="uf">UF</label>
                     <div class="col-sm-6">
-                        <select class="custom-select custom-select-md">
+                        <select id="uf" class="custom-select custom-select-md" name="uf">
                             <option selected><c:out value="${cliente.cidade.estado.uf}"/></option>
                             <c:forEach items="${estadosBean.estados}" var="e">                        
                                 <option value="${e.uf}">${e.uf}</option>
@@ -115,11 +115,26 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label" for="nome">CIDADE</label>
+                    <label class="col-sm-2 col-form-label" for="cidade">CIDADE</label>
                     <div class="col-sm-6">
-                        <input class="form-control" type="text" value="${cliente.cidade.nome}" name="cidade" id="cidade">
+                        <select class="custom-select custom-select-md" name="cidade" id="cidade">
+                            <option selected><c:out value="${cliente.cidade.nome}"/></option>
+                            <c:forEach items="${cidadesBean.cidades}" var="c">                        
+                                <option value="${c.nome}">${c.nome}</option>
+                            </c:forEach>
+                        </select>   
                     </div>
                 </div>
+                <div id="test">
+
+                </div>
+
+                <!--                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label" for="nome">CIDADE</label>
+                                    <div class="col-sm-6">
+                                        <input class="form-control" type="text" value="${cliente.cidade.nome}" name="cidade" id="cidade">
+                                    </div>
+                                </div>-->
                 <div class="form-group row">
                     <div class="col-sm-2">
                         <button type="submit" class="btn btn-success btn-block">Salvar</button>
@@ -132,7 +147,66 @@
             </form>
         </div>
 
+        <script>
+            var cidades;
 
+            $(document).ready(function () {
+                $("#uf").change(function () {
+                    getCidades();
+                });
+            });
+
+            function carregarCombo(data)
+            {
+                // Se sucesso, limpa e preenche a combo de cidade
+                $("#cidade").empty();
+                $.each(data, function (i, obj) {
+                    $("#cidade").append('<option value=' + obj.nome + '>' + obj.nome + '</option>');
+                });
+            }
+
+
+            function getCidades() {
+                cidades = $.ajax({
+                    url: "./ajaxCidadesServlet",
+                    data: {uf: $("#uf").val()},
+                    async: false,
+                    dataType: 'json'
+                }).responseJSON;
+                carregarCombo(cidades)
+            }
+
+            function getCidades() {
+                cidades = $.ajax({
+                    url: "./ajaxCidadesServlet",
+                    data: {uf: $("#uf").val()},
+                    async: false,
+                    dataType: 'json'
+                }).responseJSON;
+                carregarCombo(cidades)
+            }
+
+            //    function getCidades() {
+            //        var uf = $("#uf").val();
+            //        var url = "./ajaxCidadesServlet";
+            //        $.ajax({
+            //            url: url, // URL da sua Servlet
+            //            data: {
+            //                uf: uf
+            //            }, // Parâmetro passado para a Servlet
+            //            dataType: 'json',
+            //            success: carregarCombo(),
+            //            error: function (request, textStatus, errorThrown) {
+            //                alert(request.status + ', Error: ' + request.statusText);
+            //// Erro
+            //            }
+            //        }
+            //        );}
+
+
+
+
+        </script>
 
 
         <!-- seu conteudo aqui -->

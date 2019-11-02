@@ -9,7 +9,7 @@ public class ConnectionFactory {
 //    final private static String userMysql = "root";
 //    final private static String passwordMysql = "1234";
 //    
-    final private static String urlMysql = "jdbc:mysql://localhost:3306/beibe?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false";
+    final private static String urlMysql = "jdbc:mysql://localhost:3306/beibe?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false&characterEncoding=utf-8";
     final private static String userMysql = "root";
     final private static String passwordMysql = "admin";
 
