@@ -7,19 +7,12 @@ package DAO;
 
 import Factories.ConnectionFactory;
 import Model.Cidade;
-import Model.Cliente;
 import Model.Estado;
-import Utils.DateConverter;
 //import static com.sun.xml.bind.util.CalendarConv.formatter;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import java.util.List;
 
@@ -116,11 +109,12 @@ public class CidadeDAO {
         ResultSet rs = null;
         try {
             con = ConnectionFactory.getConnection();
-            st = con.prepareStatement("select c.nome_cidade, e.nome_estado, e.uf_estado from tb_cidade c, tb_estado e where c.estado_cidade = e.id_estado and e.uf_estado = ?;");
+            st = con.prepareStatement("select c.id_cidade, c.nome_cidade, e.nome_estado, e.uf_estado from tb_cidade c, tb_estado e where c.estado_cidade = e.id_estado and e.uf_estado = ?;");
             st.setString(1, estado.getUf());
             rs = st.executeQuery();
             while (rs.next()) {
                 Cidade cl = new Cidade();
+                cl.setId(rs.getInt("id_cidade"));
                 cl.setNome(rs.getString("nome_cidade"));
                 cl.setEstado(new Estado(rs.getString("nome_estado"), rs.getString("uf_estado")));
                 cidades.add(cl);

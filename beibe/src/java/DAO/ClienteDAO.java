@@ -46,7 +46,7 @@ public class ClienteDAO {
                 cl.setNome((rs.getString("nome_cliente")));
                 cl.setEmail(rs.getString("email_cliente"));
                 cl.setData(rs.getDate("data_cliente").toLocalDate());
-               // System.out.println(cl.getData().getgetTime() + "iguuu");
+                // System.out.println(cl.getData().getgetTime() + "iguuu");
                 cl.setRua(rs.getString("rua_cliente"));
                 cl.setNumero(Integer.valueOf(rs.getString("nr_cliente")));
                 cl.setCep(Integer.valueOf(rs.getString("cep_cliente")));
@@ -165,7 +165,7 @@ public class ClienteDAO {
     public void inserirCliente(Cliente cliente) {
         Connection con = null;
         PreparedStatement st = null;
-        
+
         LocalDate dt = cliente.getData();
         //java.sql.Date data = new java.sql.Date(dt.getTime());
 
@@ -176,16 +176,18 @@ public class ClienteDAO {
             st.setString(1, cliente.getCpf());
             st.setString(2, cliente.getNome());
             st.setString(3, cliente.getEmail());
-            System.out.println("chegando"+cliente.getData());
+            System.out.println("chegando" + cliente.getData());
             st.setDate(4, Date.valueOf(dt));
             st.setString(5, cliente.getRua());
             st.setInt(6, cliente.getNumero());
             st.setInt(7, cliente.getCep());
-            st.setInt(8, new CidadeDAO().buscarIdCidade(cliente.getCidade()));
+//            String s2 = new String(cliente.getCidade().getNome().getBytes("ISO-8859-1"), "UTF-8");
+//            cliente.getCidade().setNome(s2);
+//            int test = new CidadeDAO().buscarIdCidade(cliente.getCidade().getId());
+            st.setInt(8, cliente.getCidade().getId());
             st.executeUpdate();
 
         } catch (Exception e) {
-            
             throw new RuntimeException(e);
         } finally {
             if (st != null) {
@@ -208,7 +210,7 @@ public class ClienteDAO {
         Connection con = null;
         PreparedStatement st = null;
         try {
-            System.out.println(cliente.getData()+ "bbbbbb");
+            System.out.println(cliente.getData() + "bbbbbb");
             con = ConnectionFactory.getConnection();
             st = con.prepareStatement(
                     "update beibe.tb_cliente set cpf_cliente = ?, nome_cliente = ?, email_cliente = ?, data_cliente = ?, rua_cliente = ?, nr_cliente = ?, cep_cliente = ?, id_cidade_cliente = ? where id_cliente = ?");
@@ -219,12 +221,7 @@ public class ClienteDAO {
             st.setString(5, cliente.getRua());
             st.setInt(6, cliente.getNumero());
             st.setInt(7, cliente.getCep());
-            //gambi
-            String s2 = new String(cliente.getCidade().getNome().getBytes("ISO-8859-1"), "UTF-8");
-            cliente.getCidade().setNome(s2);
-            int test = new CidadeDAO().buscarIdCidade(cliente.getCidade());
-            
-            st.setInt(8, test);
+            st.setInt(8, cliente.getCidade().getId());
             st.setInt(9, cliente.getId());
             st.executeUpdate();
 
