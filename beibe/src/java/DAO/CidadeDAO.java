@@ -8,7 +8,6 @@ package DAO;
 import Factories.ConnectionFactory;
 import Model.Cidade;
 import Model.Estado;
-//import static com.sun.xml.bind.util.CalendarConv.formatter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

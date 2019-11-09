@@ -1,7 +1,9 @@
 <%@page import="Utils.DateConverter"%>
 <%@page import="Model.Cliente"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+
 
 <c:if test="${empty login}">
     <jsp:forward page="index.jsp">
@@ -13,12 +15,13 @@
 
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
         <link href="./css/login.css" rel="stylesheet" />
         <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
         <script src="./bootstrap/js/jquery.min.js"></script>
         <script src="./bootstrap/js/bootstrap.min.js"></script>
         <title>BEIBE - Beauty Embuste Indústria de Beleza e Estética
+            <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
         </title>
     </head>
     <body>
@@ -53,7 +56,7 @@
             <br/>
             <h4>Alterar Dados</h4>
             <hr>
-            <form action="ClienteServlet?action=update" method="post">            
+            <form id="form" action="ClienteServlet?action=update" method="post">            
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="id">ID</label>
                     <div class="col-sm-6">
@@ -63,7 +66,8 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="cpf">CPF</label>
                     <div class="col-sm-6">
-                        <input class="form-control" maxlength="11" type="text" value="${cliente.cpf}" name="cpf" id="cpf" >
+                        <input class="form-control" maxlength="14" type="text" value="${cliente.cpf}" name="cpf" id="cpf" >
+
                     </div>
                 </div>
                 <div class="form-group row">
@@ -118,7 +122,7 @@
                     <label class="col-sm-2 col-form-label" for="cidade">CIDADE</label>
                     <div class="col-sm-6">
                         <select class="custom-select custom-select-md" name="cidade" id="cidade">
-                            <option selected><c:out value="${cliente.cidade.nome}"/></option>
+                            <option selected value="${cliente.cidade.id}">${cliente.cidade.nome}</option>
                             <c:forEach items="${cidadesBean.cidades}" var="c">                        
                                 <option value="${c.id}">${c.nome}</option>
                             </c:forEach>
@@ -129,13 +133,19 @@
 
                 </div>
 
-                <div class="form-group row">
+                <div id="salvar" class="form-group row">
                     <div class="col-sm-2">
-                        <button type="submit" class="btn btn-success btn-block">Salvar</button>
+                        <button  type="submit" class="btn btn-success btn-block">Salvar</button>
                     </div>
 
-                    <div class="col-sm-2">
+                    <div id="cancelar" class="col-sm-2">
                         <a href="ClienteServlet"><button type="button" class="btn btn-secondary btn-block">Cancelar</button></a>
+                    </div>
+                </div>
+
+                <div id="voltar" class="row">
+                    <div class="col-sm-2">
+                        <a href="ClienteServlet"><button type="button" class="btn btn-secondary btn-block">Voltar</button></a>
                     </div>
                 </div>
             </form>
@@ -143,8 +153,24 @@
 
         <script>
             var cidades;
+            var mostra = '${mostra}';
+            var cpf = '${cliente.cpf}'
+            
 
             $(document).ready(function () {
+
+                $("#voltar").hide();
+                var $campoCpf = $("#cpf");
+                $campoCpf.mask('000.000.000-00', {reverse: true});
+                if (mostra) {
+                    $('#form input').prop("disabled", true);
+                    $('#form select').prop("disabled", true);
+                    $("#salvar").hide();
+                    $("#cancelar").hide();
+                    $("#voltar").show();
+                    
+                }
+
                 $("#uf").change(function () {
                     getCidades();
                 });
@@ -179,7 +205,7 @@
                 }).responseJSON;
                 carregarCombo(cidades)
             }
-            
+
         </script>
 
 
@@ -191,3 +217,4 @@
         </footer>
     </body>
 </html>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>

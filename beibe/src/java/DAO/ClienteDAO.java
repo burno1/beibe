@@ -9,7 +9,6 @@ import Factories.ConnectionFactory;
 import Model.Cidade;
 import Model.Cliente;
 import Utils.DateConverter;
-//import static com.sun.xml.bind.util.CalendarConv.formatter;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -46,7 +45,6 @@ public class ClienteDAO {
                 cl.setNome((rs.getString("nome_cliente")));
                 cl.setEmail(rs.getString("email_cliente"));
                 cl.setData(rs.getDate("data_cliente").toLocalDate());
-                // System.out.println(cl.getData().getgetTime() + "iguuu");
                 cl.setRua(rs.getString("rua_cliente"));
                 cl.setNumero(Integer.valueOf(rs.getString("nr_cliente")));
                 cl.setCep(Integer.valueOf(rs.getString("cep_cliente")));
@@ -128,7 +126,7 @@ public class ClienteDAO {
                 cl.setCpf(rs.getString("cpf_cliente"));
                 cl.setNome((rs.getString("nome_cliente")));
                 cl.setEmail(rs.getString("email_cliente"));
-                cl.setData(rs.getDate("data_cliente").toLocalDate()); //arrumar no front
+                cl.setData(rs.getDate("data_cliente").toLocalDate()); 
                 System.out.println(cl.getData());
                 cl.setRua(rs.getString("rua_cliente"));
                 cl.setNumero(Integer.valueOf(rs.getString("nr_cliente")));
@@ -167,7 +165,6 @@ public class ClienteDAO {
         PreparedStatement st = null;
 
         LocalDate dt = cliente.getData();
-        //java.sql.Date data = new java.sql.Date(dt.getTime());
 
         try {
             con = ConnectionFactory.getConnection();
@@ -181,9 +178,6 @@ public class ClienteDAO {
             st.setString(5, cliente.getRua());
             st.setInt(6, cliente.getNumero());
             st.setInt(7, cliente.getCep());
-//            String s2 = new String(cliente.getCidade().getNome().getBytes("ISO-8859-1"), "UTF-8");
-//            cliente.getCidade().setNome(s2);
-//            int test = new CidadeDAO().buscarIdCidade(cliente.getCidade().getId());
             st.setInt(8, cliente.getCidade().getId());
             st.executeUpdate();
 

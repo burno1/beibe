@@ -89,7 +89,7 @@
                                 <td><c:out value="${c.nome}" /></td>
                                 <td><c:out value="${c.email}" /></td>
                                 <td>
-                                    <a href="ClienteServlet?action=show&id=${c.id}"><button type="button" class="btn btn-info">Visualizar</button> </a>
+                                    <a href="ClienteServlet?action=show&id=${c.id}&mostra=0"><button type="button" class="btn btn-info">Visualizar</button> </a>
                                     <a href="ClienteServlet?action=formUpdate&id=${c.id}"><button type="button" class="btn btn-secondary">Alterar</button> </a>
                                     <a href="ClienteServlet?action=remove&id=${c.id}"><button type="button" class="btn btn-danger">Remover</button> </a>
                                 </td>
