@@ -63,7 +63,7 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="cpf">CPF</label>
                     <div class="col-sm-6">
-                        <input class="form-control" type="text" value="${cliente.cpf}" name="cpf" id="cpf" >
+                        <input class="form-control" maxlength="11" type="text" value="${cliente.cpf}" name="cpf" id="cpf" >
                     </div>
                 </div>
                 <div class="form-group row">
@@ -94,7 +94,7 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="numero">NÚMERO</label>
                     <div class="col-sm-6">
-                        <input class="form-control" type="text" value="${cliente.numero}" name="numero" id="numero">
+                        <input class="form-control" type="number" value="${cliente.numero}" name="numero" id="numero">
                     </div>
                 </div>
                 <div class="form-group row">
@@ -129,12 +129,6 @@
 
                 </div>
 
-                <!--                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label" for="nome">CIDADE</label>
-                                    <div class="col-sm-6">
-                                        <input class="form-control" type="text" value="${cliente.cidade.nome}" name="cidade" id="cidade">
-                                    </div>
-                                </div>-->
                 <div class="form-group row">
                     <div class="col-sm-2">
                         <button type="submit" class="btn btn-success btn-block">Salvar</button>
@@ -185,27 +179,7 @@
                 }).responseJSON;
                 carregarCombo(cidades)
             }
-
-            //    function getCidades() {
-            //        var uf = $("#uf").val();
-            //        var url = "./ajaxCidadesServlet";
-            //        $.ajax({
-            //            url: url, // URL da sua Servlet
-            //            data: {
-            //                uf: uf
-            //            }, // Parâmetro passado para a Servlet
-            //            dataType: 'json',
-            //            success: carregarCombo(),
-            //            error: function (request, textStatus, errorThrown) {
-            //                alert(request.status + ', Error: ' + request.statusText);
-            //// Erro
-            //            }
-            //        }
-            //        );}
-
-
-
-
+            
         </script>
 
 

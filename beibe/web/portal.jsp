@@ -6,12 +6,11 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
-
-<c:if test="${empty login}">
-    <jsp:forward page="index.jsp">
-        <jsp:param name="msg" value="Usuário deve se autenticar para acessar o sistema"/>
-    </jsp:forward>
-</c:if>  
+<% if (session.getAttribute("login") == null) {%>
+<jsp:forward page="index.jsp">
+    <jsp:param name="msg" value="Usuário deve se autenticar para acessar o sistema"/>
+</jsp:forward>
+<% }%>    
 <%@page errorPage="erro.jsp"%>
 
 <html>
