@@ -10,16 +10,23 @@ package Model;
  * @author Erick Alessi
  */
 public class Cidade {
-    
-    public Cidade(){}
-    
-    public Cidade(String cidade, String UF){
-        this.nome = cidade;
+
+    private int id;
+    private String nome;
+    private Estado estado;
+
+    public Cidade() {
+    }
+
+    public Cidade(int id, String UF) {
+        this.id = id;
         this.estado = new Estado("", UF);
     }
 
-    private String nome;
-    private Estado estado;
+    public Cidade(String cidade, String UF) {
+        this.nome = cidade;
+        this.estado = new Estado("", UF);
+    }
 
     public String getNome() {
         return nome;
@@ -29,6 +36,14 @@ public class Cidade {
         this.nome = nome;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public Estado getEstado() {
         return estado;
     }
@@ -36,5 +51,5 @@ public class Cidade {
     public void setEstado(Estado estado) {
         this.estado = estado;
     }
-    
+
 }

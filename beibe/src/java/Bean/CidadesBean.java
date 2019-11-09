@@ -9,6 +9,7 @@ import DAO.CidadeDAO;
 import DAO.EstadoDAO;
 import Model.Cidade;
 import Model.Estado;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,9 +35,6 @@ public class CidadesBean {
     public void setCidades(List<Cidade> cidades) {
         this.cidades = cidades;
     }
-
-
-    
-   
+        
     
 }

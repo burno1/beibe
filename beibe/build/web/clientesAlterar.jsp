@@ -63,7 +63,7 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="cpf">CPF</label>
                     <div class="col-sm-6">
-                        <input class="form-control" type="text" value="${cliente.cpf}" name="cpf" id="cpf">
+                        <input class="form-control" type="text" value="${cliente.cpf}" name="cpf" id="cpf" >
                     </div>
                 </div>
                 <div class="form-group row">
@@ -120,7 +120,7 @@
                         <select class="custom-select custom-select-md" name="cidade" id="cidade">
                             <option selected><c:out value="${cliente.cidade.nome}"/></option>
                             <c:forEach items="${cidadesBean.cidades}" var="c">                        
-                                <option value="${c.nome}">${c.nome}</option>
+                                <option value="${c.id}">${c.nome}</option>
                             </c:forEach>
                         </select>   
                     </div>
@@ -161,7 +161,7 @@
                 // Se sucesso, limpa e preenche a combo de cidade
                 $("#cidade").empty();
                 $.each(data, function (i, obj) {
-                    $("#cidade").append('<option value=' + obj.nome + '>' + obj.nome + '</option>');
+                    $("#cidade").append('<option value=' + obj.id + '>' + obj.nome + '</option>');
                 });
             }
 

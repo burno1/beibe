@@ -75,7 +75,7 @@ public class ClienteServlet extends HttpServlet {
             Cliente cl = clienteService.buscar(id);
 
             RequestDispatcher rd = request.
-                    getRequestDispatcher("./clientesVisualizar.jsp");
+                    getRequestDispatcher("./clientesAlterar.jsp");
             request.setAttribute("cliente", cl);
             rd.forward(request, response);
         }
@@ -112,6 +112,44 @@ public class ClienteServlet extends HttpServlet {
 
         }
         if ("update".equals(acao)) {
+            
+           
+            if(request.getParameter("id").equals("")){
+                 
+            LocalDate data = null;
+            Cliente cl = new Cliente();
+            try {
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                String str = request.getParameter("data");   // Data como String
+
+                data = LocalDate.parse(str);
+
+            } catch (Exception e) {
+
+            }
+
+            cl.setCpf(request.getParameter("cpf"));
+            cl.setNome(request.getParameter("nome"));
+            cl.setEmail(request.getParameter("email"));
+            cl.setData(data);
+            cl.setRua(request.getParameter("rua"));
+            cl.setNumero(Integer.valueOf(request.getParameter("numero")));
+            cl.setCep(Integer.valueOf(request.getParameter("cep")));
+            cl.setCidade(new Cidade(Integer.valueOf(request.getParameter("cidade")), request.getParameter("uf")));
+            clienteService.inserir(cl);
+            
+             cbean.setListaClientes(clienteService.listar());
+
+            RequestDispatcher rd = request.
+                    getRequestDispatcher("/clientesListar.jsp");
+            request.setAttribute("clienteBean", cbean);
+            request.setAttribute("action", "listar");
+
+            rd.forward(request, response);
+            
+            }
+            
+            
             LocalDate data = null;
             Cliente cl = new Cliente();
             try {
@@ -132,7 +170,7 @@ public class ClienteServlet extends HttpServlet {
             cl.setRua(request.getParameter("rua"));
             cl.setNumero(Integer.valueOf(request.getParameter("numero")));
             cl.setCep(Integer.valueOf(request.getParameter("cep")));
-            cl.setCidade(new Cidade(request.getParameter("cidade"), request.getParameter("uf")));
+            cl.setCidade(new Cidade(Integer.valueOf(request.getParameter("cidade")), request.getParameter("uf")));
             clienteService.alterar(cl);
 
             cbean.setListaClientes(clienteService.listar());
@@ -146,7 +184,7 @@ public class ClienteServlet extends HttpServlet {
         }
         if ("formNew".equals(acao)) {
             RequestDispatcher rd = request.
-                    getRequestDispatcher("/clientesNovo.jsp");
+                    getRequestDispatcher("/clientesAlterar.jsp");
             rd.forward(request, response);
         }
         if ("new".equals(acao)) {
@@ -170,7 +208,7 @@ public class ClienteServlet extends HttpServlet {
                 cl.setRua(request.getParameter("rua"));
                 cl.setNumero(Integer.valueOf(request.getParameter("numero")));
                 cl.setCep(Integer.valueOf(request.getParameter("cep")));
-                cl.setCidade(new Cidade(request.getParameter("cidade"), request.getParameter("uf")));
+                cl.setCidade(new Cidade(Integer.valueOf(request.getParameter("cidade")), request.getParameter("uf")));
                 clienteService.inserir(cl);
                 
 
