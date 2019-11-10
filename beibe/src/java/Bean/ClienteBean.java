@@ -7,7 +7,7 @@ package Bean;
 
 
 import Model.Cliente;
-
+import Model.Produto;
 import java.util.List;
 
 
@@ -19,7 +19,7 @@ public class ClienteBean  {
 
     List<Cliente> listaClientes = null;
     private String idCliente = "1";
-
+    
    
     public ClienteBean() {
     }
@@ -40,6 +40,8 @@ public class ClienteBean  {
         this.idCliente = idCliente;
     }
 
+
+    
 
     
 }

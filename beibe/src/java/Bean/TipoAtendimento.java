@@ -5,15 +5,16 @@
  */
 package Bean;
 
-import Model.Atendimento;
 import java.util.List;
 
 /**
  *
  * @author Bruno Fernandes
  */
-public class AtendimentoBean {
-    String descricaoAtendimento;
-    Atendimento atendimento;
-    List<Atendimento> atendimentosLista;    
+public class TipoAtendimento {
+    String nomeTipo;
+    int idTipo;
+    List<TipoAtendimento> listaTipos;
+    
+    
 }

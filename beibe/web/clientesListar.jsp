@@ -7,13 +7,13 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 
-    
-    <% if (session.getAttribute("login") == null) {%>
-        <jsp:forward page="index.jsp">
-            <jsp:param name="msg" value="Usuário deve se autenticar para acessar o sistema"/>
-        </jsp:forward>
-    <% }%> 
-    <%@page errorPage="erro.jsp"%>
+
+<% if (session.getAttribute("login") == null) {%>
+<jsp:forward page="index.jsp">
+    <jsp:param name="msg" value="Usuário deve se autenticar para acessar o sistema"/>
+</jsp:forward>
+<% }%> 
+<%@page errorPage="erro.jsp"%>
 
 
 <html>
@@ -30,8 +30,8 @@
     <body>
         <jsp:useBean id="clienteBean" class="Bean.ClienteBean" scope="request" />
         <jsp:setProperty name="clienteBean" property="*" />
-        
-        
+
+
         <nav  class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -95,10 +95,10 @@
                                 </td>
                             </tr>
                         </c:forEach>
-
-
                     </tbody>
                 </table>
+
+                
             </div>
         </div>
         <footer id="sticky-footer" class="py-4 bg-info text-white-50">

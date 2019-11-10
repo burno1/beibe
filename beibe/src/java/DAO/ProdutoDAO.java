@@ -8,41 +8,38 @@ package DAO;
 import Factories.ConnectionFactory;
 import Model.Cidade;
 import Model.Cliente;
-import Model.Estado;
-import Utils.DateConverter;
-//import static com.sun.xml.bind.util.CalendarConv.formatter;
+import Model.Produto;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
-
 import java.util.List;
+
 
 /**
  *
- * @author Bruno F
+ * @author Bruno Fernandes
  */
-public class EstadoDAO {
-
-    public List<Estado> listarTodosEstados() {
-        List<Estado> estados = new ArrayList<Estado>();
+public class ProdutoDAO {
+    
+    public List<Produto> buscarTodos(){
+        List<Produto> retorno = new ArrayList<Produto>();
+        
         Connection con = null;
         PreparedStatement st = null;
         ResultSet rs = null;
         try {
             con = ConnectionFactory.getConnection();
-            st = con.prepareStatement("select e.nome_estado, e.uf_estado from tb_estado e;");
+            st = con.prepareStatement("SELECT id_produto, nome_produto FROM beibe.tb_produto");
             rs = st.executeQuery();
             while (rs.next()) {
-                Estado e1 = new Estado(rs.getString("nome_estado"), rs.getString("uf_estado"));
-                estados.add(e1);
+                Produto produto = new Produto();
+                produto.setIdProduto(Integer.valueOf(rs.getString("id_produto")));
+                
+                produto.setNomeProduto((rs.getString("nome_produto")));
+                retorno.add(produto);
             }
-            return estados;
+            return retorno;
         } catch (Exception e) {
             throw new RuntimeException(e);
         } finally {
@@ -65,7 +62,6 @@ public class EstadoDAO {
                 }
             }
         }
-
     }
- 
+    
 }

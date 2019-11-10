@@ -10,6 +10,8 @@ import Bean.ClienteBean;
 import Bean.EstadosBean;
 import Bean.PortalBean;
 import DAO.CidadeDAO;
+import Facade.AtendimentoService;
+import Facade.CidadeService;
 
 import Facade.ClienteService;
 import Model.Cidade;
@@ -58,11 +60,13 @@ public class ClienteServlet extends HttpServlet {
 
         ClienteBean cbean = new ClienteBean();
         ClienteService clienteService = new ClienteService();
+        AtendimentoService atendimentoService = new AtendimentoService();
 
         String acao = request.getParameter("action");
 
         if (null == acao || "listar".equals(acao)) {
             cbean.setListaClientes(clienteService.listar());
+            
 
             RequestDispatcher rd = request.
                     getRequestDispatcher("/clientesListar.jsp");
@@ -82,6 +86,7 @@ public class ClienteServlet extends HttpServlet {
         }
         if ("formUpdate".equals(acao)) {
             try {
+                CidadeService cidadeService = new CidadeService();
                 String id = request.getParameter("id");
                 Cliente cl = clienteService.buscar(id);
                 RequestDispatcher rd = request.
@@ -89,7 +94,7 @@ public class ClienteServlet extends HttpServlet {
                 request.setAttribute("cliente", cl);
                 CidadesBean cidadeBean = new CidadesBean();
                 CidadeDAO cidadeDao = new CidadeDAO();
-                cidadeBean.setCidades(cidadeDao.buscarTodosPorEstado(cl.getCidade().getEstado()));
+                cidadeBean.setCidades(cidadeService.buscarPorEstado(cl.getCidade().getEstado()));
                 request.setAttribute("cidadesBean", cidadeBean);
                 rd.forward(request, response);
             } catch (Exception e) {

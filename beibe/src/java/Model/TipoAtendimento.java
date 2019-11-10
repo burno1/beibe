@@ -3,17 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Bean;
-
-import Model.Atendimento;
-import java.util.List;
+package Model;
 
 /**
  *
  * @author Bruno Fernandes
  */
-public class AtendimentoBean {
-    String descricaoAtendimento;
-    Atendimento atendimento;
-    List<Atendimento> atendimentosLista;    
+public class TipoAtendimento {
+    private String nomeTipo;
+    private int idTipo;
+    
 }

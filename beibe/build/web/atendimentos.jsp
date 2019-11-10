@@ -90,44 +90,12 @@
                             <td>10/09/2019 12:11</td>
                             <td>Aberto</td>
                             <td>Não sei os tipos</td>
-                            <td><form action="DetalhesAtendimentoServlet">
+                            <td><form action="AtendimentoServlet">
                                     <input name="idCliente" hidden="true" value="1">
                                     <button class="btn btn-primary" type="submit">Detalhes</button>
                                 </form></td>
                         </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>25/09/2019 12:51</td>
-                            <td>Aberto</td>
-                            <td>Não sei os tipos</td>
-                            <td><form action="DetalhesAtendimentoServlet">
-                                    <input name="idCliente" hidden="true" value="1">
-                                    <button class="btn btn-primary" type="submit">Detalhes</button>
-                                </form></td>
 
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>31/09/2019 12:51</td>
-                            <td>Aberto</td>
-                            <td>Não sei os tipos</td>
-                            <td><form action="DetalhesAtendimentoServlet">
-                                    <input name="idCliente" hidden="true" value="1">
-                                    <button class="btn btn-primary" type="submit">Detalhes</button>
-                                </form></td>
-
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>01/12/2019 13:34</td>
-                            <td>Aberto</td>
-                            <td>Não sei os tipos</td>
-                            <td><form action="DetalhesAtendimentoServlet">
-                                    <input name="idCliente" hidden="true" value="1">
-                                    <button class="btn btn-primary" type="submit">Detalhes</button>
-                                </form></td>
-
-                        </tr>
                     </tbody>
                 </table>
 
@@ -157,44 +125,12 @@
                             <td>14/09/2019 12:11</td>
                             <td>Aberto</td>
                             <td>Não sei os tipos</td>
-                            <td><form action="DetalhesAtendimentoServlet">
+                            <td><form action="AtendimentoServlet">
                                     <input name="idCliente" hidden="true" value="1">
                                     <button class="btn btn-primary" type="submit">Detalhes</button>
                                 </form></td>
                         </tr>
-                        <tr class="atencao">
-                            <td>2</td>
-                            <td>20/09/2019 12:51</td>
-                            <td>Aberto</td>
-                            <td>Não sei os tipos</td>
-                            <td><form action="DetalhesAtendimentoServlet">
-                                    <input name="idCliente" hidden="true" value="1">
-                                    <button class="btn btn-primary" type="submit">Detalhes</button>
-                                </form></td>
-
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>31/09/2019 12:51</td>
-                            <td>Aberto</td>
-                            <td>Não sei os tipos</td>
-                            <td><form action="DetalhesAtendimentoServlet">
-                                    <input name="idCliente" hidden="true" value="1">
-                                    <button class="btn btn-primary" type="submit">Detalhes</button>
-                                </form></td>
-
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>01/12/2019 13:34</td>
-                            <td>Aberto</td>
-                            <td>Não sei os tipos</td>
-                            <td><form action="DetalhesAtendimentoServlet">
-                                    <input name="idCliente" hidden="true" value="1">
-                                    <button class="btn btn-primary" type="submit">Detalhes</button>
-                                </form></td>
-
-                        </tr>
+                        
                     </tbody>
                 </table>
             </div>

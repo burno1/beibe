@@ -7,7 +7,7 @@ package Servlet;
 
 import Bean.LoginBean;
 import Bean.PortalBean;
-import Facade.UsuarioService;
+import Facade.LoginService;
 
 import Model.Usuario;
 import Utils.MD5;
@@ -41,7 +41,7 @@ public class LoginServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        UsuarioService usuarioService  = new UsuarioService();
+        LoginService loginService  = new LoginService();
         String email = "";
         String senha = "";
 
@@ -49,7 +49,7 @@ public class LoginServlet extends HttpServlet {
         senha = request.getParameter("senha");
 
         
-        Usuario usuarioLogado = usuarioService.buscar(email);
+        Usuario usuarioLogado = loginService.buscar(email);
 
         HttpSession s = request.getSession();
         LoginBean loginBean = new LoginBean();

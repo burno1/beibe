@@ -43,10 +43,12 @@
             }
             #box{
             }
-            
+
         </style>
     </head>
     <body>
+        <jsp:useBean id="produtoBean" class="Bean.ProdutoBean" scope="request" />
+        <jsp:setProperty name="produtoBean" property="*" />
         <!-- Cabeçalho -->
         <nav  class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
@@ -61,7 +63,7 @@
                         <li class="nav-item"><a class="nav-link" href='ClienteServlet'>Cadastro Clientes</a></li>
                         <li class="nav-item"><a class="nav-link" href="funcionarioListar.jsp">Cadastro Funcionarios</a></li>
                         <li class="nav-item"><a class="nav-link" href="relatorios.jsp">Relatórios</a></li>
-                        
+
                     </ul>
                     <ul class="nav navbar-nav ml-auto">
                         <li nav-item><a href='Invalidar'>User ${login.user} Logout</a></li>
@@ -95,27 +97,22 @@
                                 <th scope="col">Remover</th> 
                             </tr>
                         </thead>
+
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Shampoo</td>
-                                <td>
+                            <c:forEach items="${produtoBean.listaProdutos}" var="p">
+                                <tr>
+                                    
+                                    <td><c:out value="${p.idProduto}"/></td>
+                                    <td><c:out value="${p.nomeProduto}" /></td>
+                                    <td>
+                                        <button class="btn btn-primary" data-toggle="modal" data-target="#modalExemplo" >Detalhes</button>
+                                    </td>
+                                    <td><button class="btn btn-danger">Remover</button></td>
 
-                                    <button class="btn btn-primary" data-toggle="modal" data-target="#target" >Detalhes</button>
-                                </td>
-                                 <td><button class="btn btn-danger">Remover</button> </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Batom</td>
-                                <td>
-
-                                    <button class="btn btn-primary" data-toggle="modal" data-target="#modalExemplo" >Detalhes</button>
-                                </td>
-                                <td><button class="btn btn-danger">Remover</button></td>
-                            </tr>
+                                </c:forEach>
                         </tbody>
                     </table>
+
                 </div>
             </div>
 
@@ -132,14 +129,14 @@
                             <form>
                                 <div class="form-group row">
                                     <div class="col-sm-4">
-                                      Nome
+                                        Nome
                                     </div>
                                     <div class="col-sm-6">
                                         <input class="form-control" value="Produto A" name="data" disabled="true">
                                     </div>
                                 </div>
 
-                               
+
                                 <div class="form-group row">
                                     <div class="col-sm-4">
                                         Categoria
@@ -163,9 +160,9 @@
                                     </div>
                                 </div>
 
-                                 <div class="form-group row">
+                                <div class="form-group row">
                                     <div class="col-sm-4">
-                                      Peso (g)
+                                        Peso (g)
                                     </div>
                                     <div class="col-sm-6">
                                         <input type="text" class="form-control" value="100" name="data" disabled="true">
@@ -199,11 +196,11 @@
         }
         $("#box").slideToggle();
     });
-    
-    $("#buttonModal").click (function(){
+
+    $("#buttonModal").click(function () {
         $("#target :input").prop("disabled", false);
-        
-        $("#buttonModal").prop("disabled",false);
+
+        $("#buttonModal").prop("disabled", false);
 
     })
 </script>

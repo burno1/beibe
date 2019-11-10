@@ -5,7 +5,8 @@
  */
 package Servlet;
 
-import Bean.AtendimentoBean;
+import Bean.ProdutoBean;
+import Facade.AtendimentoService;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -19,8 +20,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Bruno Fernandes
  */
-@WebServlet(name = "DetalhesAtendimentoServlet", urlPatterns = {"/DetalhesAtendimentoServlet"})
-public class DetalhesAtendimentoServlet extends HttpServlet {
+@WebServlet(name = "ProdutoServlet", urlPatterns = {"/ProdutoServlet"})
+public class ProdutoServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,14 +34,20 @@ public class DetalhesAtendimentoServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+         String acao = request.getParameter("action");
+         ProdutoBean pBean = new ProdutoBean();
+         AtendimentoService atendimentoService = new AtendimentoService();
         
-        AtendimentoBean atendimentoBean = new AtendimentoBean();
-        atendimentoBean.setDescricaoAtendimento("aaaaaa");
-        
-        RequestDispatcher rd = request.
-                getRequestDispatcher("./detalhesAtendimento.jsp");
-        request.setAttribute("atendimentoBean",  atendimentoBean);
-        rd.forward(request, response);
+         if (null == acao || "listar".equals(acao)) {
+            pBean.setListaProdutos(atendimentoService.buscarProdutos());
+            
+
+            RequestDispatcher rd = request.
+                    getRequestDispatcher("/produtos.jsp");
+            request.setAttribute("produtoBean", pBean);
+
+            rd.forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -7,7 +7,7 @@ package Servlet;
 
 import Bean.PortalBean;
 
-import Facade.UsuarioService;
+import Facade.LoginService;
 import Model.Usuario;
 import Utils.MD5;
 import java.io.IOException;
@@ -41,7 +41,7 @@ public class CadastrarFuncionarioServlet extends HttpServlet {
         String nome = "";
         String email = "";
         String senha = "";
-        UsuarioService usuarioService = new UsuarioService();
+        LoginService loginService = new LoginService();
         nome = (String) request.getParameter("nome");
         email = (String) request.getParameter("email");
         senha = MD5.MD5Transformed((String) request.getParameter("senha"));
@@ -54,7 +54,7 @@ public class CadastrarFuncionarioServlet extends HttpServlet {
         usuario.setNome(nome);
         usuario.setSenha(senha);
 
-        usuarioSalvo = usuarioService.inserir(usuario);
+        usuarioSalvo = loginService.inserir(usuario);
         
         RequestDispatcher rd = request.
                 getRequestDispatcher("./portal.jsp");

@@ -6,6 +6,8 @@
 package Servlet;
 
 import DAO.CidadeDAO;
+import Facade.CidadeService;
+import Facade.EstadoService;
 import Model.Cidade;
 import Model.Estado;
 import com.google.gson.Gson;
@@ -38,9 +40,11 @@ public class ajaxCidadesServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String estado = request.getParameter("uf");
+        EstadoService estadoService = new EstadoService();
+        CidadeService cidadeService = new CidadeService();
 // Vai no BD buscar todas as cidades deste estado, em uma lista
         List<Cidade> lista = new ArrayList<Cidade>();
-        lista = (new CidadeDAO()).buscarTodosPorEstado(new Estado("", estado));
+        lista = (cidadeService.buscarPorEstado(new Estado("", estado)));
 // transforma o MAP em JSON
         String json = new Gson().toJson(lista);
 // retorna o JSON

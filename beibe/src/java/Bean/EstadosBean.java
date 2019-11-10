@@ -6,6 +6,7 @@
 package Bean;
 
 import DAO.EstadoDAO;
+import Facade.EstadoService;
 import Model.Estado;
 import java.util.List;
 
@@ -15,9 +16,9 @@ import java.util.List;
  */
 public class EstadosBean {
     List<Estado> estados = null;
-
+    EstadoService estadoService = new EstadoService();
     public List<Estado> getEstados() {
-        setEstados((new EstadoDAO()).listarTodosEstados());
+        setEstados((estadoService.listarTodos()));
         return estados;
     }
 

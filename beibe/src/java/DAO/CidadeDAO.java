@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class CidadeDAO {
 
-    public Cidade buscarCidadeId(int idCidade) {
+    public Cidade buscarCidadePorId(int idCidade) {
         Connection con = null;
         PreparedStatement st = null;
         ResultSet rs = null;
@@ -61,45 +61,7 @@ public class CidadeDAO {
         }
     }
     
-    public int buscarIdCidade(Cidade cidade) {
-        Connection con = null;
-        PreparedStatement st = null;
-        ResultSet rs = null;
-        int id = 0;
-
-        try {
-            con = ConnectionFactory.getConnection();
-            st = con.prepareStatement("select distinct c.id_cidade from tb_cidade c, tb_estado e where c.nome_cidade = ? and c.estado_cidade = (select id_estado from tb_estado where uf_estado = ?);");
-            st.setString(1, cidade.getNome());
-            st.setString(2, cidade.getEstado().getUf());
-            rs = st.executeQuery();
-            if (rs.next()) {
-                id = rs.getInt("id_cidade");
-            }
-            return id;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (Exception e) {
-                }
-            }
-            if (st != null) {
-                try {
-                    st.close();
-                } catch (Exception e) {
-                }
-            }
-            if (con != null) {
-                try {
-                    con.close();
-                } catch (Exception e) {
-                }
-            }
-        }
-    }
+   
 
     public List<Cidade> buscarTodosPorEstado(Estado estado) {
         List<Cidade> cidades = new ArrayList<Cidade>();

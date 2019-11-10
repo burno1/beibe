@@ -9,7 +9,7 @@ import Bean.ClienteBean;
 import Bean.PortalBean;
 import Bean.UsuarioBean;
 import Facade.ClienteService;
-import Facade.UsuarioService;
+import Facade.LoginService;
 
 import Model.Usuario;
 import Utils.MD5;
@@ -49,7 +49,7 @@ public class CadastrarUsuarioServlet extends HttpServlet {
         rd.forward(request, response);
         } else {
         
-        UsuarioService clienteService = new UsuarioService();
+        LoginService clienteService = new LoginService();
             
         String nome = "";
         String email = "";

@@ -7,11 +7,11 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <% if (session.getAttribute("login") == null) {%>
-        <jsp:forward page="/index.jsp">
-            <jsp:param name="msg" value="Usuário deve se autenticar para acessar o sistema"/>
-        </jsp:forward>
-    <% }%>  
-    <%@page errorPage="erro.jsp"%>
+<jsp:forward page="/index.jsp">
+    <jsp:param name="msg" value="Usuário deve se autenticar para acessar o sistema"/>
+</jsp:forward>
+<% }%>  
+<%@page errorPage="erro.jsp"%>
 
 
 <html>
@@ -34,15 +34,16 @@
                 <!-- Cabeçalho -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                       
-                       
+
+
                         <li class="nav-item active"><a class="nav-link" href="portalGerente.jsp">Portal (Gerente) <span class="sr-only">(current)</span></a></li>
-                       
+                        <li class="nav-item"><a class="nav-link" href="atendimentos.jsp">Atendimentos</a></li>
                         <li class="nav-item"><a class="nav-link" href='ClienteServlet'>Cadastro Clientes</a></li>
+                        <li class="nav-item"><a class="nav-link" href='ProdutoServlet'>Produtos</a></li>
                         <li class="nav-item"><a class="nav-link" href="funcionarioListar.jsp">Cadastro Funcionarios</a></li>
                         <li class="nav-item"><a class="nav-link" href="admin.jsp">Usuario</a></li>
                         <li class="nav-item"><a class="nav-link" href="testeErro.jsp">Teste Exception</a></li>
-                        
+                        <li class="nav-item"><a class="nav-link" href="relatorios.jsp">Relatórios</a></li>
                     </ul>
                     <ul class="nav navbar-nav ml-auto">
                         <li nav-item><a href='Invalidar'>User ${login.user} Logout</a></li>

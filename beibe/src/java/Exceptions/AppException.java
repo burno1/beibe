@@ -3,17 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Bean;
-
-import Model.Atendimento;
-import java.util.List;
+package Exceptions;
 
 /**
  *
  * @author Bruno Fernandes
  */
-public class AtendimentoBean {
-    String descricaoAtendimento;
-    Atendimento atendimento;
-    List<Atendimento> atendimentosLista;    
+public class AppException {
+    
 }

@@ -6,7 +6,7 @@
 package Servlet;
 
 import Bean.PortalBean;
-import Facade.UsuarioService;
+import Facade.LoginService;
 
 import Model.Usuario;
 import java.io.IOException;
@@ -44,8 +44,8 @@ public class PortalServlet extends HttpServlet {
         HttpSession s = request.getSession();
         ArrayList<Usuario> usuarios = ((ArrayList<Usuario>) s.getAttribute("listaUsuarios"));
         List<Usuario> listaUsuarios = new ArrayList<Usuario>();
-        UsuarioService usuarioService = new UsuarioService();
-        listaUsuarios = usuarioService.listar();
+        LoginService loginService = new LoginService();
+        listaUsuarios = loginService.listar();
         String nome = "";
         String email = "";
         String senha = "";

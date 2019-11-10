@@ -5,6 +5,7 @@
  */
 package DAO;
 
+import Facade.CidadeService;
 import Factories.ConnectionFactory;
 import Model.Cidade;
 import Model.Cliente;
@@ -27,6 +28,7 @@ import java.util.List;
  */
 public class ClienteDAO {
 
+    CidadeService cidadeService = new CidadeService();
     public Cliente buscarCliente(String id) {
         Connection con = null;
         PreparedStatement st = null;
@@ -48,7 +50,7 @@ public class ClienteDAO {
                 cl.setRua(rs.getString("rua_cliente"));
                 cl.setNumero(Integer.valueOf(rs.getString("nr_cliente")));
                 cl.setCep(Integer.valueOf(rs.getString("cep_cliente")));
-                Cidade cidade = new CidadeDAO().buscarCidadeId(rs.getInt("id_cidade_cliente"));
+                Cidade cidade = cidadeService.buscarPorId(rs.getInt("id_cidade_cliente"));
                 cl.setCidade(cidade);
             }
             return cl;
@@ -131,7 +133,7 @@ public class ClienteDAO {
                 cl.setRua(rs.getString("rua_cliente"));
                 cl.setNumero(Integer.valueOf(rs.getString("nr_cliente")));
                 cl.setCep(Integer.valueOf(rs.getString("cep_cliente")));
-                Cidade cidade = new CidadeDAO().buscarCidadeId(rs.getInt("id_cidade_cliente"));
+                Cidade cidade = cidadeService.buscarPorId(rs.getInt("id_cidade_cliente"));
                 cl.setCidade(cidade);
                 clientes.add(cl);
             }

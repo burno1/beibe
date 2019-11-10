@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author Bruno Fernandes
  */
-public class UsuarioService {
+public class LoginService {
     UsuarioDAO usuarioDAO = new UsuarioDAO();
     
     
