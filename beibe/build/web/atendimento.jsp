@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <% if (session.getAttribute("login") == null) {
         RequestDispatcher rd = request.
                 getRequestDispatcher("/ErroServlet");
@@ -26,7 +27,9 @@
         </title>
     </head>
     <body>
-         
+        <jsp:useBean id="atendimentoBean" class="Bean.AtendimentoBean" scope="request" />
+        <jsp:setProperty name="atendimentoBean" property="*" />
+        
          <nav  class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -95,21 +98,28 @@
                     </div>
                 </div>
 
-                <div class="form-group row">
-                    <div class="col-sm-2">
-                        Produto:
-                    </div>
-                    <div class="col-sm-4">
-                        <input class="form-control" value="" name="produto">
+                 <div class="form-group row">
+                    <label class="col-sm-2 col-form-label" for="produto">Produtos</label>
+                    <div class="col-sm-6">
+                        <select class="custom-select custom-select-md" name="produto" id="produto">
+                            <option selected value="${atendimetoBean.produto.idProduto}">${atendimetoBean.produto.nomeProduto}</option>
+                            <c:forEach items="${atendimentoBean.produtos}" var="p">     
+                                
+                                <option value="${p.idProduto}">${p.nomeProduto}</option>
+                            </c:forEach>
+                        </select>   
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <div class="col-sm-2">
-                        Tipo do Atendimento
-                    </div>
-                    <div class="col-sm-4">
-                        <input class="form-control" value="" name="tipoAtendimento">
+                    <label class="col-sm-2 col-form-label" for="tipoAtendimento">Tipo de Atendimento</label>
+                    <div class="col-sm-6">
+                        <select class="custom-select custom-select-md" name="tipoAtendimento" id="tipoAtendimento">
+                            <option selected value="${atendimetoBean.tipoAtendimento.idTipo}">${atendimetoBean.tipoAtendimento.nomeTipo}</option>
+                            <c:forEach items="${atendimentoBean.tiposAtendimento}" var="t">     
+                                <option value="${t.idTipo}">${t.nomeTipo}</option>
+                            </c:forEach>
+                        </select>   
                     </div>
                 </div>
 

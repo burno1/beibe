@@ -27,6 +27,7 @@
     <body>
         <jsp:useBean id="p" class="Bean.ClienteBean" />
         <jsp:setProperty name="p" property="*" />
+        
         <jsp:useBean id="estadosBean" class="Bean.EstadosBean" scope="request" />
         <jsp:setProperty name="estadosBean" property="*" />
 
@@ -168,7 +169,7 @@
                     $("#salvar").hide();
                     $("#cancelar").hide();
                     $("#voltar").show();
-                    
+                    console.log('ihu');
                 }
 
                 $("#uf").change(function () {

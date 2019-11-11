@@ -46,6 +46,8 @@
         </style>
     </head>
     <body>
+        <jsp:useBean id="atendimentoBean" class="Bean.AtendimentoBean" scope="request" />
+        <jsp:setProperty name="atendimentoBean" property="*" />
         <nav  class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -60,7 +62,7 @@
                         <li class="nav-item"><a class="nav-link" href='ClienteServlet'>Cadastro Clientes</a></li>
                         <li class="nav-item"><a class="nav-link" href="funcionarioListar.jsp">Cadastro Funcionarios</a></li>
                         <li class="nav-item"><a class="nav-link" href="relatorios.jsp">Relatórios</a></li>
-                        
+
                     </ul>
                     <ul class="nav navbar-nav ml-auto">
                         <li nav-item><a href='Invalidar'>User ${login.user} Logout</a></li>
@@ -69,10 +71,14 @@
             </div> 
         </nav>
 
+        <div class="row">
+            <div class="col-sm-12"><a href="AtendimentoServlet?action=formNew">  <button class="btn btn-primary"> Novo </button></a>
+            </div>
+        </div>
         <br/>
         <div class="container">
             <div class="row">
-                
+
                 <h3> Atendimentos Abertos:</h3>
                 <table class="table">
                     <thead class="thead-light">
@@ -130,7 +136,7 @@
                                     <button class="btn btn-primary" type="submit">Detalhes</button>
                                 </form></td>
                         </tr>
-                        
+
                     </tbody>
                 </table>
             </div>
