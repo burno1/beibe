@@ -6,9 +6,12 @@
 package Servlet;
 
 import Bean.AtendimentoBean;
+import Bean.CidadesBean;
 import Bean.ClienteBean;
 import Bean.ProdutoBean;
+import DAO.CidadeDAO;
 import Facade.AtendimentoService;
+import Facade.CidadeService;
 import Facade.ClienteService;
 import Model.Atendimento;
 import Model.Cidade;
@@ -69,7 +72,7 @@ public class AtendimentoServlet extends HttpServlet {
 
         if (null == acao || "listar".equals(acao)) {
 
-            //atendimentoBean.setAtendimentosLista(atendimentoService.listar());
+            atendimentoBean.setAtendimentosLista(atendimentoService.listar());
             RequestDispatcher rd = request.
                     getRequestDispatcher("/atendimentoListar.jsp");
             request.setAttribute("atendimentoBean", atendimentoBean);
@@ -79,10 +82,10 @@ public class AtendimentoServlet extends HttpServlet {
         if ("show".equals(acao)) {
             String id = request.getParameter("id");
             Atendimento atendimento = atendimentoService.buscar(id);
-
             RequestDispatcher rd = request.
                     getRequestDispatcher("./atendimento.jsp");
             request.setAttribute("atendimento", atendimento);
+            request.setAttribute("mostra", 1);
 
             // Implementar para checar a data do atendimento e enviar um dado
             // que será utilizado no jquery para colocar bootstrap na label
@@ -117,6 +120,31 @@ public class AtendimentoServlet extends HttpServlet {
 
         // Formulario para alteração de novo atendimento só que vazio sem id
         if ("formUpdate".equals(acao)) {
+            try {
+
+                String id = request.getParameter("id");
+                Atendimento atendimento = atendimentoService.buscar(id);
+                List<Cliente> listaClientes = new ArrayList<Cliente>();
+
+                listaClientes = ClienteService.listar();
+                atendimentoBean.setProdutos(atendimentoService.buscarProdutos());
+                atendimentoBean.setTiposAtendimento(atendimentoService.buscarTipos());
+                atendimentoBean.setClientes(listaClientes);
+
+                RequestDispatcher rd = request.
+                        getRequestDispatcher("./atendimento.jsp");
+                request.setAttribute("atendimento", atendimento);
+                request.setAttribute("atendimentoBean", atendimentoBean);
+
+                rd.forward(request, response);
+
+            } catch (Exception e) {
+                request.setAttribute("exception", e);
+
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/erro.jsp");
+                rd.forward(request, response);
+
+            }
         }
         // Enviado através do alterar por id
         if ("update".equals(acao)) {
@@ -160,8 +188,9 @@ public class AtendimentoServlet extends HttpServlet {
                 atendimento.setUsuario(usuario);
                 String idAtend = request.getParameter("idAtend");
 
-                if (idAtend != null) {
-
+                if (idAtend != null || !"".equals(idAtend)) {
+                    atendimento.setId(idAtend);
+                    atendimentoService.atualizar(atendimento);
                     AtendimentoBean ab = new AtendimentoBean();
                     ab.setAtendimentosLista(atendimentoService.listar());
                     RequestDispatcher rd = request.
@@ -170,9 +199,9 @@ public class AtendimentoServlet extends HttpServlet {
                     rd.forward(request, response);
 
                 } else {
-                       
+
                     atendimentoService.inserir(atendimento);
-                    
+
                     AtendimentoBean ab = new AtendimentoBean();
                     ab.setAtendimentosLista(atendimentoService.listar());
                     RequestDispatcher rd = request.
@@ -191,6 +220,15 @@ public class AtendimentoServlet extends HttpServlet {
         }
         // remove por id
         if ("remove".equals(acao)) {
+
+            String id = request.getParameter("id");
+            atendimentoService.remover(id);
+            atendimentoBean.setAtendimentosLista(atendimentoService.listar());
+
+            RequestDispatcher rd = request.
+                    getRequestDispatcher("/atendimentoListar.jsp");
+            request.setAttribute("atendimentoBean", atendimentoBean);
+            rd.forward(request, response);
         }
 
     }

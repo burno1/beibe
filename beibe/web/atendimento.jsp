@@ -5,25 +5,30 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
-<% if (session.getAttribute("login") == null) {
-        RequestDispatcher rd = request.
-                getRequestDispatcher("/ErroServlet");
-        request.setAttribute("msg", "Não vem de hack!");
-        request.setAttribute("page", "index.jsp");
-        rd.forward(request, response);
-    }%>
+
+
+<c:if test="${empty login}">
+    <jsp:forward page="index.jsp">
+        <jsp:param name="msg" value="Usuário deve se autenticar para acessar o sistema"/>
+    </jsp:forward>
+</c:if>
+<%@page errorPage="erro.jsp"%>
+
+
+<!DOCTYPE html>
+
 
 
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
         <link href="./css/login.css" rel="stylesheet" />
         <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
         <script src="./bootstrap/js/jquery.min.js"></script>
         <script src="./bootstrap/js/bootstrap.min.js"></script>
         <title>BEIBE - Beauty Embuste Indústria de Beleza e Estética
+
         </title>
     </head>
     <body>
@@ -53,11 +58,6 @@
 
         <div class="container">
 
-            <div class="form-group row">
-                <div class="col-sm-2">
-                    <button class="btn btn-success btn-block " type="button" name="back" onclick="history.back()">Voltar</button>
-                </div>
-            </div>   
 
             <h3>Detalhes do Atendimento</h3>
             <form id="form" action="AtendimentoServlet?action=update" method="post">
@@ -66,7 +66,7 @@
                         Id Atendimento
                     </div>
                     <div class="col-sm-3">
-                        <input class="form-control" type="text" value="${atendimento.id}" name="idAtend" id="idAtend" disabled>
+                        <input class="form-control" type="text" value="${atendimento.id}" name="idAtend" id="idAtend" readonly="readonly">
                     </div>
                 </div>
 
@@ -141,21 +141,44 @@
                         Descrição Atendimento
                     </div>
                     <div class="col-sm-6">
-                        <textarea class="form-control" value="${atendimento.descricao}" name="descricao"></textarea>
+                        <textarea class="form-control"  name="descricao">${atendimento.descricao}</textarea>
                     </div>
                 </div>
 
 
-                <div class="form-group row">
+                <div id="salvar" class="form-group row">
                     <div class="col-sm-4">
                         <button  type="submit" class="btn btn-success btn-block">Salvar</button>
                     </div>
-                    <div class="col-sm-4">
-                        <button class="btn btn-danger btn-block" disabled="true"> Finalizar (So p/ Funcionario)</button>
+
+                </div>
+
+                <div id="voltar" class="row">
+                    <div class="col-sm-2">
+                        <a href="AtendimentoServlet"><button type="button" class="btn btn-secondary btn-block">Voltar</button></a>
                     </div>
                 </div>
             </form>
         </div>
 
+        <script>
+            var mostra = '${mostra}';
+
+            console.log(mostra);
+            $(document).ready(function () {
+
+                $("#voltar").hide();
+                if (mostra) {
+                    $('#form input').prop("disabled", true);
+                    $('#form select').prop("disabled", true);
+                    $('#form textarea').prop("disabled", true);
+                    $("#salvar").hide();
+                    $("#cancelar").hide();
+                    $("#voltar").show();
+                    console.log('ihu');
+                }
+
+            });
+        </script>
     </body>
 </html>

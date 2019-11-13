@@ -41,6 +41,8 @@ public class AtendimentoService {
     
     public List<Atendimento> listar(){
         List<Atendimento> retorno = new ArrayList<Atendimento>();
+        retorno = atendimentoDAO.listar();
+        
         return retorno;
     }
     
@@ -53,7 +55,9 @@ public class AtendimentoService {
     }
 
     public Atendimento buscar(String id) {
-        Atendimento retorno = new Atendimento();
+        Atendimento retorno;
+        
+        retorno = atendimentoDAO.buscarAtendimento(id);
         
         return retorno;
     }
@@ -71,6 +75,10 @@ public class AtendimentoService {
            tipoAtendimento = tipoAtendimentoDAO.buscar(id);
            
            return tipoAtendimento;
+       }
+       
+       public void remover(String id){
+           atendimentoDAO.removerAtendimento(id);
        }
        
      

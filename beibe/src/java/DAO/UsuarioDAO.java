@@ -99,6 +99,49 @@ public class UsuarioDAO {
             }
         }
     }
+    
+    public Usuario buscarID(String id) {
+        Connection con = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        Usuario u = new Usuario();
+
+        try {
+            con = ConnectionFactory.getConnection();
+            st = con.prepareStatement("SELECT id_usuario,nome_usuario,senha_usuario,login_usuario FROM tb_usuario where id_usuario = ?");
+            st.setString(1, id);
+            rs = st.executeQuery();
+
+            while (rs.next()) {
+                u.setId(rs.getString("id_usuario"));
+                u.setNome(rs.getString("nome_usuario"));
+                u.setSenha(rs.getString("senha_usuario"));
+                u.setEmail(rs.getString("login_usuario"));
+            }
+            return u;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (Exception e) {
+                }
+            }
+            if (st != null) {
+                try {
+                    st.close();
+                } catch (Exception e) {
+                }
+            }
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (Exception e) {
+                }
+            }
+        }
+    }
 
     public List<Usuario> buscarTodos() {
         List<Usuario> resultados = new ArrayList<Usuario>();
