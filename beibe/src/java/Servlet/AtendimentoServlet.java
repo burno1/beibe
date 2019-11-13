@@ -52,6 +52,7 @@ public class AtendimentoServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         HttpSession s = request.getSession();
 
         if (s.getAttribute("login") == null) {
@@ -172,7 +173,7 @@ public class AtendimentoServlet extends HttpServlet {
                 produto = atendimentoService.buscarProduto(request.getParameter("produto"));
 
                 atendimento.setCliente(cliente);
-                atendimento.setData(data);
+                atendimento.setData(data.plusDays(1));
                 atendimento.setProduto(produto);
                 atendimento.setTipoAtendimento(tipoAtendimento);
                 atendimento.setDescricao(request.getParameter("descricao"));

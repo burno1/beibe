@@ -47,6 +47,7 @@ public class ClienteServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         HttpSession s = request.getSession();
 
         if (s.getAttribute("login") == null) {
@@ -88,11 +89,15 @@ public class ClienteServlet extends HttpServlet {
             try {
                 CidadeService cidadeService = new CidadeService();
                 String id = request.getParameter("id");
+                
                 Cliente cl = clienteService.buscar(id);
+                
                 RequestDispatcher rd = request.
                         getRequestDispatcher("./clientesAlterar.jsp");
                 CidadesBean cidadeBean = new CidadesBean();
                 CidadeDAO cidadeDao = new CidadeDAO();
+                
+                Cidade clienteCidade = cl.getCidade();
                 cidadeBean.setCidades(cidadeService.buscarPorEstado(cl.getCidade().getEstado()));
                 
                 request.setAttribute("cliente", cl);
@@ -140,7 +145,7 @@ public class ClienteServlet extends HttpServlet {
                 cl.setCpf(cpf);
                 cl.setNome(request.getParameter("nome"));
                 cl.setEmail(request.getParameter("email"));
-                cl.setData(data);
+                cl.setData(data.plusDays(1));
                 cl.setRua(request.getParameter("rua"));
                 cl.setNumero(Integer.valueOf(request.getParameter("numero")));
                 cl.setCep(Integer.valueOf(request.getParameter("cep")));

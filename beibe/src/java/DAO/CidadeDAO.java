@@ -29,10 +29,11 @@ public class CidadeDAO {
 
         try {
             con = ConnectionFactory.getConnection();
-            st = con.prepareStatement("SELECT C.nome_cidade, E.uf_estado, E.nome_estado FROM tb_cidade C, tb_estado E WHERE C.id_cidade = ? AND C.estado_cidade = E.id_estado;");
+            st = con.prepareStatement("SELECT C.id_cidade, C.nome_cidade, E.uf_estado, E.nome_estado FROM tb_cidade C, tb_estado E WHERE C.id_cidade = ? AND C.estado_cidade = E.id_estado;");
             st.setInt(1, idCidade);
             rs = st.executeQuery();
             if (rs.next()) {
+                cl.setId(idCidade);
                 cl.setNome(rs.getString("nome_cidade"));
                 cl.setEstado(new Estado(rs.getString("nome_estado"), rs.getString("uf_estado")));
             }
