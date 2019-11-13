@@ -95,7 +95,7 @@
                         <c:forEach items="${atendimentoBean.atendimentosLista}" var="a">
                             <tr>
                                 <td><c:out value="${a.id}"/></td>
-                                <td><c:out value="${a.data} " /></td>
+                                <td><c:out value="${a.dataString} " /></td>
                                 <td><c:out value="${a.produto.nomeProduto}" /></td>
                                 <td><c:out value="${a.cliente.nome}" /></td>
                                 <td>

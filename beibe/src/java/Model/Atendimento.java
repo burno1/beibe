@@ -14,6 +14,7 @@ import java.time.LocalDate;
 public class Atendimento {
     private String id = "";
     private LocalDate data;
+    private String dataString;
     private String descricao;
     private Produto produto;
     private TipoAtendimento tipoAtendimento;
@@ -97,6 +98,14 @@ public class Atendimento {
     
     public Atendimento(){
         
+    }
+
+    public String getDataString() {
+        return dataString;
+    }
+
+    public void setDataString(String dataString) {
+        this.dataString = dataString;
     }
     
     

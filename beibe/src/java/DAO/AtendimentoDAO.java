@@ -15,6 +15,8 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -230,6 +232,15 @@ public class AtendimentoDAO {
                 Atendimento atendimento = new Atendimento();
                 atendimento.setId(rs.getString("id_atendimento"));
                 atendimento.setData(rs.getDate("dt_hr_atendimento").toLocalDate());
+                
+                LocalDate data;
+                data = rs.getDate("dt_hr_atendimento").toLocalDate();
+                
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                
+                atendimento.setDataString(data.format(formatter));
+                
+                
                 atendimento.setProduto(produto);
                 atendimento.setCliente(cliente);
 

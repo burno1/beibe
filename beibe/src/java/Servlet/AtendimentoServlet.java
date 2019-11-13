@@ -188,7 +188,7 @@ public class AtendimentoServlet extends HttpServlet {
                 atendimento.setUsuario(usuario);
                 String idAtend = request.getParameter("idAtend");
 
-                if (idAtend != null || !"".equals(idAtend)) {
+                if (!("".equals(idAtend))) {
                     atendimento.setId(idAtend);
                     atendimentoService.atualizar(atendimento);
                     AtendimentoBean ab = new AtendimentoBean();
