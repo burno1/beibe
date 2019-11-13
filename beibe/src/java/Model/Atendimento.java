@@ -12,7 +12,7 @@ import java.time.LocalDate;
  * @author Bruno Fernandes
  */
 public class Atendimento {
-    private int id;
+    private String id = "";
     private LocalDate data;
     private String descricao;
     private Produto produto;
@@ -21,11 +21,11 @@ public class Atendimento {
     private Cliente cliente;
     private int resolvido;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

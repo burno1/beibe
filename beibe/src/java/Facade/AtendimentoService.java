@@ -5,6 +5,7 @@
  */
 package Facade;
 
+import DAO.AtendimentoDAO;
 import DAO.ProdutoDAO;
 import DAO.TipoAtendimentoDAO;
 import Model.Atendimento;
@@ -18,9 +19,10 @@ import java.util.List;
  * @author Bruno Fernandes
  */
 public class AtendimentoService {
-    TipoAtendimentoDAO tipoProdutoDAO = new TipoAtendimentoDAO();
+    
     ProdutoDAO produtoDao = new ProdutoDAO();
     TipoAtendimentoDAO tipoAtendimentoDAO = new TipoAtendimentoDAO();
+    AtendimentoDAO atendimentoDAO = new AtendimentoDAO();
     
     public List<Produto> buscarProdutos(){
         List<Produto> retorno = new ArrayList<Produto>();
@@ -32,18 +34,22 @@ public class AtendimentoService {
     
     public List<TipoAtendimento> buscarTipos(){
     List<TipoAtendimento> retorno = new ArrayList<TipoAtendimento>();
-        
+    
     retorno = tipoAtendimentoDAO.buscarTodos();
     return retorno;
     }
     
     public List<Atendimento> listar(){
         List<Atendimento> retorno = new ArrayList<Atendimento>();
-        
-        
-        
-        
         return retorno;
+    }
+    
+    public void atualizar(Atendimento atendimento){
+        atendimentoDAO.atualizar(atendimento);
+    }
+    
+    public void inserir(Atendimento atendimento){
+        atendimentoDAO.inserirAtendimento(atendimento);
     }
 
     public Atendimento buscar(String id) {
@@ -51,6 +57,23 @@ public class AtendimentoService {
         
         return retorno;
     }
+    
+       public Produto buscarProduto(String id){
+        Produto produto = new Produto();
+           
+        produto = produtoDao.buscar(id);
+        return produto;
+    }
+     
+       public TipoAtendimento buscarTipoAtendimento(String id){
+           TipoAtendimento tipoAtendimento = new TipoAtendimento();
+           
+           tipoAtendimento = tipoAtendimentoDAO.buscar(id);
+           
+           return tipoAtendimento;
+       }
+       
+     
     
     
 }

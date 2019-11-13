@@ -9,6 +9,7 @@ import Model.Atendimento;
 import Model.Cliente;
 import Model.Produto;
 import Model.TipoAtendimento;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -16,14 +17,12 @@ import java.util.List;
  * @author Bruno Fernandes
  */
 public class AtendimentoBean {
-   private String descricaoAtendimento;
-   private Atendimento atendimento;
-   private List<Atendimento> atendimentosLista;    
-   private List<TipoAtendimento> tiposAtendimento;
-   private List<Produto> produtos;
-   private Produto produto;
-   private Cliente cliente;
-   private TipoAtendimento tipoAtendimento;
+
+    private String descricaoAtendimento;
+    private List<Atendimento> atendimentosLista;
+    private List<TipoAtendimento> tiposAtendimento;
+    private List<Cliente> clientes;
+    private List<Produto> produtos;
 
     public AtendimentoBean() {
     }
@@ -34,14 +33,6 @@ public class AtendimentoBean {
 
     public void setDescricaoAtendimento(String descricaoAtendimento) {
         this.descricaoAtendimento = descricaoAtendimento;
-    }
-
-    public Atendimento getAtendimento() {
-        return atendimento;
-    }
-
-    public void setAtendimento(Atendimento atendimento) {
-        this.atendimento = atendimento;
     }
 
     public List<Atendimento> getAtendimentosLista() {
@@ -68,30 +59,11 @@ public class AtendimentoBean {
         this.produtos = produtos;
     }
 
-    public Cliente getCliente() {
-        return cliente;
-    }
-    
-    public void setCliente(Cliente cliente ){
-        this.cliente = cliente;
+    public List<Cliente> getClientes() {
+        return clientes;
     }
 
-    public Produto getProduto() {
-        return produto;
-    }
-
-    public void setProduto(Produto produto) {
-        this.produto = produto;
-    }
-    
-    public void setTipoAtendimento(TipoAtendimento tipoAtendimento){
-        this.tipoAtendimento = tipoAtendimento;
-    }
-    
-    public TipoAtendimento getTipoAtendimento (){
-        return tipoAtendimento;
-    }
-    
-   
-   
+    public void setClientes(List<Cliente> clientes) {
+        this.clientes = clientes;
+    }    
 }

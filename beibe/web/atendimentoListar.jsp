@@ -71,12 +71,13 @@
             </div> 
         </nav>
 
+                    <br/>
+        <div class="container">
         <div class="row">
             <div class="col-sm-12"><a href="AtendimentoServlet?action=formNew">  <button class="btn btn-primary"> Novo </button></a>
             </div>
         </div>
         <br/>
-        <div class="container">
             <div class="row">
 
                 <h3> Atendimentos Abertos:</h3>

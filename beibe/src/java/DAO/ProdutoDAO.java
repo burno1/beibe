@@ -64,4 +64,50 @@ public class ProdutoDAO {
         }
     }
     
+   public Produto buscar(String id){
+        Connection con = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        Produto retorno = new Produto();
+        
+        try {
+            con = ConnectionFactory.getConnection();
+            st = con.prepareStatement("SELECT id_produto, nome_produto FROM beibe.tb_produto WHERE id_produto=?");
+            st.setString(1, id);
+            rs = st.executeQuery();
+            
+            
+            while (rs.next()) {
+                
+                retorno.setIdProduto(Integer.valueOf(rs.getString("id_produto")));
+                retorno.setNomeProduto((rs.getString("nome_produto")));
+                
+            }
+            return retorno;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (Exception e) {
+                }
+            }
+            if (st != null) {
+                try {
+                    st.close();
+                } catch (Exception e) {
+                }
+            }
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (Exception e) {
+                }
+            }
+        }
+       
+       
+   }
+    
 }

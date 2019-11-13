@@ -29,8 +29,8 @@
     <body>
         <jsp:useBean id="atendimentoBean" class="Bean.AtendimentoBean" scope="request" />
         <jsp:setProperty name="atendimentoBean" property="*" />
-        
-         <nav  class="navbar navbar-expand-lg navbar-light bg-light">
+
+        <nav  class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="portal.jsp">BEIBE</a>
@@ -48,39 +48,50 @@
                 </div><!-- /.navbar-collapse -->
             </div> 
         </nav>
-            
-                    
+
+
 
         <div class="container">
-            
-              <div class="form-group row">
-                    <div class="col-sm-2">
-                        <button class="btn btn-success btn-block " type="button" name="back" onclick="history.back()">Voltar</button>
-                    </div>
-                </div>   
-            
+
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <button class="btn btn-success btn-block " type="button" name="back" onclick="history.back()">Voltar</button>
+                </div>
+            </div>   
+
             <h3>Detalhes do Atendimento</h3>
-            <form>
+            <form id="form" action="AtendimentoServlet?action=update" method="post">
                 <div class="form-group row">
                     <div class="col-sm-2">
-                        Data/Hora
+                        Id Atendimento
                     </div>
-                    <div class="col-sm-4">
-                        <input class="form-control" value="24/05/2015" name="data" disabled="true">
+                    <div class="col-sm-3">
+                        <input class="form-control" type="text" value="${atendimento.id}" name="idAtend" id="idAtend" disabled>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <div class="col-sm-2">
+                        Data/Hora
+                    </div>
+                    <div class="col-sm-3">
+                        <input class="form-control" type="date" value="${atendimento.data}" name="data" id="data">
+                    </div>
+                </div>
+
+
+                <div class="form-group row">
+                    <div class="col-sm-2">
                         Cliente
                     </div>
-                    <div class="input-group col-sm-10">
-                        <select class="custom-select" id="inputGroupSelect01">
-                            <option selected>Choose...</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                        </select>
+                    <div class="col-sm-6">
+                        <select class="custom-select custom-select-md" name="cliente" id="cliente">
+                            <option selected value="${atendimento.cliente.id}">${atendimento.cliente.nome}</option>
+                            <c:forEach items="${atendimentoBean.clientes}" var="c">     
+
+                                <option value="${c.id}">${c.nome}</option>
+                            </c:forEach>
+                        </select>   
                     </div>
                 </div>
 
@@ -88,23 +99,25 @@
                     <div class="col-sm-2">
                         Situação
                     </div>
-                    <div class="input-group col-sm-10">
-                        <select class="custom-select" id="inputGroupSelect02">
-                            <option selected>Choose...</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                        </select>
-                    </div>
-                </div>
-
-                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label" for="produto">Produtos</label>
                     <div class="col-sm-6">
-                        <select class="custom-select custom-select-md" name="produto" id="produto">
-                            <option selected value="${atendimetoBean.produto.idProduto}">${atendimetoBean.produto.nomeProduto}</option>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" value="resolvido" name="resolvido" class="custom-control-input"  <c:if test="${resolvido}">checked</c:if> >
+                                <label class="custom-control-label" for="customRadio1" >Solucionado</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio"  value="naoResolvido"  name="resolvido" class="custom-control-input" <c:if test="${!resolvido}">checked</c:if>>
+                                <label class="custom-control-label" for="customRadio2">Não Solucionado</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label" for="produto">Produtos</label>
+                        <div class="col-sm-6">
+                            <select class="custom-select custom-select-md" name="produto" id="produto">
+                                <option selected value="${atendimento.produto.idProduto}">${atendimento.produto.nomeProduto}</option>
                             <c:forEach items="${atendimentoBean.produtos}" var="p">     
-                                
+
                                 <option value="${p.idProduto}">${p.nomeProduto}</option>
                             </c:forEach>
                         </select>   
@@ -115,7 +128,7 @@
                     <label class="col-sm-2 col-form-label" for="tipoAtendimento">Tipo de Atendimento</label>
                     <div class="col-sm-6">
                         <select class="custom-select custom-select-md" name="tipoAtendimento" id="tipoAtendimento">
-                            <option selected value="${atendimetoBean.tipoAtendimento.idTipo}">${atendimetoBean.tipoAtendimento.nomeTipo}</option>
+                            <option selected value="${atendimento.tipoAtendimento.idTipo}">${atendimento.tipoAtendimento.nomeTipo}</option>
                             <c:forEach items="${atendimentoBean.tiposAtendimento}" var="t">     
                                 <option value="${t.idTipo}">${t.nomeTipo}</option>
                             </c:forEach>
@@ -127,23 +140,15 @@
                     <div class="col-sm-2">
                         Descrição Atendimento
                     </div>
-                    <div class="col-sm-4">
-                        <textarea class="form-control" value="" name="descAtendimento"></textarea>
+                    <div class="col-sm-6">
+                        <textarea class="form-control" value="${atendimento.descricao}" name="descricao"></textarea>
                     </div>
                 </div>
 
-                <div class="form-group row">
-                    <div class="col-sm-2">
-                        Solução Apresentada:
-                    </div>
-                    <div class="col-sm-4">
-                        <textarea class="form-control" value="" name="solucaoAtendimento"></textarea>
-                    </div>
-                </div>
 
                 <div class="form-group row">
                     <div class="col-sm-4">
-                        <button class="btn btn-success btn-block"> Salvar</button>
+                        <button  type="submit" class="btn btn-success btn-block">Salvar</button>
                     </div>
                     <div class="col-sm-4">
                         <button class="btn btn-danger btn-block" disabled="true"> Finalizar (So p/ Funcionario)</button>

@@ -65,11 +65,12 @@ public class UsuarioDAO {
 
         try {
             con = ConnectionFactory.getConnection();
-            st = con.prepareStatement("SELECT nome_usuario,senha_usuario,login_usuario FROM tb_usuario where login_usuario = ?");
+            st = con.prepareStatement("SELECT id_usuario,nome_usuario,senha_usuario,login_usuario FROM tb_usuario where login_usuario = ?");
             st.setString(1, email);
             rs = st.executeQuery();
 
             while (rs.next()) {
+                u.setId(rs.getString("id_usuario"));
                 u.setNome(rs.getString("nome_usuario"));
                 u.setSenha(rs.getString("senha_usuario"));
                 u.setEmail(rs.getString("login_usuario"));

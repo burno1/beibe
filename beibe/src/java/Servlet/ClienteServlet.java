@@ -91,12 +91,14 @@ public class ClienteServlet extends HttpServlet {
                 Cliente cl = clienteService.buscar(id);
                 RequestDispatcher rd = request.
                         getRequestDispatcher("./clientesAlterar.jsp");
-                request.setAttribute("cliente", cl);
                 CidadesBean cidadeBean = new CidadesBean();
                 CidadeDAO cidadeDao = new CidadeDAO();
                 cidadeBean.setCidades(cidadeService.buscarPorEstado(cl.getCidade().getEstado()));
+                
+                request.setAttribute("cliente", cl);
                 request.setAttribute("cidadesBean", cidadeBean);
                 rd.forward(request, response);
+                
             } catch (Exception e) {
                 request.setAttribute("exception", e);
 

@@ -45,13 +45,14 @@
         </nav>
         <br/>
 
+        
         <div class="container">
-
+ 
             <div class="row">
                 <div class="col-xl-12">
                     <h4>Relatório de Funcionários</h4>
                     <hr/>
-                    <button class="btn btn-outline-primary"> Imprimir Relatório</button>
+                    <a href="./RelatorioDownload" target="_blank"><button class="btn btn-outline-primary"> Imprimir Relatório</button></a>
                     <br/>                    
 
                     <br/>

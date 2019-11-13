@@ -63,4 +63,50 @@ public class TipoAtendimentoDAO {
         }
     }
     
+    public TipoAtendimento buscar(String id){
+        Connection con = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        TipoAtendimento retorno = new TipoAtendimento();
+        
+        try {
+            con = ConnectionFactory.getConnection();
+            st = con.prepareStatement("SELECT id_tipo_atendimento, nome_tipo_atendimento FROM beibe.tb_tipo_atendimento WHERE id_tipo_atendimento = ?");
+            st.setString(1, id);
+            rs = st.executeQuery();
+            
+            while (rs.next()) {
+                
+                retorno.setIdTipo(Integer.valueOf(rs.getString("id_tipo_atendimento")));
+                
+                retorno.setNomeTipo((rs.getString("nome_tipo_atendimento")));
+                
+            }
+            return retorno;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (Exception e) {
+                }
+            }
+            if (st != null) {
+                try {
+                    st.close();
+                } catch (Exception e) {
+                }
+            }
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (Exception e) {
+                }
+            }
+        }
+       
+       
+   }
+    
 }

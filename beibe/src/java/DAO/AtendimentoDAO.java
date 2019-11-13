@@ -24,21 +24,20 @@ import java.util.List;
  * @author Bruno Fernandes
  */
 public class AtendimentoDAO {
+
     
-    AtendimentoService atendimentoService = new AtendimentoService();
-    
-    
-    
+
     public Atendimento buscarAtendimento(String id) {
         Connection con = null;
+        con = ConnectionFactory.getConnection();
         PreparedStatement st = null;
         ResultSet rs = null;
         Atendimento atendimento = new Atendimento();
 
         try {
-          //implementar
+            //implementar
             while (rs.next()) {
-               
+
             }
             return atendimento;
         } catch (Exception e) {
@@ -103,10 +102,11 @@ public class AtendimentoDAO {
     public List<Atendimento> buscarTodos() {
         List<Atendimento> atendimentos = new ArrayList<Atendimento>();
         Connection con = null;
+        con = ConnectionFactory.getConnection();
         PreparedStatement st = null;
         ResultSet rs = null;
         try {
-           //implementar
+            //implementar
             return atendimentos;
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -134,12 +134,25 @@ public class AtendimentoDAO {
 
     public void inserirAtendimento(Atendimento atendimento) {
         Connection con = null;
+        con = ConnectionFactory.getConnection();
         PreparedStatement st = null;
-
-        LocalDate dt = atendimento.getData();
+        ResultSet rs = null;
+        
 
         try {
-          
+            st = con.prepareStatement("INSERT INTO tb_atendimento "
+                    + "(dt_hr_atendimento, dsc_atendimento, id_produto, id_tipo_atendimento, id_usuario, id_cliente, res_atendimento) VALUES "
+                    + "(?, ?, ?, ?, ?, ?, ?)");
+              st.setDate(1, Date.valueOf(atendimento.getData()));
+            st.setString(2, atendimento.getDescricao());
+            st.setInt(3, atendimento.getProduto().getIdProduto());
+            st.setInt(4, atendimento.getTipoAtendimento().getIdTipo());
+            st.setString(5, atendimento.getUsuario().getId());
+            st.setInt(6, atendimento.getCliente().getId());
+            st.setInt(7, atendimento.getResolvido());
+            
+            st.executeUpdate();
+            
 
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -160,11 +173,30 @@ public class AtendimentoDAO {
 
     }
 
-    public void updateCliente(Cliente cliente) {
+    public void atualizar(Atendimento atendimento) {
         Connection con = null;
         PreparedStatement st = null;
+
         try {
-          
+            st = con.prepareStatement("UPDATE tb_atendimento SET"
+                    + "dt_hr_atendimento = ?,"
+                    + "dsc_atendimento = ?,"
+                    + "id_produto = ?,"
+                    + "id_tipo_atendimento = ?,"
+                    + "id_usuario = ?,"
+                    + "id_cliente = ?,"
+                    + "res_atendimento = ?"
+                    + " WHERE id_atendimento = ?");
+
+            st.setDate(1, Date.valueOf(atendimento.getData()));
+            st.setString(2, atendimento.getDescricao());
+            st.setInt(3, atendimento.getProduto().getIdProduto());
+            st.setInt(4, atendimento.getTipoAtendimento().getIdTipo());
+            st.setString(5, atendimento.getUsuario().getId());
+            st.setInt(6, atendimento.getCliente().getId());
+            st.setInt(7, atendimento.getResolvido());
+            st.setString(8, atendimento.getId());
+
         } catch (Exception e) {
             throw new RuntimeException(e);
         } finally {
@@ -182,5 +214,5 @@ public class AtendimentoDAO {
             }
         }
     }
-    
+
 }

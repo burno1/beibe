@@ -5,10 +5,14 @@
  */
 package Bean;
 
-public class LoginBean {
+import Model.Usuario;
 
+public class LoginBean {
+    
+    private Usuario usuario;
     private String user;
     private String senha;
+    private String nomeUsuario;
     
     public LoginBean() {        
         
@@ -28,6 +32,22 @@ public class LoginBean {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public String getNomeUsuario() {
+        return nomeUsuario;
+    }
+
+    public void setNomeUsuario(String nomeUsuario) {
+        this.nomeUsuario = nomeUsuario;
+    }    
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
     
     

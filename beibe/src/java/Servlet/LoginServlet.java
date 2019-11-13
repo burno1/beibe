@@ -57,8 +57,11 @@ public class LoginServlet extends HttpServlet {
         //Condicional de erro para login
         if (MD5.MD5Transformed(senha).equals(usuarioLogado.getSenha())) {
             loginBean.setUser(email);
+            
             loginBean.setSenha(MD5.MD5Transformed(senha));
             s.setAttribute("login", loginBean);
+            s.setAttribute("usuario", usuarioLogado);
+            
             s.setAttribute("portalBean", new PortalBean());
             response.sendRedirect("./portalGerente.jsp");
         } else {

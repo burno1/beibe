@@ -16,7 +16,7 @@ public class Cliente {
     private String cpf;
     private String nome;
     private String email;
-    private LocalDate  data;
+    private LocalDate data;
     private String rua;
     private int numero;
     private int cep;
