@@ -11,6 +11,9 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.sql.Connection;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -37,25 +40,55 @@ public class RelatorioDownload extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        String data1 = request.getParameter("dataInicio");
+        String data2 = request.getParameter("dataFim");
+        
+        java.util.Date dataInicioo = null;
+        java.util.Date dataFiim = null;        
+                
+        java.sql.Date dataInicio = null;
+        java.sql.Date dataFim = null;
+
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
+             
+
+                    
+            dataInicioo = format.parse(data1);
+            dataFiim = format.parse(data2);
+            
+            dataInicio = new java.sql.Date(dataInicioo.getTime());
+            dataFim = new java.sql.Date(dataFiim.getTime());
+
+        } catch (Exception e) {
+
+        }
+
         try {
             Connection con = ConnectionFactory.getConnection();
             String jasper = request.getContextPath()
-                    + "/relatorio.jasper";
-// Host onde o servlet esta executando
+                    + "/relatorio3.jasper";
+            // Host onde o servlet esta executando
             String host = "http://" + request.getServerName()
                     + ":" + request.getServerPort();
-// URL para acesso ao relatório
+            // URL para acesso ao relatório
             URL jasperURL = new URL(host + jasper);
-// Parâmetros do relatório
+            // Parâmetros do relatório
             HashMap params = new HashMap();
-// Geração do relatório
+            
+            params.put("data1", dataInicio);
+            params.put("data2", dataFim);
+            
+            // Geração do relatório
             byte[] bytes = JasperRunManager.runReportToPdf(
                     jasperURL.openStream(), params, con);
 
             if (bytes != null) {
-// A página será mostrada em PDF
+                // A página será mostrada em PDF
                 response.setContentType("application/pdf");
-// Envia o PDF para o Cliente
+                // Envia o PDF para o Cliente
                 OutputStream ops = response.getOutputStream();
                 ops.write(bytes);
 
@@ -65,6 +98,7 @@ public class RelatorioDownload extends HttpServlet {
         }// Fechamento
     }
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+
     /**
      * Handles the HTTP <code>GET</code> method.
      *

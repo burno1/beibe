@@ -71,7 +71,7 @@
                 <div class="col-xl-12">
                     <h4>Relatório de Atendimentos Abertos</h4>
                     <hr/>
-                    <form action="atendimentosAbertosServlet">
+                    <form action="RelatorioDownload" method="post">
                         <div class="row">
 
                             <div class="col-xl-2">

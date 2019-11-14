@@ -39,10 +39,6 @@
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
-                    <file>${file.reference.itext-2.1.7.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
-                </library>
-                <library dirs="200">
                     <file>${file.reference.jasperreports-6.10.0.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
@@ -52,6 +48,10 @@
                 </library>
                 <library dirs="200">
                     <file>${file.reference.joda-time-2.4.jar}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
+                </library>
+                <library dirs="200">
+                    <file>${file.reference.itext-2.1.7.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
             </web-module-libraries>
