@@ -1,13 +1,12 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
-<% if (session.getAttribute("login") == null) {
-        RequestDispatcher rd = request.
-                getRequestDispatcher("/ErroServlet");
-        request.setAttribute("msg", "Não vem de hack!");
-        request.setAttribute("page", "index.jsp");
-        rd.forward(request, response);
-    }%>
+<% if (session.getAttribute("login") == null) {%>
+<jsp:forward page="index.jsp">
+    <jsp:param name="msg" value="Usuário deve se autenticar para acessar o sistema"/>
+</jsp:forward>
+<% }%> 
+<%@page errorPage="erro.jsp"%>
 
 
 <html>
@@ -21,6 +20,8 @@
         </title>
     </head>
     <body>
+        <jsp:useBean id="tipoBean" class="Bean.TipoAtendimentoBean" scope="request" />
+        <jsp:setProperty name="tipoBean" property="*" />
         <nav  class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -45,33 +46,25 @@
         </nav>
         <br/>
 
-        
+
         <div class="container">
- 
+
             <div class="row">
                 <div class="col-xl-12">
-                    <h4>Relatório de Funcionários</h4>
+                    <h4>Relatório de Clientes</h4>
                     <hr/>
-                    <a href="./RelatorioDownload" target="_blank"><button class="btn btn-outline-primary"> Imprimir Relatório</button></a>
+                    <a href="./RelatorioDownload?action=r1" target="_blank"><button class="btn btn-outline-primary"> Imprimir Relatório</button></a>
                     <br/>                    
 
                     <br/>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xl-12">
-                    <h4>Relatório de Produtos mais reclamados</h4>
-                    <hr/>
-                    <button class="btn btn-outline-primary"> Imprimir Relatório</button> 
-                    <br/>
-                    <br/>
-                </div>
-            </div>
+
             <div class="row">
                 <div class="col-xl-12">
                     <h4>Relatório de Atendimentos Abertos</h4>
                     <hr/>
-                    <form action="RelatorioDownload" method="post">
+                    <form action="RelatorioDownload?action=r2" target="_blank" method="post">
                         <div class="row">
 
                             <div class="col-xl-2">
@@ -96,32 +89,51 @@
                         <br/>
                     </form>
                 </div>
+
             </div>
             <div class="row">
                 <div class="col-xl-12">
-                    <h4>Relatório de Reclamações</h4>
+                    <h4>Relatório de Atendimentos Concluidos</h4>
                     <hr/>
+                    <a href="./RelatorioDownload?action=r3" target="_blank"><button class="btn btn-outline-primary"> Imprimir Relatório</button></a>
+                    <br/>                    
 
-                    <div class="custom-control custom-radio">
-                        <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
-                        <label class="custom-control-label" for="customRadio1">Todas</label>
-                    </div>
-                    <div class="custom-control custom-radio">
-                        <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
-                        <label class="custom-control-label" for="customRadio2">Em Aberto</label>
-                    </div>
-                    <div class="custom-control custom-radio">
-                        <input type="radio" id="customRadio3" name="customRadio" class="custom-control-input">
-                        <label class="custom-control-label" for="customRadio3">Finalizados</label>
-                    </div>
                     <br/>
-                    <br/>
-
-                    <button class="btn btn-outline-primary"> Imprimir Relatório</button> 
-                    <br/>
-
                 </div>
             </div>
+
+
+            <div class="row">
+                <div class="col-xl-12">
+                    <h4>Relatório de Atendimentos Abertos</h4>
+                    <hr/>
+                    <form action="RelatorioDownload?action=r4" target="_blank" method="post">
+                        <div class="row">
+
+
+                            <label class="col-sm-2 col-form-label" for="tipoAtendimento">Tipo de Atendimento</label>
+                            <div class="col-sm-6">
+                                <select class="custom-select custom-select-md" name="tipoAtendimento" id="tipoAtendimento">
+
+                                    <c:forEach items="${tipoBean.listaTipos}" var="t">     
+                                        <option value="${t.idTipo}">${t.nomeTipo}</option>
+                                    </c:forEach>
+                                </select>   
+                            </div>
+
+
+
+                        </div>
+                        <br/>
+
+                        <button class="btn btn-outline-primary" type="submit"> Imprimir Relatório</button>
+                        <br/>
+                    </form>
+                </div>
+
+            </div>
+
+
 
 
         </div>

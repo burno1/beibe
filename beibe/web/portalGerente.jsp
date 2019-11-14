@@ -43,7 +43,7 @@
                         <li class="nav-item"><a class="nav-link" href="funcionarioListar.jsp">Cadastro Funcionarios</a></li>
                         <li class="nav-item"><a class="nav-link" href="admin.jsp">Usuario</a></li>
                         <li class="nav-item"><a class="nav-link" href="testeErro.jsp">Teste Exception</a></li>
-                        <li class="nav-item"><a class="nav-link" href="relatorios.jsp">Relatórios</a></li>
+                        <li class="nav-item"><a class="nav-link" href="Relatorios">Relatórios</a></li>
                     </ul>
                     <ul class="nav navbar-nav ml-auto">
                         <li nav-item><a href='Invalidar'>User ${login.user} Logout</a></li>

@@ -5,8 +5,12 @@
  */
 package Servlet;
 
+import Bean.ProdutoBean;
+import Bean.TipoAtendimentoBean;
+import Facade.AtendimentoService;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author Bruno Fernandes
  */
 @WebServlet(name = "Relatorios", urlPatterns = {"/Relatorios"})
-public class Relatorios extends HttpServlet {
+public class RelatorioServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,18 +36,22 @@ public class Relatorios extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Relatorios</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Relatorios at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+
+        String acao = request.getParameter("action");
+        TipoAtendimentoBean tipoBean = new TipoAtendimentoBean();
+        AtendimentoService atendimentoService = new AtendimentoService();
+        
+        
+
+        
+            tipoBean.setListaTipos(atendimentoService.buscarTipos());
+
+            RequestDispatcher rd = request.
+                    getRequestDispatcher("/relatorios.jsp");
+            request.setAttribute("tipoBean", tipoBean);
+
+            rd.forward(request, response);
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
