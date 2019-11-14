@@ -45,7 +45,11 @@ public class RelatorioDownload extends HttpServlet {
 
         String data1 = request.getParameter("dataInicio");
         String data2 = request.getParameter("dataFim");
-        int idTipo = Integer.valueOf(request.getParameter("tipoAtendimento"));
+
+        int idTipo = 0;
+        if (request.getParameter("tipoAtendimento") != null) {
+            idTipo = Integer.parseInt(request.getParameter("tipoAtendimento"));
+        }
 
         java.util.Date dataInicioo = null;
         java.util.Date dataFiim = null;
@@ -75,6 +79,7 @@ public class RelatorioDownload extends HttpServlet {
             if ("r1".equals(acao)) {
                 jasper = request.getContextPath()
                         + "/relatorio.jasper";
+
             }
             if ("r2".equals(acao)) {
                 jasper = request.getContextPath()

@@ -15,16 +15,16 @@ import java.util.List;
 public class ClienteService {
     static ClienteDAO clienteDAO = new ClienteDAO();
     
-    public static void remover(String id){
-         clienteDAO.removerCliente(id);
+    public static boolean remover(String id){
+         return clienteDAO.removerCliente(id);
     }
     
-    public static void inserir(Cliente cliente){
-        clienteDAO.inserirCliente(cliente);
+    public static boolean inserir(Cliente cliente){
+        return clienteDAO.inserirCliente(cliente);
     }
     
-    public static void alterar (Cliente cliente){
-        clienteDAO.updateCliente(cliente);
+    public static boolean alterar (Cliente cliente){
+        return clienteDAO.updateCliente(cliente);
     }
     
     public static  List<Cliente> listar(){

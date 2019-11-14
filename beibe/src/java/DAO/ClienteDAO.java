@@ -78,7 +78,7 @@ public class ClienteDAO {
         }
     }
 
-    public void removerCliente(String id) {
+    public boolean removerCliente(String id) {
         Connection con = null;
         PreparedStatement st = null;
         ResultSet rs = null;
@@ -87,7 +87,14 @@ public class ClienteDAO {
             con = ConnectionFactory.getConnection();
             st = con.prepareStatement("delete from beibe.tb_cliente where id_cliente = ?");
             st.setInt(1, Integer.valueOf(id));
-            st.executeUpdate();
+            
+            
+            int retorno =  st.executeUpdate();
+            
+            if(retorno == 0){
+                return false;
+            }
+            return true;
 
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -162,7 +169,7 @@ public class ClienteDAO {
         }
     }
 
-    public void inserirCliente(Cliente cliente) {
+    public boolean inserirCliente(Cliente cliente) {
         Connection con = null;
         PreparedStatement st = null;
 
@@ -181,7 +188,12 @@ public class ClienteDAO {
             st.setInt(6, cliente.getNumero());
             st.setInt(7, cliente.getCep());
             st.setInt(8, cliente.getCidade().getId());
-            st.executeUpdate();
+            int retorno = st.executeUpdate();
+            
+            if(retorno == 0){
+                return false;
+            }
+            return true;
 
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -202,7 +214,7 @@ public class ClienteDAO {
 
     }
 
-    public void updateCliente(Cliente cliente) {
+    public boolean updateCliente(Cliente cliente) {
         Connection con = null;
         PreparedStatement st = null;
         try {
@@ -219,7 +231,12 @@ public class ClienteDAO {
             st.setInt(7, cliente.getCep());
             st.setInt(8, cliente.getCidade().getId());
             st.setInt(9, cliente.getId());
-            st.executeUpdate();
+            int retorno = st.executeUpdate();
+            
+            if(retorno == 0){
+                return false;
+            }
+            return true;
 
         } catch (Exception e) {
             throw new RuntimeException(e);

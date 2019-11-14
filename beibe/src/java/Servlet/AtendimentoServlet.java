@@ -10,6 +10,8 @@ import Bean.CidadesBean;
 import Bean.ClienteBean;
 import Bean.ProdutoBean;
 import DAO.CidadeDAO;
+import Exceptions.AppException;
+import Exceptions.ErroAtendimento;
 import Facade.AtendimentoService;
 import Facade.CidadeService;
 import Facade.ClienteService;
@@ -72,46 +74,89 @@ public class AtendimentoServlet extends HttpServlet {
         String acao = request.getParameter("action");
 
         if (null == acao || "listar".equals(acao)) {
+            try {
+                atendimentoBean.setAtendimentosLista(atendimentoService.listar());
+                if (atendimentoBean.getAtendimentosLista() == null) {
+                    throw new ErroAtendimento("Erro ao carregar lista de atendimentos");
+                }
+                RequestDispatcher rd = request.
+                        getRequestDispatcher("/atendimentoListar.jsp");
+                request.setAttribute("atendimentoBean", atendimentoBean);
+                rd.forward(request, response);
+            } catch (AppException e) {
+                atendimentoBean.setAtendimentosLista(atendimentoService.listar());
+                RequestDispatcher rd = request.
+                        getRequestDispatcher("/atendimentoListar.jsp");
+                request.setAttribute("atendimentoBean", atendimentoBean);
+                request.setAttribute("msg", e.getMsg());
+                rd.forward(request, response);
+            }
 
-            atendimentoBean.setAtendimentosLista(atendimentoService.listar());
-            RequestDispatcher rd = request.
-                    getRequestDispatcher("/atendimentoListar.jsp");
-            request.setAttribute("atendimentoBean", atendimentoBean);
-            rd.forward(request, response);
         }
 
         if ("show".equals(acao)) {
-            String id = request.getParameter("id");
-            Atendimento atendimento = atendimentoService.buscar(id);
-            RequestDispatcher rd = request.
-                    getRequestDispatcher("./atendimento.jsp");
-            request.setAttribute("atendimento", atendimento);
-            request.setAttribute("mostra", 1);
+
+            try {
+
+                String id = request.getParameter("id");
+                Atendimento atendimento = atendimentoService.buscar(id);
+
+                if (atendimento.getCliente() == null) {
+                    throw new ErroAtendimento("Atendimento Não Encontrado");
+                }
+
+                RequestDispatcher rd = request.
+                        getRequestDispatcher("./atendimento.jsp");
+                request.setAttribute("atendimento", atendimento);
+                request.setAttribute("mostra", 1);
+                rd.forward(request, response);
+
+            } catch (AppException e) {
+
+                atendimentoBean.setAtendimentosLista(atendimentoService.listar());
+                RequestDispatcher rd = request.
+                        getRequestDispatcher("/atendimentoListar.jsp");
+                request.setAttribute("atendimentoBean", atendimentoBean);
+                request.setAttribute("msg", e.getMsg());
+                rd.forward(request, response);
+            }
 
             // Implementar para checar a data do atendimento e enviar um dado
             // que será utilizado no jquery para colocar bootstrap na label
-            rd.forward(request, response);
         }
         //formulario para novo atendimento
         if ("formNew".equals(acao)) {
 
-            List<Cliente> listaClientes = new ArrayList<Cliente>();
+            try {
+                List<Cliente> listaClientes = new ArrayList<Cliente>();
 
-            listaClientes = ClienteService.listar();
-            atendimentoBean.setProdutos(atendimentoService.buscarProdutos());
-            atendimentoBean.setTiposAtendimento(atendimentoService.buscarTipos());
-            atendimentoBean.setClientes(listaClientes);
+                listaClientes = ClienteService.listar();
+                atendimentoBean.setProdutos(atendimentoService.buscarProdutos());
+                atendimentoBean.setTiposAtendimento(atendimentoService.buscarTipos());
+                atendimentoBean.setClientes(listaClientes);
 
-            Atendimento atendimento = new Atendimento();
+                Atendimento atendimento = new Atendimento();
 
-            atendimento.setData(LocalDate.now());
+                atendimento.setData(LocalDate.now());
 
-            RequestDispatcher rd = request.
-                    getRequestDispatcher("/atendimento.jsp");
-            request.setAttribute("atendimentoBean", atendimentoBean);
-            request.setAttribute("atendimento", atendimento);
+                if (atendimentoBean.getTiposAtendimento() == null || atendimentoBean.getProdutos() == null || atendimentoBean.getClientes() == null) {
+                    throw new ErroAtendimento("Não foi possivel carregar combos");
+                }
+                RequestDispatcher rd = request.
+                        getRequestDispatcher("/atendimento.jsp");
+                request.setAttribute("atendimentoBean", atendimentoBean);
+                request.setAttribute("atendimento", atendimento);
 
-            rd.forward(request, response);
+                rd.forward(request, response);
+            } catch (AppException e) {
+                atendimentoBean.setAtendimentosLista(atendimentoService.listar());
+                RequestDispatcher rd = request.
+                        getRequestDispatcher("/atendimentoListar.jsp");
+                request.setAttribute("atendimentoBean", atendimentoBean);
+                request.setAttribute("msg", e.getMsg());
+                rd.forward(request, response);
+            }
+
         }
 
         //cadastra no banco novo atendimento
@@ -132,6 +177,10 @@ public class AtendimentoServlet extends HttpServlet {
                 atendimentoBean.setTiposAtendimento(atendimentoService.buscarTipos());
                 atendimentoBean.setClientes(listaClientes);
 
+                if (atendimento.getCliente() == null) {
+                    throw new ErroAtendimento("Não foi possivel carregar atendimento");
+                }
+
                 RequestDispatcher rd = request.
                         getRequestDispatcher("./atendimento.jsp");
                 request.setAttribute("atendimento", atendimento);
@@ -139,12 +188,13 @@ public class AtendimentoServlet extends HttpServlet {
 
                 rd.forward(request, response);
 
-            } catch (Exception e) {
-                request.setAttribute("exception", e);
-
-                RequestDispatcher rd = getServletContext().getRequestDispatcher("/erro.jsp");
+            } catch (AppException e) {
+                atendimentoBean.setAtendimentosLista(atendimentoService.listar());
+                RequestDispatcher rd = request.
+                        getRequestDispatcher("/atendimentoListar.jsp");
+                request.setAttribute("atendimentoBean", atendimentoBean);
+                request.setAttribute("msg", e.getMsg());
                 rd.forward(request, response);
-
             }
         }
         // Enviado através do alterar por id
@@ -156,12 +206,6 @@ public class AtendimentoServlet extends HttpServlet {
                 String str = request.getParameter("data");   // Data como String
 
                 data = LocalDate.parse(str);
-
-            } catch (Exception e) {
-
-            }
-
-            try {
 
                 Cliente cliente = new Cliente();
                 TipoAtendimento tipoAtendimento = new TipoAtendimento();
@@ -191,8 +235,13 @@ public class AtendimentoServlet extends HttpServlet {
 
                 if (!("".equals(idAtend))) {
                     atendimento.setId(idAtend);
-                    atendimentoService.atualizar(atendimento);
+
+                    if (!atendimentoService.atualizar(atendimento)) {
+                        throw new ErroAtendimento("Erro ao inserir atendimento");
+                    }
+
                     AtendimentoBean ab = new AtendimentoBean();
+
                     ab.setAtendimentosLista(atendimentoService.listar());
                     RequestDispatcher rd = request.
                             getRequestDispatcher("/atendimentoListar.jsp");
@@ -201,7 +250,9 @@ public class AtendimentoServlet extends HttpServlet {
 
                 } else {
 
-                    atendimentoService.inserir(atendimento);
+                    if (!atendimentoService.inserir(atendimento)) {
+                        throw new ErroAtendimento("Erro ao inserir atendimento");
+                    }
 
                     AtendimentoBean ab = new AtendimentoBean();
                     ab.setAtendimentosLista(atendimentoService.listar());
@@ -211,27 +262,39 @@ public class AtendimentoServlet extends HttpServlet {
                     rd.forward(request, response);
                 }
 
-            } catch (Exception e) {
-                request.setAttribute("javax.servlet.jsp.jspException", e);
-                request.setAttribute("javax.servlet.error.status_code", 500);
-
-                RequestDispatcher rd = getServletContext().getRequestDispatcher("/erro.jsp");
+            } catch (AppException e) {
+                atendimentoBean.setAtendimentosLista(atendimentoService.listar());
+                RequestDispatcher rd = request.
+                        getRequestDispatcher("/atendimentoListar.jsp");
+                request.setAttribute("atendimentoBean", atendimentoBean);
+                request.setAttribute("msg", e.getMsg());
                 rd.forward(request, response);
             }
         }
         // remove por id
         if ("remove".equals(acao)) {
+            try {
+                String id = request.getParameter("id");
 
-            String id = request.getParameter("id");
-            atendimentoService.remover(id);
-            atendimentoBean.setAtendimentosLista(atendimentoService.listar());
+                if (!atendimentoService.remover(id)) {
+                    throw new ErroAtendimento("Impossivel remover atendimento");
+                }
 
-            RequestDispatcher rd = request.
-                    getRequestDispatcher("/atendimentoListar.jsp");
-            request.setAttribute("atendimentoBean", atendimentoBean);
-            rd.forward(request, response);
+                atendimentoBean.setAtendimentosLista(atendimentoService.listar());
+
+                RequestDispatcher rd = request.
+                        getRequestDispatcher("/atendimentoListar.jsp");
+                request.setAttribute("atendimentoBean", atendimentoBean);
+                rd.forward(request, response);
+            } catch (AppException e) {
+                atendimentoBean.setAtendimentosLista(atendimentoService.listar());
+                RequestDispatcher rd = request.
+                        getRequestDispatcher("/atendimentoListar.jsp");
+                request.setAttribute("atendimentoBean", atendimentoBean);
+                request.setAttribute("msg", e.getMsg());
+                rd.forward(request, response);
+            }
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

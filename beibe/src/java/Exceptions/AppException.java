@@ -9,6 +9,22 @@ package Exceptions;
  *
  * @author Bruno Fernandes
  */
-public class AppException {
+public class AppException extends Exception {
+    private String msg;
+    
+    
+    public AppException (String msg){
+        this.msg = msg;
+    }
+
+    public AppException() {
+    }
+    
+    public String getMsg(){
+        return msg;
+    }
+    
+    
+    
     
 }

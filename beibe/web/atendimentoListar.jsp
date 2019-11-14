@@ -78,10 +78,18 @@
             </div>
         </div>
         <br/>
+                <div class="row">
+                    <div class="col">
+                    <span style="color: red">${msg}</span>
+                    </div>
+                </div>
             <div class="row">
 
+                    
                 <h3> Atendimentos </h3>
+                <br/>
                 <table class="table">
+                
                     <thead class="thead-light">
                         <tr>
                             <th scope="col">Nº</th>

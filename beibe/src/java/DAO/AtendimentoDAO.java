@@ -91,7 +91,7 @@ public class AtendimentoDAO {
         }
     }
 
-    public void removerAtendimento(String id) {
+    public boolean removerAtendimento(String id) {
         Connection con = null;
         PreparedStatement st = null;
         ResultSet rs = null;
@@ -100,7 +100,13 @@ public class AtendimentoDAO {
             con = ConnectionFactory.getConnection();
             st = con.prepareStatement("delete from beibe.tb_atendimento where id_atendimento = ?");
             st.setInt(1, Integer.valueOf(id));
-            st.executeUpdate();
+            int retorno = st.executeUpdate();
+            
+            if(retorno == 0){
+                return false;
+            }
+            return true;
+            
 
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -126,7 +132,7 @@ public class AtendimentoDAO {
         }
     }
 
-    public void inserirAtendimento(Atendimento atendimento) {
+    public boolean inserirAtendimento(Atendimento atendimento) {
         Connection con = null;
         con = ConnectionFactory.getConnection();
         PreparedStatement st = null;
@@ -144,7 +150,13 @@ public class AtendimentoDAO {
             st.setInt(6, atendimento.getCliente().getId());
             st.setInt(7, atendimento.getResolvido());
 
-            st.executeUpdate();
+            int retorno = st.executeUpdate();
+            
+            if (retorno == 0){
+            return false;
+            }
+            
+            return true;
 
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -165,7 +177,7 @@ public class AtendimentoDAO {
 
     }
 
-    public void atualizar(Atendimento atendimento) {
+    public boolean atualizar(Atendimento atendimento) {
         Connection con = null;
         con = ConnectionFactory.getConnection();
         PreparedStatement st = null;
@@ -190,7 +202,11 @@ public class AtendimentoDAO {
             st.setInt(7, atendimento.getResolvido());
             st.setString(8, atendimento.getId());
             
-            st.executeUpdate();
+            int retorno = st.executeUpdate();
+            if (retorno == 0){
+                return false;
+            }
+            return true;
 
         } catch (Exception e) {
             throw new RuntimeException(e);

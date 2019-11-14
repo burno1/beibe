@@ -53,7 +53,12 @@
                 <div class="col-xl-12">
                     <h4>Relatório de Clientes</h4>
                     <hr/>
-                    <a href="./RelatorioDownload?action=r1" target="_blank"><button class="btn btn-outline-primary"> Imprimir Relatório</button></a>
+                    <form action="RelatorioDownload?action=r1" target="_blank" method="post">
+                        <input hidden name="tipoAtendimento" value="1">
+                        <input hidden name="dataInicio" value="1">
+                        <input hidden name="dataFim" value="2">
+                    <button class="btn btn-outline-primary" typ="submit"> Imprimir Relatório</button>
+                    </form>
                     <br/>                    
 
                     <br/>
@@ -65,6 +70,8 @@
                     <h4>Relatório de Atendimentos Abertos</h4>
                     <hr/>
                     <form action="RelatorioDownload?action=r2" target="_blank" method="post">
+                        <input hidden name="tipoAtendimento" value="1">
+                        
                         <div class="row">
 
                             <div class="col-xl-2">
