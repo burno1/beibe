@@ -6,8 +6,8 @@
 package Facade;
 
 
-import DAO.UsuarioDAO;
-import Model.Usuario;
+import DAO.FuncionarioDAO;
+import Model.Funcionario;
 import java.util.List;
 
 /**
@@ -15,22 +15,22 @@ import java.util.List;
  * @author Bruno Fernandes
  */
 public class LoginService {
-    UsuarioDAO usuarioDAO = new UsuarioDAO();
+    FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
     
     
     
     public void remover(String id){
     }
     
-    public Usuario inserir(Usuario usuario){
-        return usuarioDAO.inserir(usuario);
+    public Funcionario inserir(Funcionario funcionario){
+        return funcionarioDAO.inserir(funcionario);
     }
     
-    public List<Usuario> listar(){
-        return usuarioDAO.buscarTodos();
+    public List<Funcionario> listar(){
+        return funcionarioDAO.buscarTodos();
     }
     
-    public Usuario buscar(String email){
-        return usuarioDAO.buscarUsuario(email);
+    public Funcionario buscar(String email){
+        return funcionarioDAO.buscarFuncionario(email);
     }
 }

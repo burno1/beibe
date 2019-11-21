@@ -10,7 +10,7 @@ import Model.Atendimento;
 import Model.Cliente;
 import Model.Produto;
 import Model.TipoAtendimento;
-import Model.Usuario;
+import Model.Funcionario;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -34,7 +34,7 @@ public class AtendimentoDAO {
         ProdutoDAO produtoDAO = new ProdutoDAO();
         TipoAtendimentoDAO tipoAtendimentoDAO = new TipoAtendimentoDAO();
         ClienteDAO clienteDAO = new ClienteDAO();
-        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
 
         try {
             con = ConnectionFactory.getConnection();
@@ -55,11 +55,11 @@ public class AtendimentoDAO {
                 
                 
                 TipoAtendimento tipoAtendimento = tipoAtendimentoDAO.buscar(rs.getString("id_tipo_atendimento"));
-                Usuario usuario = usuarioDAO.buscarID(rs.getString("id_usuario"));
+                Funcionario funcionario = funcionarioDAO.buscarID(rs.getString("id_usuario"));
                 
                 atendimento.setProduto(produto);
                 atendimento.setTipoAtendimento(tipoAtendimento);
-                atendimento.setUsuario(usuario);
+                atendimento.setFuncionario(funcionario);
                 atendimento.setCliente(cliente);
                 atendimento.setResolvido(rs.getInt("res_atendimento"));
 
@@ -146,7 +146,7 @@ public class AtendimentoDAO {
             st.setString(2, atendimento.getDescricao());
             st.setInt(3, atendimento.getProduto().getIdProduto());
             st.setInt(4, atendimento.getTipoAtendimento().getIdTipo());
-            st.setString(5, atendimento.getUsuario().getId());
+            st.setString(5, atendimento.getFuncionario().getId());
             st.setInt(6, atendimento.getCliente().getId());
             st.setInt(7, atendimento.getResolvido());
 
@@ -197,7 +197,7 @@ public class AtendimentoDAO {
             st.setString(2, atendimento.getDescricao());
             st.setInt(3, atendimento.getProduto().getIdProduto());
             st.setInt(4, atendimento.getTipoAtendimento().getIdTipo());
-            st.setString(5, atendimento.getUsuario().getId());
+            st.setString(5, atendimento.getFuncionario().getId());
             st.setInt(6, atendimento.getCliente().getId());
             st.setInt(7, atendimento.getResolvido());
             st.setString(8, atendimento.getId());

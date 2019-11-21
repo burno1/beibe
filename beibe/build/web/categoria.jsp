@@ -57,7 +57,7 @@
                         <li class="nav-item"><a class="nav-link" href="portal.jsp">Portal (Cliente) <span class="sr-only">(current)</span></a></li>
                         <li class="nav-item e"><a class="nav-link" href="portalFuncionario.jsp">Portal (Funcionario) <span class="sr-only">(current)</span></a></li>
                         <li class="nav-item"><a class="nav-link" href="portalGerente.jsp">Portal (Gerente) <span class="sr-only">(current)</span></a></li>
-                        <li class="nav-item"><a class="nav-link" href='produtos.jsp'>Produtos</a></li>
+                        <li class="nav-item"><a class="nav-link" href='#'>Produtos</a></li>
                         <li class="nav-item active"><a class="nav-link" href='#'>Categorias</a></li>
                     </ul>
                     <ul class="nav navbar-nav ml-auto">

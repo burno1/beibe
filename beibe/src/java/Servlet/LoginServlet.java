@@ -9,7 +9,7 @@ import Bean.LoginBean;
 import Bean.PortalBean;
 import Facade.LoginService;
 
-import Model.Usuario;
+import Model.Funcionario;
 import Utils.MD5;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -49,21 +49,33 @@ public class LoginServlet extends HttpServlet {
         senha = request.getParameter("senha");
 
         
-        Usuario usuarioLogado = loginService.buscar(email);
+        Funcionario funcionarioLogado = loginService.buscar(email);
 
         HttpSession s = request.getSession();
         LoginBean loginBean = new LoginBean();
         
         //Condicional de erro para login
-        if (MD5.MD5Transformed(senha).equals(usuarioLogado.getSenha())) {
+        if (MD5.MD5Transformed(senha).equals(funcionarioLogado.getSenha())) {
             loginBean.setUser(email);
             
             loginBean.setSenha(MD5.MD5Transformed(senha));
             s.setAttribute("login", loginBean);
-            s.setAttribute("usuario", usuarioLogado);
-            
+            s.setAttribute("funcionario", funcionarioLogado);
             s.setAttribute("portalBean", new PortalBean());
+            
+            if("1".equals(funcionarioLogado.getTipo())){
             response.sendRedirect("./portalGerente.jsp");
+            }
+            
+            if("2".equals(funcionarioLogado.getTipo())){
+            response.sendRedirect("./portalFuncionario.jsp");
+            }
+            
+            if("3".equals(funcionarioLogado.getTipo())){
+            response.sendRedirect("./portal.jsp");
+            }
+            
+            
         } else {
             RequestDispatcher rd = request.
                     getRequestDispatcher("/ErroServlet");

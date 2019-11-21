@@ -38,10 +38,5 @@ public class ClienteBean  {
 
     public void setIdCliente(String idCliente) {
         this.idCliente = idCliente;
-    }
-
-
-    
-
-    
+    }    
 }

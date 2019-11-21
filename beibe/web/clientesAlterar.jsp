@@ -27,7 +27,7 @@
     <body>
         <jsp:useBean id="p" class="Bean.ClienteBean" />
         <jsp:setProperty name="p" property="*" />
-        
+
         <jsp:useBean id="estadosBean" class="Bean.EstadosBean" scope="request" />
         <jsp:setProperty name="estadosBean" property="*" />
 
@@ -41,8 +41,13 @@
                 <!-- Cabeçalho -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li class="nav-item"><a class="nav-link" href="portalGerente.jsp">Portal (Gerente) </span></a></li>
-                        <li class="nav-item active"><a class="nav-link" href='ClienteServlet'>Cadastro Clientes <span class="sr-only">(current)</a></li>
+                        <li class="nav-item"><a class="nav-link" href="portalGerente.jsp">Portal (Gerente) </a></li>
+                        <li class="nav-item"><a class="nav-link" href="AtendimentoServlet">Atendimentos</a></li>
+                        <li class="nav-item active"><a class="nav-link" href='ClienteServlet'>Clientes</a></li>
+                        <li class="nav-item"><a class="nav-link" href='ProdutoServlet'>Produtos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="funcionarioListar.jsp">Funcionarios</a></li>
+                        <li class="nav-item"><a class="nav-link" href="admin.jsp">Funcionario</a></li>
+                        <li class="nav-item"><a class="nav-link" href="Relatorios">Relatórios</a></li>
                     </ul>
                     <ul class="nav navbar-nav ml-auto">
                         <li nav-item><a href='Invalidar'>User ${login.user} Logout</a></li>
@@ -156,7 +161,7 @@
             var cidades;
             var mostra = '${mostra}';
             var cpf = '${cliente.cpf}'
-            
+
 
             $(document).ready(function () {
 
@@ -218,4 +223,4 @@
         </footer>
     </body>
 </html>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>

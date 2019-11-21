@@ -43,7 +43,7 @@ public class ProdutoServlet extends HttpServlet {
             
 
             RequestDispatcher rd = request.
-                    getRequestDispatcher("/produtos.jsp");
+                    getRequestDispatcher("/produtosListar.jsp");
             request.setAttribute("produtoBean", pBean);
 
             rd.forward(request, response);

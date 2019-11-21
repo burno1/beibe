@@ -41,11 +41,13 @@
                 <!-- Cabeçalho -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li class="nav-item"><a class="nav-link" href="portalGerente.jsp">Portal (Gerente) <span class="sr-only">(current)</span></a></li>
-                        <li class="nav-item"><a class="nav-link" href="atendimentos.jsp">Atendimentos</a></li>
-                        <li class="nav-item active"><a class="nav-link" href='ClienteServlet'>Cadastro Clientes</a></li>
-                        <li class="nav-item"><a class="nav-link" href="funcionarioListar.jsp">Cadastro Funcionarios</a></li>
-                        <li class="nav-item"><a class="nav-link" href="relatorios.jsp">Relatórios</a></li>
+                        <li class="nav-item "><a class="nav-link" href="portalGerente.jsp">Portal (Gerente) </a></li>
+                        <li class="nav-item"><a class="nav-link" href="AtendimentoServlet">Atendimentos</a></li>
+                        <li class="nav-item active"><a class="nav-link" href='ClienteServlet'>Clientes</a></li>
+                        <li class="nav-item"><a class="nav-link" href='ProdutoServlet'>Produtos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="funcionarioListar.jsp">Funcionarios</a></li>
+                        <li class="nav-item"><a class="nav-link" href="admin.jsp">Funcionario</a></li>
+                        <li class="nav-item"><a class="nav-link" href="Relatorios">Relatórios</a></li>
 
                     </ul>
                     <ul class="nav navbar-nav ml-auto">
@@ -98,7 +100,7 @@
                     </tbody>
                 </table>
 
-                
+
             </div>
         </div>
         <footer id="sticky-footer" class="py-4 bg-info text-white-50">

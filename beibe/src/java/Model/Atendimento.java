@@ -18,7 +18,7 @@ public class Atendimento {
     private String descricao;
     private Produto produto;
     private TipoAtendimento tipoAtendimento;
-    private Usuario usuario;
+    private Funcionario funcionario;
     private Cliente cliente;
     private int resolvido;
 
@@ -62,12 +62,12 @@ public class Atendimento {
         this.tipoAtendimento = tipoAtendimento;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public Funcionario getFuncionario() {
+        return funcionario;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setFuncionario(Funcionario funcionario) {
+        this.funcionario = funcionario;
     }
 
     public Cliente getCliente() {
@@ -86,12 +86,12 @@ public class Atendimento {
         this.resolvido = resolvido;
     }
 
-    public Atendimento(LocalDate data, String descricao, Produto produto, TipoAtendimento tipoAtendimento, Usuario usuario, Cliente cliente, int resolvido) {
+    public Atendimento(LocalDate data, String descricao, Produto produto, TipoAtendimento tipoAtendimento, Funcionario funcionario, Cliente cliente, int resolvido) {
         this.data = data;
         this.descricao = descricao;
         this.produto = produto;
         this.tipoAtendimento = tipoAtendimento;
-        this.usuario = usuario;
+        this.funcionario = funcionario;
         this.cliente = cliente;
         this.resolvido = resolvido;
     }

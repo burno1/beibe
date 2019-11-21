@@ -8,7 +8,7 @@ package Servlet;
 import Bean.PortalBean;
 import Facade.LoginService;
 
-import Model.Usuario;
+import Model.Funcionario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -42,10 +42,10 @@ public class PortalServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PortalBean pb = new PortalBean();
         HttpSession s = request.getSession();
-        ArrayList<Usuario> usuarios = ((ArrayList<Usuario>) s.getAttribute("listaUsuarios"));
-        List<Usuario> listaUsuarios = new ArrayList<Usuario>();
+        ArrayList<Funcionario> funcionarios = ((ArrayList<Funcionario>) s.getAttribute("listaFuncionarios"));
+        List<Funcionario> listaFuncionarios = new ArrayList<Funcionario>();
         LoginService loginService = new LoginService();
-        listaUsuarios = loginService.listar();
+        listaFuncionarios = loginService.listar();
         String nome = "";
         String email = "";
         String senha = "";
@@ -63,8 +63,8 @@ public class PortalServlet extends HttpServlet {
                 email = (String) request.getParameter("email");
                 senha = (String) request.getParameter("senha");
 
-                Usuario usuario = new Usuario(nome, email, senha, "");
-                usuarios.add(usuario);
+                Funcionario funcionario = new Funcionario(nome, email, senha, "");
+                funcionarios.add(funcionario);
             }
             RequestDispatcher rd = request.
                     getRequestDispatcher("/portal");

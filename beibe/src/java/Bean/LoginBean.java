@@ -5,14 +5,14 @@
  */
 package Bean;
 
-import Model.Usuario;
+import Model.Funcionario;
 
 public class LoginBean {
     
-    private Usuario usuario;
+    private Funcionario funcionario;
     private String user;
     private String senha;
-    private String nomeUsuario;
+    private String nomeFuncionario;
     
     public LoginBean() {        
         
@@ -34,20 +34,20 @@ public class LoginBean {
         this.senha = senha;
     }
 
-    public String getNomeUsuario() {
-        return nomeUsuario;
+    public String getNomeFuncionario() {
+        return nomeFuncionario;
     }
 
-    public void setNomeUsuario(String nomeUsuario) {
-        this.nomeUsuario = nomeUsuario;
+    public void setNomeFuncionario(String nomeFuncionario) {
+        this.nomeFuncionario = nomeFuncionario;
     }    
 
-    public Usuario getUsuario() {
-        return usuario;
+    public Funcionario getFuncionario() {
+        return funcionario;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setFuncionario(Funcionario funcionario) {
+        this.funcionario = funcionario;
     }
     
     

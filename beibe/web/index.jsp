@@ -42,7 +42,7 @@
             </form>
             <div class="badnews">${param["msg"]} ${mensagem}</div>
             
-            <form action="CadastrarUsuarioServlet" method="post" modelAttribute="user">
+            <form action="CadastrarFuncionarioServlet" method="post" modelAttribute="user">
             <p>Não é usuário? Cadastre-se</p>
              <div class="form-group">
                <button type="submit" class="btn btn-info btn-block">Cadastrar</button>

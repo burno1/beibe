@@ -20,7 +20,7 @@ import Model.Cidade;
 import Model.Cliente;
 import Model.Produto;
 import Model.TipoAtendimento;
-import Model.Usuario;
+import Model.Funcionario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
@@ -228,9 +228,9 @@ public class AtendimentoServlet extends HttpServlet {
                     atendimento.setResolvido(0);
                 }
 
-                Usuario usuario = new Usuario();
-                usuario = (Usuario) s.getAttribute("usuario");
-                atendimento.setUsuario(usuario);
+                Funcionario funcionario = new Funcionario();
+                funcionario = (Funcionario) s.getAttribute("funcionario");
+                atendimento.setFuncionario(funcionario);
                 String idAtend = request.getParameter("idAtend");
 
                 if (!("".equals(idAtend))) {

@@ -25,7 +25,7 @@
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="portal.jsp">Cadastro Usuario <span class="sr-only">(current)</span></a></li>
+                        <li class="active"><a href="portal.jsp">Cadastro Funcionario <span class="sr-only">(current)</span></a></li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
@@ -36,7 +36,7 @@
 
 
         <div class="container">
-            <form action="CadastrarUsuarioServlet" method="post">
+            <form action="CadastrarFuncionarioServlet" method="post">
 
 
                 <div class="form-group row">

@@ -6,7 +6,7 @@
 package Servlet;
 
 import Bean.ClienteBean;
-import Bean.UsuarioBean;
+import Bean.FuncionarioBean;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;

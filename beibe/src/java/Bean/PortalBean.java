@@ -7,7 +7,7 @@ package Bean;
 
 
 import Facade.LoginService;
-import Model.Usuario;
+import Model.Funcionario;
 import java.util.List;
 
 /**
@@ -16,14 +16,14 @@ import java.util.List;
  */
 public class PortalBean {
 
-    List<Usuario> listaUsuarios = null;
+    List<Funcionario> listaFuncionarios = null;
     LoginService loginService = new LoginService();
 
     public PortalBean() {
 
     }
 
-    public List<Usuario> getListaUsuarios() {
+    public List<Funcionario> getListaFuncionarios() {
         return loginService.listar();
     }
 }

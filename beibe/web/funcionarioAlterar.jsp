@@ -1,27 +1,36 @@
 <%@page import="Utils.DateConverter"%>
-<%@page import="Model.Cliente"%>
+<%@page import="Model.Funcionario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
-<% if (session.getAttribute("login") == null) {
-        RequestDispatcher rd = request.
-                getRequestDispatcher("/ErroServlet");
-        request.setAttribute("msg", "Não vem de hack!");
-        request.setAttribute("page", "index.jsp");
-        rd.forward(request, response);
-    }%>
+
+
+<c:if test="${empty login}">
+    <jsp:forward page="index.jsp">
+        <jsp:param name="msg" value="Usuário deve se autenticar para acessar o sistema"/>
+    </jsp:forward>
+</c:if>
+<%@page errorPage="erro.jsp"%>
 
 
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
         <link href="./css/login.css" rel="stylesheet" />
         <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
         <script src="./bootstrap/js/jquery.min.js"></script>
         <script src="./bootstrap/js/bootstrap.min.js"></script>
         <title>BEIBE - Beauty Embuste Indústria de Beleza e Estética
+            <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
         </title>
     </head>
     <body>
+        <jsp:useBean id="p" class="Bean.FuncionarioBean" />
+        <jsp:setProperty name="p" property="*" />
+
+        <jsp:useBean id="estadosBean" class="Bean.EstadosBean" scope="request" />
+        <jsp:setProperty name="estadosBean" property="*" />
+
 
         <nav  class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
@@ -32,9 +41,13 @@
                 <!-- Cabeçalho -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li class="nav-item"><a class="nav-link" href="portalGerente.jsp">Portal (Gerente) </span></a></li>
-                        <li class="nav-item active"><a class="nav-link" href='funcionarioListar'>Cadastro Funcionário <span class="sr-only">(current)</a></li>
-
+                        <li class="nav-item"><a class="nav-link" href="portalGerente.jsp">Portal (Gerente) </a></li>
+                        <li class="nav-item"><a class="nav-link" href="AtendimentoServlet">Atendimentos</a></li>
+                        <li class="nav-item active"><a class="nav-link" href='FuncionarioServlet'>Funcionarios</a></li>
+                        <li class="nav-item"><a class="nav-link" href='ProdutoServlet'>Produtos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="funcionarioListar.jsp">Funcionarios</a></li>
+                        <li class="nav-item"><a class="nav-link" href="admin.jsp">Funcionario</a></li>
+                        <li class="nav-item"><a class="nav-link" href="Relatorios">Relatórios</a></li>
                     </ul>
                     <ul class="nav navbar-nav ml-auto">
                         <li nav-item><a href='Invalidar'>User ${login.user} Logout</a></li>
@@ -45,93 +58,161 @@
 
 
         <div class="container">
+
             <br/>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label" for="nome">ID</label>
-                <div class="col-sm-6">
-                    <input class="form-control" type="text" value="Cliente" readonly="true">
+            <h4>Alterar Dados</h4>
+            <hr>
+            <form id="form" action="FuncionarioServlet?action=update" method="post">            
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label" for="id">ID</label>
+                    <div class="col-sm-6">
+                        <input class="form-control" type="text" value="${funcionario.id}" name="id" id="id" readonly="readonly">
+                    </div>
                 </div>
-            </div>
-            
-            <div class="form-group row">
-                <div class="col-sm-2">
-                    Categoria
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label" for="cpf">CPF</label>
+                    <div class="col-sm-6">
+                        <input class="form-control" maxlength="14" type="text" value="${funcionario.cpf}" name="cpf" id="cpf" >
+
+                    </div>
                 </div>
-                <div class="input-group col-sm-6">
-                    <select class="custom-select" id="inputGroupSelect02">
-                        <option selected>Selecione...</option>
-                        <option value="1">Funcionário</option>
-                        <option value="2">Gerente</option>
-                        
-                    </select>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label" for="nome">NOME</label>
+                    <div class="col-sm-6">
+                        <input class="form-control" type="text" value="${funcionario.nome}" name="nome" id="nome">
+                    </div>
                 </div>
-            </div>
-            
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label" for="nome">CPF</label>
-                <div class="col-sm-6">
-                    <input class="form-control" type="text" value="CPF" >
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label" for="email">E-MAIL</label>
+                    <div class="col-sm-6">
+                        <input class="form-control" type="email" value="${funcionario.email}" name="email" id="email">
+                    </div>
                 </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label" for="nome">NOME</label>
-                <div class="col-sm-6">
-                    <input class="form-control" type="text" value="Nome" >
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label" for="data">DATA</label>
+                    <div class="col-sm-6">
+
+                        <input class="form-control" type="date" value="${funcionario.data}" name="data" id="data">
+                    </div>
                 </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label" for="nome">E-MAIL</label>
-                <div class="col-sm-6">
-                    <input class="form-control" type="text" value="email" >
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label" for="rua">RUA</label>
+                    <div class="col-sm-6">
+                        <input class="form-control" type="text" value="${funcionario.rua}" name="rua" id="rua">
+                    </div>
                 </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label" for="nome">DATA</label>
-                <div class="col-sm-6">
-                    <input class="form-control" type="text" value="24/05/2019" >
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label" for="numero">NÚMERO</label>
+                    <div class="col-sm-6">
+                        <input class="form-control" type="number" value="${funcionario.numero}" name="numero" id="numero">
+                    </div>
                 </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label" for="nome">RUA</label>
-                <div class="col-sm-6">
-                    <input class="form-control" type="text" value="rua" >
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label" for="cep">CEP</label>
+                    <div class="col-sm-6">
+                        <input class="form-control" type="text" value="${funcionario.cep}" name="cep" id="cep">
+                    </div>
                 </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label" for="nome">NÚMERO</label>
-                <div class="col-sm-6">
-                    <input class="form-control" type="text" value="numero" >
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label" for="uf">UF</label>
+                    <div class="col-sm-6">
+                        <select id="uf" class="custom-select custom-select-md" name="uf">
+                            <option selected><c:out value="${funcionario.cidade.estado.uf}"/></option>
+                            <c:forEach items="${estadosBean.estados}" var="e">                        
+                                <option value="${e.uf}">${e.uf}</option>
+                            </c:forEach>
+                        </select>   
+                    </div>
                 </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label" for="nome">CEP</label>
-                <div class="col-sm-6">
-                    <input class="form-control" type="text" value="cep" >
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label" for="cidade">CIDADE</label>
+                    <div class="col-sm-6">
+                        <select class="custom-select custom-select-md" name="cidade" id="cidade">
+                            <option selected value="${funcionario.cidade.id}">${funcionario.cidade.nome}</option>
+                            <c:forEach items="${cidadesBean.cidades}" var="c">                        
+                                <option value="${c.id}">${c.nome}</option>
+                            </c:forEach>
+                        </select>   
+                    </div>
                 </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label" for="nome">CIDADE</label>
-                <div class="col-sm-6">
-                    <input class="form-control" type="text" value="cidade" >
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label" for="nome">UF</label>
-                <div class="col-sm-6">
-                    <input class="form-control" type="text" value="uf" >
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-sm-2">
-                    <button type="submit" class="btn btn-success btn-block">Salvar</button>
+                <div id="test">
+
                 </div>
 
-                <div class="col-sm-2">
-                    <a href="funcionarioListar.jsp"><button type="button" class="btn btn-secondary btn-block">Cancelar</button></a>
-                </div>
-            </div>
+                <div id="salvar" class="form-group row">
+                    <div class="col-sm-2">
+                        <button  type="submit" class="btn btn-success btn-block">Salvar</button>
+                    </div>
 
+                    <div id="cancelar" class="col-sm-2">
+                        <a href="FuncionarioServlet"><button type="button" class="btn btn-secondary btn-block">Cancelar</button></a>
+                    </div>
+                </div>
+
+                <div id="voltar" class="row">
+                    <div class="col-sm-2">
+                        <a href="FuncionarioServlet"><button type="button" class="btn btn-secondary btn-block">Voltar</button></a>
+                    </div>
+                </div>
+            </form>
         </div>
+
+        <script>
+            var cidades;
+            var mostra = '${mostra}';
+            var cpf = '${funcionario.cpf}'
+
+
+            $(document).ready(function () {
+
+                $("#voltar").hide();
+                var $campoCpf = $("#cpf");
+                $campoCpf.mask('000.000.000-00', {reverse: true});
+                if (mostra) {
+                    $('#form input').prop("disabled", true);
+                    $('#form select').prop("disabled", true);
+                    $("#salvar").hide();
+                    $("#cancelar").hide();
+                    $("#voltar").show();
+                    console.log('ihu');
+                }
+
+                $("#uf").change(function () {
+                    getCidades();
+                });
+            });
+
+            function carregarCombo(data)
+            {
+                // Se sucesso, limpa e preenche a combo de cidade
+                $("#cidade").empty();
+                $.each(data, function (i, obj) {
+                    $("#cidade").append('<option value=' + obj.id + '>' + obj.nome + '</option>');
+                });
+            }
+
+
+            function getCidades() {
+                cidades = $.ajax({
+                    url: "./ajaxCidadesServlet",
+                    data: {uf: $("#uf").val()},
+                    async: false,
+                    dataType: 'json'
+                }).responseJSON;
+                carregarCombo(cidades)
+            }
+
+            function getCidades() {
+                cidades = $.ajax({
+                    url: "./ajaxCidadesServlet",
+                    data: {uf: $("#uf").val()},
+                    async: false,
+                    dataType: 'json'
+                }).responseJSON;
+                carregarCombo(cidades)
+            }
+
+        </script>
 
 
         <!-- seu conteudo aqui -->
@@ -142,3 +223,4 @@
         </footer>
     </body>
 </html>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>
