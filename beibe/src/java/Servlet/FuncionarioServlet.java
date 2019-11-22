@@ -93,13 +93,14 @@ public class FuncionarioServlet extends HttpServlet {
                 Funcionario funcionario = funcionarioService.buscarID(id);
                 List<Cargo> cargos = new ArrayList<Cargo>();
                 cargos = Cargo.geraCargos();
+                
                 if ("1".equals(funcionario.getTipo())) {
                     funcionario.setCargo(new Cargo(1, "Gerente"));
                 } else {
                     funcionario.setCargo(new Cargo(2, "Funcionario"));
                 }
 
-                if (funcionario == null) {
+                if (funcionario.getCidade() == null) {
                     throw new ErroFuncionario("Não foi possivel buscar o funcionario");
                 }
 
@@ -127,8 +128,11 @@ public class FuncionarioServlet extends HttpServlet {
 
                 List<Cargo> cargos = new ArrayList<Cargo>();
                 cargos = Cargo.geraCargos();
-
+                
                 Funcionario funcionario = funcionarioService.buscarID(id);
+                if (funcionario.getCidade()== null){
+                    throw new ErroFuncionario("Não foi possivel buscar este funcionario");
+                } 
 
                 if ("1".equals(funcionario.getTipo())) {
                     funcionario.setCargo(new Cargo(1, "Funcionario"));
@@ -282,46 +286,6 @@ public class FuncionarioServlet extends HttpServlet {
             request.setAttribute("cargos", cargos);
             request.setAttribute("funcionario", funcionario);
             rd.forward(request, response);
-        }
-        if ("new".equals(acao)) {
-            LocalDate data = null;
-
-            try {
-                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-                String str = request.getParameter("data");   // Data como String
-
-                data = LocalDate.parse(str);
-
-            } catch (Exception e) {
-
-            }
-            try {
-                Funcionario funcionario = new Funcionario();
-                funcionario.setCpf(request.getParameter("cpf"));
-                funcionario.setNome(request.getParameter("nome"));
-                funcionario.setEmail(request.getParameter("email"));
-                funcionario.setData(data.plusDays(1));
-                funcionario.setRua(request.getParameter("rua"));
-                funcionario.setNumero(Integer.valueOf(request.getParameter("numero")));
-                funcionario.setCep(Integer.valueOf(request.getParameter("cep")));
-                funcionario.setCidade(new Cidade(Integer.valueOf(request.getParameter("cidade")), request.getParameter("uf")));
-                funcionarioService.inserir(funcionario);
-
-                Funcionario funcionarioLogado = (Funcionario) s.getAttribute("funcionario");
-                fbean.setListaFuncionarios(funcionarioService.listar(funcionarioLogado.getId()));
-
-                RequestDispatcher rd = request.
-                        getRequestDispatcher("./funcionarioListar.jsp");
-                request.setAttribute("funcionarioBean", fbean);
-                rd.forward(request, response);
-
-            } catch (Exception e) {
-                request.setAttribute("javax.servlet.jsp.jspException", e);
-                request.setAttribute("javax.servlet.error.status_code", 500);
-
-                RequestDispatcher rd = getServletContext().getRequestDispatcher("/erro.jsp");
-                rd.forward(request, response);
-            }
         }
 
     }

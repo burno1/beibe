@@ -61,18 +61,14 @@
             <br/>
             <h4>Alterar Dados</h4>
             <hr>
+
+            <h4> Dados do Sistema </h4>
+            <hr>
             <form id="form" action="FuncionarioServlet?action=update" method="post">            
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="id">ID</label>
                     <div class="col-sm-6">
                         <input class="form-control" type="text" value="${funcionario.id}" name="id" id="id" readonly="readonly">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label" for="cpf">CPF</label>
-                    <div class="col-sm-6">
-                        <input class="form-control" maxlength="14" type="text" value="${funcionario.cpf}" name="cpf" id="cpf" >
-
                     </div>
                 </div>
 
@@ -88,13 +84,7 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label" for="nome">Nome</label>
-                    <div class="col-sm-6">
-                        <input class="form-control" type="text" value="${funcionario.nome}" name="nome" id="nome">
-                    </div> 
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label" for="email">E-MAIL</label>
+                    <label class="col-sm-2 col-form-label" for="email">Email (Login)</label>
                     <div class="col-sm-6">
                         <input class="form-control" type="email" value="${funcionario.email}" name="email" id="email">
                     </div>
@@ -104,6 +94,22 @@
                     <div class="col-sm-6">
                         <input class="form-control" type="text" value="${funcionario.senha}" name="senha" id="senha">
                     </div>
+                </div>
+
+                <h4> Dados Pessoais</h4>
+                <hr>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label" for="cpf">CPF</label>
+                    <div class="col-sm-6">
+                        <input class="form-control" maxlength="14" type="text" value="${funcionario.cpf}" name="cpf" id="cpf" >
+
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label" for="nome">Nome</label>
+                    <div class="col-sm-6">
+                        <input class="form-control" type="text" value="${funcionario.nome}" name="nome" id="nome">
+                    </div> 
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="data">Data</label>

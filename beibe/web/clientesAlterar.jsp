@@ -41,12 +41,11 @@
                 <!-- Cabeçalho -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li class="nav-item"><a class="nav-link" href="portalGerente.jsp">Portal (Gerente) </a></li>
+                        <li class="nav-item active"><a class="nav-link" href="portalGerente.jsp">Portal (Gerente) <span class="sr-only">(current)</span></a></li>
                         <li class="nav-item"><a class="nav-link" href="AtendimentoServlet">Atendimentos</a></li>
-                        <li class="nav-item active"><a class="nav-link" href='ClienteServlet'>Clientes</a></li>
+                        <li class="nav-item"><a class="nav-link" href='ClienteServlet'>Clientes</a></li>
                         <li class="nav-item"><a class="nav-link" href='ProdutoServlet'>Produtos</a></li>
-                        <li class="nav-item"><a class="nav-link" href="funcionarioListar.jsp">Funcionarios</a></li>
-                        <li class="nav-item"><a class="nav-link" href="admin.jsp">Funcionario</a></li>
+                        <li class="nav-item"><a class="nav-link" href="FuncionarioServlet">Funcionarios</a></li>
                         <li class="nav-item"><a class="nav-link" href="Relatorios">Relatórios</a></li>
                     </ul>
                     <ul class="nav navbar-nav ml-auto">
@@ -62,7 +61,9 @@
             <br/>
             <h4>Alterar Dados</h4>
             <hr>
-            <form id="form" action="ClienteServlet?action=update" method="post">            
+            <form id="form" action="ClienteServlet?action=update" method="post">       
+                <h4> Dados do Sistema </h4>
+                <hr>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="id">ID</label>
                     <div class="col-sm-6">
@@ -72,7 +73,7 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="cpf">CPF</label>
                     <div class="col-sm-6">
-                        <input class="form-control" maxlength="14" type="text" value="${cliente.cpf}" name="cpf" id="cpf" readonly="readonly">
+                        <input class="form-control" maxlength="14" type="text" value="${cliente.cpf}" name="cpf" id="cpf" >
                     </div>
                 </div>   
                 <div class="form-group row">
@@ -87,6 +88,8 @@
                         <input class="form-control" type="email" value="${cliente.email}" name="email" id="email">
                     </div>
                 </div>
+                <h4> Dados Pessoais</h4>
+                <hr>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="data">DATA</label>
                     <div class="col-sm-6">

@@ -21,6 +21,8 @@ public class Atendimento {
     private Funcionario funcionario;
     private Cliente cliente;
     private int resolvido;
+    //1 para 1 semana de atraso,0 para nenhuma semana
+    private int atrasado;
 
     public String getId() {
         return id;
@@ -107,6 +109,15 @@ public class Atendimento {
     public void setDataString(String dataString) {
         this.dataString = dataString;
     }
+
+    public int getAtrasado() {
+        return atrasado;
+    }
+
+    public void setAtrasado(int atrasado) {
+        this.atrasado = atrasado;
+    }
+    
     
     
     

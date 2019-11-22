@@ -5,11 +5,13 @@
  */
 package Bean;
 
+import java.time.temporal.ChronoUnit;
 import Model.Atendimento;
 import Model.Cliente;
 import Model.Produto;
 import Model.TipoAtendimento;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 
 /**
@@ -40,6 +42,17 @@ public class AtendimentoBean {
     }
 
     public void setAtendimentosLista(List<Atendimento> atendimentosLista) {
+        System.out.println("set lista");
+        for (Atendimento atendimento : atendimentosLista) {
+            Period period = Period.between( atendimento.getData(),LocalDate.now());
+            System.out.println(period.getDays());
+            atendimento.setAtrasado(0);
+            if(period.getDays() >= 7 ){
+                System.out.println("atrasado");
+                atendimento.setAtrasado(1);
+            }
+        }
+
         this.atendimentosLista = atendimentosLista;
     }
 
@@ -65,5 +78,5 @@ public class AtendimentoBean {
 
     public void setClientes(List<Cliente> clientes) {
         this.clientes = clientes;
-    }    
+    }
 }

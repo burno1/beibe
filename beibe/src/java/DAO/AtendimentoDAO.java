@@ -237,7 +237,7 @@ public class AtendimentoDAO {
         ClienteDAO clienteDAO = new ClienteDAO();
 
         try {
-            st = con.prepareStatement("SELECT id_atendimento, dt_hr_atendimento,  id_produto, id_cliente from tb_atendimento");
+            st = con.prepareStatement("SELECT id_atendimento, dt_hr_atendimento,  id_produto, id_cliente from tb_atendimento order by dt_hr_atendimento");
             rs = st.executeQuery();
 
             while (rs.next()) {

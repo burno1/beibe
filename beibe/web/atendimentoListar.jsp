@@ -91,7 +91,7 @@
                 <table class="table">
                 
                     <thead class="thead-light">
-                        <tr>
+                        <tr >
                             <th scope="col">Nº</th>
                             <th scope="col">Data/Hora</th>
                             <th scope="col">Produto</th>
@@ -101,7 +101,7 @@
                     </thead>
                     <tbody>
                         <c:forEach items="${atendimentoBean.atendimentosLista}" var="a">
-                            <tr>
+                            <tr ${a.atrasado == 1 ?  'class="urgente"' : 'class="atencao"'}>
                                 <td><c:out value="${a.id}"/></td>
                                 <td><c:out value="${a.dataString} " /></td>
                                 <td><c:out value="${a.produto.nomeProduto}" /></td>
