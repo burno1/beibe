@@ -26,10 +26,7 @@ public class LoginService {
         return funcionarioDAO.inserir(funcionario);
     }
     
-    public List<Funcionario> listar(){
-        return funcionarioDAO.buscarTodos();
-    }
-    
+
     public Funcionario buscar(String email){
         return funcionarioDAO.buscarFuncionario(email);
     }

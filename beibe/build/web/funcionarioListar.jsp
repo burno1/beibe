@@ -26,6 +26,8 @@
         </title>
     </head>
     <body>
+         <jsp:useBean id="funcionarioBean" class="Bean.FuncionarioBean" scope="request" />
+        <jsp:setProperty name="funcionarioBean" property="*" />
         <nav  class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -35,8 +37,12 @@
                 <!-- Cabeçalho -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li class="nav-item"><a class="nav-link" href="portalGerente.jsp">Portal (Gerente) <span class="sr-only">(current)</span></a></li>
-                        <li class="nav-item"><a class="nav-link" href="admin.jsp">Admin (Portal Antigo)</a></li>
+                       <li class="nav-item active"><a class="nav-link" href="portalGerente.jsp">Portal (Gerente) <span class="sr-only">(current)</span></a></li>
+                        <li class="nav-item"><a class="nav-link" href="AtendimentoServlet">Atendimentos</a></li>
+                        <li class="nav-item"><a class="nav-link" href='ClienteServlet'>Clientes</a></li>
+                        <li class="nav-item"><a class="nav-link" href='ProdutoServlet'>Produtos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="funcionarioListar.jsp">Funcionarios</a></li>
+                        <li class="nav-item"><a class="nav-link" href="Relatorios">Relatórios</a></li>
                     </ul>
                     <ul class="nav navbar-nav ml-auto">
                         <li nav-item><a href='Invalidar'>User ${login.user} Logout</a></li>
@@ -67,13 +73,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach items="${portalBean.listaFuncionarios}" var="u">
+                            <c:forEach items="${funcionarioBean.listaFuncionarios}" var="u">
                                 <tr>
                                     <td><c:out value="${u.nome}" /></td>
                                     <td><c:out value="${u.email}" /></td>
                                     <td>
                                         <a href="FuncionarioServlet?action=show&id=${u.id}&mostra=0"><button type="button" class="btn btn-info">Visualizar</button> </a>
-                                        <a href="FuncionarioServlet?action=formUpdate&id=${u.id}"><button type="button" class="btn btn-secondary">Alterar</button> </a>
+                                        <a href="FuncionarioServlet?action=formUpdate&id=${u.id}&mostra=0"><button type="button" class="btn btn-secondary">Alterar</button> </a>
                                         <a href="FuncionarioServlet?action=remove&id=${u.id}"><button type="button" class="btn btn-danger">Remover</button> </a>
                                     </td>
                                 </tr>

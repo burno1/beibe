@@ -7,15 +7,13 @@ package Servlet;
 
 import Bean.CidadesBean;
 import Bean.FuncionarioBean;
-import Bean.EstadosBean;
-import Bean.PortalBean;
 import DAO.CidadeDAO;
 import Exceptions.AppException;
 import Exceptions.ErroFuncionario;
-import Facade.AtendimentoService;
 import Facade.CidadeService;
 
 import Facade.FuncionarioService;
+import Model.Cargo;
 import Model.Cidade;
 import Model.Funcionario;
 import java.io.IOException;
@@ -61,55 +59,63 @@ public class FuncionarioServlet extends HttpServlet {
             rd.forward(request, response);
         }
 
-        FuncionarioBean cbean = new FuncionarioBean();
+        FuncionarioBean fbean = new FuncionarioBean();
         FuncionarioService funcionarioService = new FuncionarioService();
-        AtendimentoService atendimentoService = new AtendimentoService();
-
         String acao = request.getParameter("action");
 
         if (null == acao || "listar".equals(acao)) {
 
             try {
+                Funcionario funcionarioLogado = (Funcionario) s.getAttribute("funcionario");
+                fbean.setListaFuncionarios(funcionarioService.listar(funcionarioLogado.getId()));
 
-                cbean.setListaFuncionarios(funcionarioService.listar());
-
-                if (cbean.getListaFuncionarios() == null) {
+                if (fbean.getListaFuncionarios() == null) {
                     throw new ErroFuncionario("Não foi possivel carregar lista de funcionarios");
                 }
                 RequestDispatcher rd = request.
                         getRequestDispatcher("/funcionarioListar.jsp");
-                request.setAttribute("funcionarioBean", cbean);
+                request.setAttribute("funcionarioBean", fbean);
 
                 rd.forward(request, response);
             } catch (AppException e) {
-                cbean.setListaFuncionarios(funcionarioService.listar());
+                Funcionario funcionarioLogado = (Funcionario) s.getAttribute("funcionario");
+                fbean.setListaFuncionarios(funcionarioService.listar(funcionarioLogado.getId()));
 
                 RequestDispatcher rd = request.
                         getRequestDispatcher("/funcionarioListar.jsp");
-                request.setAttribute("funcionarioBean", cbean);
+                request.setAttribute("funcionarioBean", fbean);
                 request.setAttribute("msg", e.getMsg());
             }
         }
         if ("show".equals(acao)) {
             try {
                 String id = request.getParameter("id");
-                Funcionario funcionario = funcionarioService.buscar(id);
+                Funcionario funcionario = funcionarioService.buscarID(id);
+                List<Cargo> cargos = new ArrayList<Cargo>();
+                cargos = Cargo.geraCargos();
+                if ("1".equals(funcionario.getTipo())) {
+                    funcionario.setCargo(new Cargo(1, "Gerente"));
+                } else {
+                    funcionario.setCargo(new Cargo(2, "Funcionario"));
+                }
 
-                if (funcionario.getCpf() == null) {
+                if (funcionario == null) {
                     throw new ErroFuncionario("Não foi possivel buscar o funcionario");
                 }
 
                 RequestDispatcher rd = request.
                         getRequestDispatcher("./funcionarioAlterar.jsp");
                 request.setAttribute("funcionario", funcionario);
+                request.setAttribute("cargos", cargos);
                 request.setAttribute("mostra", 1);
                 rd.forward(request, response);
             } catch (AppException e) {
-                cbean.setListaFuncionarios(funcionarioService.listar());
+                Funcionario funcionarioLogado = (Funcionario) s.getAttribute("funcionario");
+                fbean.setListaFuncionarios(funcionarioService.listar(funcionarioLogado.getId()));
 
                 RequestDispatcher rd = request.
                         getRequestDispatcher("/funcionarioListar.jsp");
-                request.setAttribute("funcionarioBean", cbean);
+                request.setAttribute("funcionarioBean", fbean);
                 request.setAttribute("msg", e.getMsg());
                 rd.forward(request, response);
             }
@@ -119,9 +125,19 @@ public class FuncionarioServlet extends HttpServlet {
                 CidadeService cidadeService = new CidadeService();
                 String id = request.getParameter("id");
 
-                Funcionario funcionario = funcionarioService.buscar(id);
+                List<Cargo> cargos = new ArrayList<Cargo>();
+                cargos = Cargo.geraCargos();
 
-                if (funcionario.getCidade() == null) {
+                Funcionario funcionario = funcionarioService.buscarID(id);
+
+                if ("1".equals(funcionario.getTipo())) {
+                    funcionario.setCargo(new Cargo(1, "Funcionario"));
+                } else {
+                    funcionario.setCargo(new Cargo(2, "Gerente"));
+
+                }
+
+                if (funcionario == null) {
                     throw new ErroFuncionario("Não foi possivel buscar este funcionario");
                 }
 
@@ -134,15 +150,18 @@ public class FuncionarioServlet extends HttpServlet {
                 cidadeBean.setCidades(cidadeService.buscarPorEstado(funcionario.getCidade().getEstado()));
 
                 request.setAttribute("funcionario", funcionario);
+                request.setAttribute("cargos", cargos);
+                request.setAttribute("mostra", 0);
                 request.setAttribute("cidadesBean", cidadeBean);
                 rd.forward(request, response);
 
             } catch (AppException e) {
-                cbean.setListaFuncionarios(funcionarioService.listar());
+                Funcionario funcionarioLogado = (Funcionario) s.getAttribute("funcionario");
+                fbean.setListaFuncionarios(funcionarioService.listar(funcionarioLogado.getId()));
 
                 RequestDispatcher rd = request.
                         getRequestDispatcher("/funcionarioListar.jsp");
-                request.setAttribute("funcionarioBean", cbean);
+                request.setAttribute("funcionarioBean", fbean);
                 request.setAttribute("msg", e.getMsg());
                 rd.forward(request, response);
 
@@ -156,19 +175,20 @@ public class FuncionarioServlet extends HttpServlet {
                 if (!funcionarioService.remover(id)) {
                     throw new ErroFuncionario("Não foi possivel remover funcionario");
                 }
-
-                cbean.setListaFuncionarios(funcionarioService.listar());
+                Funcionario funcionarioLogado = (Funcionario) s.getAttribute("funcionario");
+                fbean.setListaFuncionarios(funcionarioService.listar(funcionarioLogado.getId()));
 
                 RequestDispatcher rd = request.
                         getRequestDispatcher("/funcionarioListar.jsp");
-                request.setAttribute("funcionarioBean", cbean);
+                request.setAttribute("funcionarioBean", fbean);
                 rd.forward(request, response);
             } catch (AppException e) {
-                cbean.setListaFuncionarios(funcionarioService.listar());
+                Funcionario funcionarioLogado = (Funcionario) s.getAttribute("funcionario");
+                fbean.setListaFuncionarios(funcionarioService.listar(funcionarioLogado.getId()));
 
                 RequestDispatcher rd = request.
                         getRequestDispatcher("/funcionarioListar.jsp");
-                request.setAttribute("funcionarioBean", cbean);
+                request.setAttribute("funcionarioBean", fbean);
                 request.setAttribute("msg", e.getMsg());
                 rd.forward(request, response);
 
@@ -178,46 +198,6 @@ public class FuncionarioServlet extends HttpServlet {
         if ("update".equals(acao)) {
             try {
 
-                if (request.getParameter("id").equals("")) {
-
-                    LocalDate data = null;
-                    Funcionario funcionario = new Funcionario();
-                    try {
-                        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-                        String str = request.getParameter("data");   // Data como String
-
-                        data = LocalDate.parse(str);
-
-                    } catch (Exception e) {
-
-                    }
-                    String cpf = request.getParameter("cpf");
-                    cpf = cpf.replaceAll("[^0-9]", "");
-
-                    funcionario.setCpf(cpf);
-                    funcionario.setNome(request.getParameter("nome"));
-                    funcionario.setEmail(request.getParameter("email"));
-                    funcionario.setData(data.plusDays(1));
-                    funcionario.setRua(request.getParameter("rua"));
-                    funcionario.setNumero(Integer.valueOf(request.getParameter("numero")));
-                    funcionario.setCep(Integer.valueOf(request.getParameter("cep")));
-                    funcionario.setCidade(new Cidade(Integer.valueOf(request.getParameter("cidade")), request.getParameter("uf")));
-
-                    if (funcionarioService.inserir(funcionario) == null) {
-                        throw new ErroFuncionario("Não foi possível inserir funcionario");
-                    }
-
-                    cbean.setListaFuncionarios(funcionarioService.listar());
-
-                    RequestDispatcher rd = request.
-                            getRequestDispatcher("/funcionarioListar.jsp");
-                    request.setAttribute("funcionarioBean", cbean);
-                    request.setAttribute("action", "listar");
-
-                    rd.forward(request, response);
-
-                }
-
                 LocalDate data = null;
                 Funcionario funcionario = new Funcionario();
                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -225,47 +205,81 @@ public class FuncionarioServlet extends HttpServlet {
 
                 data = LocalDate.parse(str);
 
-                funcionario.setId(request.getParameter("id"));
-
                 String cpf = request.getParameter("cpf");
                 cpf = cpf.replaceAll("[^0-9]", "");
 
+                funcionario.setId(request.getParameter("id"));
                 funcionario.setCpf(cpf);
+                funcionario.setTipo(request.getParameter("tipo"));
                 funcionario.setNome(request.getParameter("nome"));
                 funcionario.setEmail(request.getParameter("email"));
-                funcionario.setData(data);
+                funcionario.setSenha(request.getParameter("senha"));
+                funcionario.setData(data.plusDays(1));
                 funcionario.setRua(request.getParameter("rua"));
                 funcionario.setNumero(Integer.valueOf(request.getParameter("numero")));
                 funcionario.setCep(Integer.valueOf(request.getParameter("cep")));
                 funcionario.setCidade(new Cidade(Integer.valueOf(request.getParameter("cidade")), request.getParameter("uf")));
-                
-                if(funcionarioService.alterar(funcionario)){
-                    throw new ErroFuncionario("Não foi possivel alterar este funcionario");
-                }
-                
 
-                cbean.setListaFuncionarios(funcionarioService.listar());
+                if (!("".equals(funcionario.getId()))) {
+
+                    if (!funcionarioService.alterar(funcionario)) {
+                        throw new ErroFuncionario("Erro ao inserir Funcionario");
+                    }
+
+                    FuncionarioBean func = new FuncionarioBean();
+                    Funcionario funcionarioLogado = (Funcionario) s.getAttribute("funcionario");
+                    func.setListaFuncionarios(funcionarioService.listar(funcionarioLogado.getId()));
+
+                    RequestDispatcher rd = request.
+                            getRequestDispatcher("/funcionarioListar.jsp");
+                    request.setAttribute("funcionarioBean", func);
+                    rd.forward(request, response);
+
+                } else {
+
+                    Funcionario funcionarioInserido = funcionarioService.inserir(funcionario);
+                    if (null == funcionarioInserido) {
+                        throw new ErroFuncionario("Erro ao inserir Funcionario");
+                    }
+
+                    FuncionarioBean func = new FuncionarioBean();
+                    Funcionario funcionarioLogado = (Funcionario) s.getAttribute("funcionario");
+                    func.setListaFuncionarios(funcionarioService.listar(funcionarioLogado.getId()));
+                    RequestDispatcher rd = request.
+                            getRequestDispatcher("/funcionarioListar.jsp");
+                    request.setAttribute("funcionarioBean", func);
+                    rd.forward(request, response);
+                }
+                Funcionario funcionarioLogado = (Funcionario) s.getAttribute("funcionario");
+                fbean.setListaFuncionarios(funcionarioService.listar(funcionarioLogado.getId()));
 
                 RequestDispatcher rd = request.
                         getRequestDispatcher("/funcionarioListar.jsp");
-                request.setAttribute("funcionarioBean", cbean);
+                request.setAttribute("funcionarioBean", fbean);
                 request.setAttribute("action", "listar");
 
                 rd.forward(request, response);
             } catch (AppException e) {
-                cbean.setListaFuncionarios(funcionarioService.listar());
+                Funcionario funcionarioLogado = (Funcionario) s.getAttribute("funcionario");
+                fbean.setListaFuncionarios(funcionarioService.listar(funcionarioLogado.getId()));
 
                 RequestDispatcher rd = request.
                         getRequestDispatcher("/funcionarioListar.jsp");
-                request.setAttribute("funcionarioBean", cbean);
+                request.setAttribute("funcionarioBean", fbean);
                 request.setAttribute("msg", e.getMsg());
                 rd.forward(request, response);
             }
         }
         if ("formNew".equals(acao)) {
             Funcionario funcionario = new Funcionario();
+
+            List<Cargo> cargos = new ArrayList<Cargo>();
+            cargos = Cargo.geraCargos();
+
             RequestDispatcher rd = request.
                     getRequestDispatcher("/funcionarioAlterar.jsp");
+            request.setAttribute("mostra", 2);
+            request.setAttribute("cargos", cargos);
             request.setAttribute("funcionario", funcionario);
             rd.forward(request, response);
         }
@@ -286,18 +300,19 @@ public class FuncionarioServlet extends HttpServlet {
                 funcionario.setCpf(request.getParameter("cpf"));
                 funcionario.setNome(request.getParameter("nome"));
                 funcionario.setEmail(request.getParameter("email"));
-                funcionario.setData(data);
+                funcionario.setData(data.plusDays(1));
                 funcionario.setRua(request.getParameter("rua"));
                 funcionario.setNumero(Integer.valueOf(request.getParameter("numero")));
                 funcionario.setCep(Integer.valueOf(request.getParameter("cep")));
                 funcionario.setCidade(new Cidade(Integer.valueOf(request.getParameter("cidade")), request.getParameter("uf")));
                 funcionarioService.inserir(funcionario);
 
-                cbean.setListaFuncionarios(funcionarioService.listar());
+                Funcionario funcionarioLogado = (Funcionario) s.getAttribute("funcionario");
+                fbean.setListaFuncionarios(funcionarioService.listar(funcionarioLogado.getId()));
 
                 RequestDispatcher rd = request.
                         getRequestDispatcher("./funcionarioListar.jsp");
-                request.setAttribute("funcionarioBean", cbean);
+                request.setAttribute("funcionarioBean", fbean);
                 rd.forward(request, response);
 
             } catch (Exception e) {

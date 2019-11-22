@@ -31,5 +31,5 @@ public class FuncionarioBean  {
         this.listaFuncionarios = clientesBanco;
     }
 
- 
+    
 }

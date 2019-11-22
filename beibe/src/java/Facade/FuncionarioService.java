@@ -13,28 +13,31 @@ import java.util.List;
  *
  * @author Bruno Fernandes
  */
-public class FuncionarioService {    
+public class FuncionarioService {
+
     static FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
-    
-    public static boolean remover(String id){
-         return funcionarioDAO.removerFuncionario(id);
+
+    public boolean remover(String id) {
+        return funcionarioDAO.removerFuncionario(id);
     }
-    
-    public static Funcionario inserir(Funcionario funcionario){
+
+    public Funcionario inserir(Funcionario funcionario) {
         return funcionarioDAO.inserir(funcionario);
     }
-    
-    public static boolean alterar (Funcionario funcionario){
+
+    public boolean alterar(Funcionario funcionario) {
         return funcionarioDAO.updateFuncionario(funcionario);
     }
-    
-    public static  List<Funcionario> listar(){
-        return funcionarioDAO.buscarTodos();
-        
+
+    public List<Funcionario> listar(String idUsuarioLogado) {
+        return funcionarioDAO.buscarTodos(idUsuarioLogado);
     }
-    
-    public static  Funcionario buscar(String id){
-        return funcionarioDAO.buscarFuncionario(id);
+
+    public Funcionario buscar(String email) {
+        return funcionarioDAO.buscarFuncionario(email);
+    }
+
+    public Funcionario buscarID(String id) {
+        return funcionarioDAO.buscarID(id);
     }
 }
-

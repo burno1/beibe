@@ -40,7 +40,7 @@
                         <li class="nav-item"><a class="nav-link" href="AtendimentoServlet">Atendimentos</a></li>
                         <li class="nav-item"><a class="nav-link" href='ClienteServlet'>Clientes</a></li>
                         <li class="nav-item"><a class="nav-link" href='ProdutoServlet'>Produtos</a></li>
-                        <li class="nav-item"><a class="nav-link" href="funcionarioListar.jsp">Funcionarios</a></li>
+                        <li class="nav-item"><a class="nav-link" href="FuncionarioServlet">Funcionarios</a></li>
                         <li class="nav-item"><a class="nav-link" href="Relatorios">Relatórios</a></li>
                     </ul>
                     <ul class="nav navbar-nav ml-auto">

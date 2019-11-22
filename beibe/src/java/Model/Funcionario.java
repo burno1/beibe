@@ -26,6 +26,7 @@ public class Funcionario {
     private int numero;
     private int cep;
     private Cidade cidade;
+    private Cargo cargo;
     
 
     public Funcionario() {
@@ -125,6 +126,14 @@ public class Funcionario {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
+    }
+
+    public Cargo getCargo() {
+        return cargo;
+    }
+
+    public void setCargo(Cargo cargo) {
+        this.cargo = cargo;
     }
 
     

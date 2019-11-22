@@ -45,7 +45,7 @@ public class PortalServlet extends HttpServlet {
         ArrayList<Funcionario> funcionarios = ((ArrayList<Funcionario>) s.getAttribute("listaFuncionarios"));
         List<Funcionario> listaFuncionarios = new ArrayList<Funcionario>();
         LoginService loginService = new LoginService();
-        listaFuncionarios = loginService.listar();
+        
         String nome = "";
         String email = "";
         String senha = "";

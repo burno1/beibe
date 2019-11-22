@@ -72,10 +72,9 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="cpf">CPF</label>
                     <div class="col-sm-6">
-                        <input class="form-control" maxlength="14" type="text" value="${cliente.cpf}" name="cpf" id="cpf" >
-
+                        <input class="form-control" maxlength="14" type="text" value="${cliente.cpf}" name="cpf" id="cpf" readonly="readonly">
                     </div>
-                </div>
+                </div>   
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="nome">NOME</label>
                     <div class="col-sm-6">
@@ -164,7 +163,6 @@
 
 
             $(document).ready(function () {
-
                 $("#voltar").hide();
                 var $campoCpf = $("#cpf");
                 $campoCpf.mask('000.000.000-00', {reverse: true});

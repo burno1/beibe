@@ -41,12 +41,11 @@
                 <!-- Cabeçalho -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li class="nav-item"><a class="nav-link" href="portalGerente.jsp">Portal (Gerente) </a></li>
+                        <li class="nav-item active"><a class="nav-link" href="portalGerente.jsp">Portal (Gerente) <span class="sr-only">(current)</span></a></li>
                         <li class="nav-item"><a class="nav-link" href="AtendimentoServlet">Atendimentos</a></li>
-                        <li class="nav-item active"><a class="nav-link" href='FuncionarioServlet'>Funcionarios</a></li>
+                        <li class="nav-item"><a class="nav-link" href='ClienteServlet'>Clientes</a></li>
                         <li class="nav-item"><a class="nav-link" href='ProdutoServlet'>Produtos</a></li>
                         <li class="nav-item"><a class="nav-link" href="funcionarioListar.jsp">Funcionarios</a></li>
-                        <li class="nav-item"><a class="nav-link" href="admin.jsp">Funcionario</a></li>
                         <li class="nav-item"><a class="nav-link" href="Relatorios">Relatórios</a></li>
                     </ul>
                     <ul class="nav navbar-nav ml-auto">
@@ -76,11 +75,23 @@
 
                     </div>
                 </div>
+
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label" for="nome">NOME</label>
+                    <label class="col-sm-2 col-form-label" for="uf">Cargo</label>
+                    <div class="col-sm-6">
+                        <select class="custom-select custom-select-md" name="tipo" id="tipo">
+
+                            <c:forEach items="${cargos}" var="c">                        
+                                <option value="${c.id}" ${c.id == funcionario.cargo.id ? 'selected="selected"' : ''}>${c.nome}</option>
+                            </c:forEach>
+                        </select>   
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label" for="nome">Nome</label>
                     <div class="col-sm-6">
                         <input class="form-control" type="text" value="${funcionario.nome}" name="nome" id="nome">
-                    </div>
+                    </div> 
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="email">E-MAIL</label>
@@ -88,33 +99,39 @@
                         <input class="form-control" type="email" value="${funcionario.email}" name="email" id="email">
                     </div>
                 </div>
+                <div id="divSenha" class="form-group row">
+                    <label class="col-sm-2 col-form-label" for="senha">Senha</label>
+                    <div class="col-sm-6">
+                        <input class="form-control" type="text" value="${funcionario.senha}" name="senha" id="senha">
+                    </div>
+                </div>
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label" for="data">DATA</label>
+                    <label class="col-sm-2 col-form-label" for="data">Data</label>
                     <div class="col-sm-6">
 
                         <input class="form-control" type="date" value="${funcionario.data}" name="data" id="data">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label" for="rua">RUA</label>
+                    <label class="col-sm-2 col-form-label" for="rua">Rua</label>
                     <div class="col-sm-6">
                         <input class="form-control" type="text" value="${funcionario.rua}" name="rua" id="rua">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label" for="numero">NÚMERO</label>
+                    <label class="col-sm-2 col-form-label" for="numero">Número</label>
                     <div class="col-sm-6">
                         <input class="form-control" type="number" value="${funcionario.numero}" name="numero" id="numero">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label" for="cep">CEP</label>
+                    <label class="col-sm-2 col-form-label" for="cep">Cep</label>
                     <div class="col-sm-6">
                         <input class="form-control" type="text" value="${funcionario.cep}" name="cep" id="cep">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label" for="uf">UF</label>
+                    <label class="col-sm-2 col-form-label" for="uf">Uf</label>
                     <div class="col-sm-6">
                         <select id="uf" class="custom-select custom-select-md" name="uf">
                             <option selected><c:out value="${funcionario.cidade.estado.uf}"/></option>
@@ -125,7 +142,7 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label" for="cidade">CIDADE</label>
+                    <label class="col-sm-2 col-form-label" for="cidade">Cidade</label>
                     <div class="col-sm-6">
                         <select class="custom-select custom-select-md" name="cidade" id="cidade">
                             <option selected value="${funcionario.cidade.id}">${funcionario.cidade.nome}</option>
@@ -161,20 +178,32 @@
             var cidades;
             var mostra = '${mostra}';
             var cpf = '${funcionario.cpf}'
-
+            console.log(${funcionario.cargo.id});
 
             $(document).ready(function () {
 
                 $("#voltar").hide();
                 var $campoCpf = $("#cpf");
                 $campoCpf.mask('000.000.000-00', {reverse: true});
-                if (mostra) {
+
+                console.log('mostra', mostra);
+
+                if (mostra == 0) {
+                    console.log('dentro');
+                    $("#divSenha").hide();
+                }
+                if (mostra == 1) {
+                    console.log('dentro1');
                     $('#form input').prop("disabled", true);
                     $('#form select').prop("disabled", true);
                     $("#salvar").hide();
                     $("#cancelar").hide();
+                    $("#divSenha").hide();
                     $("#voltar").show();
                     console.log('ihu');
+                }
+                if (mostra == 2) {
+                    $("#divSenha").show();
                 }
 
                 $("#uf").change(function () {

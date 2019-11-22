@@ -16,14 +16,11 @@ import java.util.List;
  */
 public class PortalBean {
 
-    List<Funcionario> listaFuncionarios = null;
+    
     LoginService loginService = new LoginService();
 
     public PortalBean() {
 
     }
 
-    public List<Funcionario> getListaFuncionarios() {
-        return loginService.listar();
-    }
 }
