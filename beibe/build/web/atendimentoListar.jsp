@@ -58,9 +58,10 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li class="nav-item"><a class="nav-link" href="portalGerente.jsp">Portal (Gerente) <span class="sr-only">(current)</span></a></li>
-                        <li class="nav-item active"><a class="nav-link" href="atendimentos.jsp">Atendimentos</a></li>
-                        <li class="nav-item"><a class="nav-link" href='ClienteServlet'>Cadastro Clientes</a></li>
-                        <li class="nav-item"><a class="nav-link" href="funcionarioListar.jsp">Cadastro Funcionarios</a></li>
+                        <li class="nav-item active"><a class="nav-link" href="AtendimentoServlet">Atendimentos</a></li>
+                        <li class="nav-item"><a class="nav-link" href='ProdutoServlet'>Produtos</a></li>
+                        <li class="nav-item"><a class="nav-link" href='ClienteServlet'>Clientes</a></li>
+                        <li class="nav-item"><a class="nav-link" href="FuncionarioServlet">Funcionarios</a></li>
                         <li class="nav-item"><a class="nav-link" href="relatorios.jsp">Relatórios</a></li>
 
                     </ul>
@@ -71,57 +72,53 @@
             </div> 
         </nav>
 
-                    <br/>
-        <div class="container">
-        <div class="row">
-            <div class="col-sm-12"><a href="AtendimentoServlet?action=formNew">  <button class="btn btn-primary"> Novo </button></a>
-            </div>
-        </div>
         <br/>
-                <div class="row">
-                    <div class="col">
-                    <span style="color: red">${msg}</span>
-                    </div>
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-sm-12"><a href="AtendimentoServlet?action=formNew">  <button class="btn btn-primary"> Novo </button></a>
                 </div>
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col">
+                    <span style="color: red">${msg}</span>
+                </div>
+            </div>
             <div class="row">
 
-                    
-                <h3> Atendimentos </h3>
-                <br/>
-                <table class="table">
-                
-                    <thead class="thead-light">
-                        <tr >
-                            <th scope="col">Nº</th>
-                            <th scope="col">Data/Hora</th>
-                            <th scope="col">Produto</th>
-                            <th scope="col">Cliente</th>
-                            <th scope="col">Opções</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <c:forEach items="${atendimentoBean.atendimentosLista}" var="a">
-                            <tr ${a.atrasado == 1 ?  'class="urgente"' : 'class="atencao"'}>
-                                <td><c:out value="${a.id}"/></td>
-                                <td><c:out value="${a.dataString} " /></td>
-                                <td><c:out value="${a.produto.nomeProduto}" /></td>
-                                <td><c:out value="${a.cliente.nome}" /></td>
-                                <td>
-                                    <a href="AtendimentoServlet?action=show&id=${a.id}&mostra=0"><button type="button" class="btn btn-info">Visualizar</button> </a>
-                                    <a href="AtendimentoServlet?action=formUpdate&id=${a.id}"><button type="button" class="btn btn-secondary">Alterar</button> </a>
-                                    <a href="AtendimentoServlet?action=remove&id=${a.id}"><button type="button" class="btn btn-danger">Remover</button> </a>
-                                </td>
+
+                <div class="col-sm-12">
+                    <h3> Atendimentos </h3>
+                    <hr/>
+                    <table class="table">
+                        <thead class="thead-light">
+                            <tr >
+                                <th scope="col">Nº</th>
+                                <th scope="col">Data/Hora</th>
+                                <th scope="col">Produto</th>
+                                <th scope="col">Cliente</th>
+                                <th scope="col">Opções</th>
                             </tr>
-                        </c:forEach>
-                    </tbody>
-                </table>
-
-
-
+                        </thead>
+                        <tbody>
+                            <c:forEach items="${atendimentoBean.atendimentosLista}" var="a">
+                                <tr ${a.atrasado == 1 ?  'class="urgente"' : 'class="atencao"'}>
+                                    <td><c:out value="${a.id}"/></td>
+                                    <td><c:out value="${a.dataString} " /></td>
+                                    <td><c:out value="${a.produto.nomeProduto}" /></td>
+                                    <td><c:out value="${a.cliente.nome}" /></td>
+                                    <td>
+                                        <a href="AtendimentoServlet?action=show&id=${a.id}&mostra=0"><button type="button" class="btn btn-info">Visualizar</button> </a>
+                                        <a href="AtendimentoServlet?action=formUpdate&id=${a.id}"><button type="button" class="btn btn-secondary">Alterar</button> </a>
+                                        <a href="AtendimentoServlet?action=remove&id=${a.id}"><button type="button" class="btn btn-danger">Remover</button> </a>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-
-            
-
         </div>       
         <footer id="sticky-footer" class="py-4 bg-info text-white-50">
             <div class="container text-center">

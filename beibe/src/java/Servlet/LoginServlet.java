@@ -5,8 +5,10 @@
  */
 package Servlet;
 
+import Bean.AtendimentoBean;
 import Bean.LoginBean;
 import Bean.PortalBean;
+import Facade.AtendimentoService;
 import Facade.LoginService;
 
 import Model.Funcionario;
@@ -68,7 +70,15 @@ public class LoginServlet extends HttpServlet {
             }
             
             if("2".equals(funcionarioLogado.getTipo())){
-            response.sendRedirect("./portalFuncionario.jsp");
+                AtendimentoBean atendimentoBean  = new AtendimentoBean();
+                AtendimentoService atendimentoService = new AtendimentoService();
+                
+                atendimentoBean.setAtendimentosLista(atendimentoService.listar());
+                
+            RequestDispatcher rd = request.
+                        getRequestDispatcher("/portalFuncionario.jsp");
+                request.setAttribute("atendimentoBean", atendimentoBean);
+                rd.forward(request, response);
             }
             
             if("3".equals(funcionarioLogado.getTipo())){

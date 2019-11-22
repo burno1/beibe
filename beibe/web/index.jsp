@@ -10,45 +10,58 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link href="./css/login.css" rel="stylesheet" />
+        <link href="./css/login1.css" rel="stylesheet" />
         <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
         <script src="./bootstrap/js/jquery.min.js"></script>
         <script src="./bootstrap/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <!------ Include the above in your HEAD tag ---------->
+
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+        <!-- Include the above in your HEAD tag -->
         <title>BEIBE - Beauty Embuste Indústria de Beleza e Estética
         </title>
     </head>
     <body>
-        
-        <div class="dialog">
-            <h6> BEIBE - Beauty Embuste Indústria de Beleza e Estética </h6><br>
 
-            <form action="LoginServlet" method="post" modelAttribute="user">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <div class="main">
 
-                <div class="form-group row">
-                    <label for="email" class="col-sm-2 col-form-label">Email</label>
-                    <div class="col-sm-10">
-                        <input type="email" class="form-control" id="email" name="email" placeholder="a@a.com" required="true" autofocus>
+
+            <div class="container">
+                <center>
+                    <div class="middle">
+                        <div id="login">
+
+                            <form action="LoginServlet" method="post">
+
+                                <fieldset class="clearfix">
+
+                                    <p ><span class="fa fa-user"></span><input type="text" id="email" name="email" placeholder="a@a.com" required="true" autofocus></p> <!-- JS because of IE support; better: placeholder="Username" -->
+                                    <p><span class="fa fa-lock"></span><input type="password"  id="senha" name="senha" required="true"></p> <!-- JS because of IE support; better: placeholder="Password" -->
+
+                                    <div>
+                                        <span style="width:48%; text-align:left;  display: inline-block;"><a class="small-text" href="#">Forgot
+                                                password?</a></span>
+                                        <span style="width:50%; text-align:right;  display: inline-block;"><input type="submit" value="Sign In"></span>
+                                    </div>
+
+                                </fieldset>
+                                <div class="clearfix"></div>
+                            </form>
+
+                            <div class="clearfix"></div>
+
+                        </div> <!-- end login -->
+                        <div class="logo">BEIBE
+
+                            <div class="clearfix"></div>
+                        </div>
+
                     </div>
-                </div>
-                <div class="form-group row">
-                    <label for="senha" class="col-sm-2 col-form-label">Senha</label>
-                    <div class="col-sm-10">
-                        <input type="password" class="form-control" id="senha" name="senha" required="true">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-success btn-block">Login</button>
-                </div>
-            </form>
-            <div class="badnews">${param["msg"]} ${mensagem}</div>
-            
-            <form action="CadastrarFuncionarioServlet" method="post" modelAttribute="user">
-            <p>Não é usuário? Cadastre-se</p>
-             <div class="form-group">
-               <button type="submit" class="btn btn-info btn-block">Cadastrar</button>
-             </div>
-            </form>
-            
+                </center>
+            </div>
+
         </div>
     </body>
 </html>

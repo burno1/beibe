@@ -31,12 +31,12 @@
                 <!-- Cabeçalho -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li class="nav-item"><a class="nav-link" href="portalGerente.jsp">Portal (Gerente) <span class="sr-only">(current)</span></a></li>
-                        <li class="nav-item"><a class="nav-link" href="atendimentos.jsp">Atendimentos</a></li>
-                        <li class="nav-item"><a class="nav-link" href='ClienteServlet'>Cadastro Clientes</a></li>
-                        <li class="nav-item"><a class="nav-link" href="funcionarioListar.jsp">Cadastro Funcionarios</a></li>
+                        <li class="nav-item"><a class="nav-link" href="portalGerente.jsp">Portal<span class="sr-only">(current)</span></a></li>
+                        <li class="nav-item"><a class="nav-link" href="AtendimentoServlet">Atendimentos</a></li>
+                        <li class="nav-item"><a class="nav-link" href='ProdutoServlet'>Produtos</a></li>
+                        <li class="nav-item"><a class="nav-link" href='ClienteServlet'>Clientes</a></li>
+                        <li class="nav-item"><a class="nav-link" href="FuncionarioServlet">Funcionarios</a></li>
                         <li class="nav-item active"><a class="nav-link" href="relatorios.jsp">Relatórios</a></li>
-
                     </ul>
                     <ul class="nav navbar-nav ml-auto">
                         <li nav-item><a href='Invalidar'>User ${login.user} Logout</a></li>
@@ -57,7 +57,7 @@
                         <input hidden name="tipoAtendimento" value="1">
                         <input hidden name="dataInicio" value="1">
                         <input hidden name="dataFim" value="2">
-                    <button class="btn btn-outline-primary" typ="submit"> Imprimir Relatório</button>
+                        <button class="btn btn-outline-primary" typ="submit"> Imprimir Relatório</button>
                     </form>
                     <br/>                    
 
@@ -71,7 +71,7 @@
                     <hr/>
                     <form action="RelatorioDownload?action=r2" target="_blank" method="post">
                         <input hidden name="tipoAtendimento" value="1">
-                        
+
                         <div class="row">
 
                             <div class="col-xl-2">

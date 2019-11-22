@@ -46,6 +46,8 @@
         </style>
     </head>
     <body>
+         <jsp:useBean id="atendimentoBean" class="Bean.AtendimentoBean" scope="request" />
+        <jsp:setProperty name="atendimentoBean" property="*" />
         <nav  class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -139,59 +141,30 @@
 
 
                 <table class="table">
+                
                     <thead class="thead-light">
-                        <tr>
+                        <tr >
                             <th scope="col">Nº</th>
                             <th scope="col">Data/Hora</th>
-                            <th scope="col">Tipo</th>
-                            <th scope="col">Situação</th>
-                            <th scope="col">Detalhes</th>
+                            <th scope="col">Produto</th>
+                            <th scope="col">Cliente</th>
+                            <th scope="col">Opções</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="urgente">
-                            <td>1</td>
-                            <td>14/09/2019 12:11</td>
-                            <td>Aberto</td>
-                            <td>Não sei os tipos</td>
-                            <td><form action="DetalhesAtendimentoServlet">
-                                    <input name="idCliente" hidden="true" value="1">
-                                    <button class="btn btn-primary" type="submit">Detalhes</button>
-                                </form></td>
-                        </tr>
-                        <tr class="atencao">
-                            <td>2</td>
-                            <td>20/09/2019 12:51</td>
-                            <td>Aberto</td>
-                            <td>Não sei os tipos</td>
-                            <td><form action="DetalhesAtendimentoServlet">
-                                    <input name="idCliente" hidden="true" value="1">
-                                    <button class="btn btn-primary" type="submit">Detalhes</button>
-                                </form></td>
-
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>31/09/2019 12:51</td>
-                            <td>Aberto</td>
-                            <td>Não sei os tipos</td>
-                            <td><form action="DetalhesAtendimentoServlet">
-                                    <input name="idCliente" hidden="true" value="1">
-                                    <button class="btn btn-primary" type="submit">Detalhes</button>
-                                </form></td>
-
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>01/12/2019 13:34</td>
-                            <td>Aberto</td>
-                            <td>Não sei os tipos</td>
-                            <td><form action="DetalhesAtendimentoServlet">
-                                    <input name="idCliente" hidden="true" value="1">
-                                    <button class="btn btn-primary" type="submit">Detalhes</button>
-                                </form></td>
-
-                        </tr>
+                        <c:forEach items="${atendimentoBean.atendimentosLista}" var="a">
+                            <tr ${a.atrasado == 1 ?  'class="urgente"' : 'class="atencao"'}>
+                                <td><c:out value="${a.id}"/></td>
+                                <td><c:out value="${a.dataString} " /></td>
+                                <td><c:out value="${a.produto.nomeProduto}" /></td>
+                                <td><c:out value="${a.cliente.nome}" /></td>
+                                <td>
+                                    <a href="AtendimentoServlet?action=show&id=${a.id}&mostra=0"><button type="button" class="btn btn-info">Visualizar</button> </a>
+                                    <a href="AtendimentoServlet?action=formUpdate&id=${a.id}"><button type="button" class="btn btn-secondary">Alterar</button> </a>
+                                    <a href="AtendimentoServlet?action=remove&id=${a.id}"><button type="button" class="btn btn-danger">Remover</button> </a>
+                                </td>
+                            </tr>
+                        </c:forEach>
                     </tbody>
                 </table>
             </div>

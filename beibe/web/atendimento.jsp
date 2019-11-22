@@ -44,8 +44,12 @@
                 <!-- Cabeçalho -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li class="nav-item active"><a class="nav-link" href='DetalhesClienteServlet'>Detalhes Cliente</a></li>
-                        <li class="nav-item"><a class="nav-link">Detalhes Atendimento <span class="sr-only">(current)</span></a></li>
+                        <li class="nav-item"><a class="nav-link" href="portalGerente.jsp">Portal<span class="sr-only">(current)</span></a></li>
+                        <li class="nav-item active"><a class="nav-link" href="AtendimentoServlet">Atendimentos</a></li>
+                        <li class="nav-item"><a class="nav-link" href='ProdutoServlet'>Produtos</a></li>
+                        <li class="nav-item"><a class="nav-link" href='ClienteServlet'>Clientes</a></li>
+                        <li class="nav-item"><a class="nav-link" href="FuncionarioServlet">Funcionarios</a></li>
+                        <li class="nav-item"><a class="nav-link" href="relatorios.jsp">Relatórios</a></li>
                     </ul>
                     <ul class="nav navbar-nav ml-auto">
                         <li nav-item><a href='Invalidar'>User ${login.user} Logout</a></li>
@@ -151,13 +155,12 @@
                         <button  type="submit" class="btn btn-success btn-block">Salvar</button>
                     </div>
 
-                </div>
-
-                <div id="voltar" class="row">
-                    <div class="col-sm-2">
-                        <a href="AtendimentoServlet"><button type="button" class="btn btn-secondary btn-block">Voltar</button></a>
+                    <div id="voltar" class="col-sm-4">
+                        <button class="btn btn-success btn-block " type="button" name="back" onclick="history.back()">Voltar</button>
                     </div>
                 </div>
+
+                
             </form>
         </div>
 
@@ -167,14 +170,14 @@
             console.log(mostra);
             $(document).ready(function () {
 
-                $("#voltar").hide();
+                
                 if (mostra) {
                     $('#form input').prop("disabled", true);
                     $('#form select').prop("disabled", true);
                     $('#form textarea').prop("disabled", true);
                     $("#salvar").hide();
                     $("#cancelar").hide();
-                    $("#voltar").show();
+                    
                     console.log('ihu');
                 }
 
