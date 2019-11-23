@@ -58,7 +58,6 @@
                     <label class="col-sm-2 col-form-label" for="uf">Cargo</label>
                     <div class="col-sm-6">
                         <select class="custom-select custom-select-md" name="tipo" id="tipo">
-
                             <c:forEach items="${cargos}" var="c">                        
                                 <option value="${c.id}" ${c.id == funcionario.cargo.id ? 'selected="selected"' : ''}>${c.nome}</option>
                             </c:forEach>
@@ -68,13 +67,13 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="email">Email (Login)</label>
                     <div class="col-sm-6">
-                        <input class="form-control" type="email" value="${funcionario.email}" name="email" id="email">
+                        <input class="form-control" type="email" value="${funcionario.email}" name="email" id="email" required>
                     </div>
                 </div>
                 <div id="divSenha" class="form-group row">
                     <label class="col-sm-2 col-form-label" for="senha">Senha</label>
                     <div class="col-sm-6">
-                        <input class="form-control" type="text" value="${funcionario.senha}" name="senha" id="senha">
+                        <input class="form-control" type="text" value="${funcionario.senha}" name="senha" id="senha" required>
                     </div>
                 </div>
 
@@ -83,39 +82,39 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="cpf">CPF</label>
                     <div class="col-sm-6">
-                        <input class="form-control" maxlength="14" type="text" value="${funcionario.cpf}" name="cpf" id="cpf" >
+                        <input class="form-control" maxlength="14" type="text" value="${funcionario.cpf}" name="cpf" id="cpf" required>
 
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="nome">Nome</label>
                     <div class="col-sm-6">
-                        <input class="form-control" type="text" value="${funcionario.nome}" name="nome" id="nome">
+                        <input class="form-control" type="text" value="${funcionario.nome}" name="nome" id="nome" required>
                     </div> 
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="data">Data</label>
                     <div class="col-sm-6">
 
-                        <input class="form-control" type="date" value="${funcionario.data}" name="data" id="data">
+                        <input class="form-control" type="date" value="${funcionario.data}" name="data" id="data" required>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="rua">Rua</label>
                     <div class="col-sm-6">
-                        <input class="form-control" type="text" value="${funcionario.rua}" name="rua" id="rua">
+                        <input class="form-control" type="text" value="${funcionario.rua}" name="rua" id="rua" required>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="numero">Número</label>
                     <div class="col-sm-6">
-                        <input class="form-control" type="number" value="${funcionario.numero}" name="numero" id="numero">
+                        <input class="form-control" type="number" value="${funcionario.numero}" name="numero" id="numero" required>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="cep">Cep</label>
                     <div class="col-sm-6">
-                        <input class="form-control" type="text" value="${funcionario.cep}" name="cep" id="cep">
+                        <input class="form-control" type="text" value="${funcionario.cep}" name="cep" id="cep" required>
                     </div>
                 </div>
                 <div class="form-group row">

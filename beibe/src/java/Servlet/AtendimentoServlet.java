@@ -106,11 +106,16 @@ public class AtendimentoServlet extends HttpServlet {
                 if (atendimento.getCliente() == null) {
                     throw new ErroAtendimento("Atendimento Não Encontrado");
                 }
-                
+
+                List<Cliente> listaClientes = ClienteService.listar();
+                atendimentoBean.setProdutos(atendimentoService.buscarProdutos());
+                atendimentoBean.setTiposAtendimento(atendimentoService.buscarTipos());
+                atendimentoBean.setClientes(listaClientes);
 
                 RequestDispatcher rd = request.
                         getRequestDispatcher("./atendimento.jsp");
                 request.setAttribute("atendimento", atendimento);
+                request.setAttribute("atendimentoBean", atendimentoBean);
                 request.setAttribute("mostra", 1);
                 rd.forward(request, response);
 
@@ -150,7 +155,7 @@ public class AtendimentoServlet extends HttpServlet {
                         getRequestDispatcher("/atendimento.jsp");
                 request.setAttribute("atendimentoBean", atendimentoBean);
                 request.setAttribute("atendimento", atendimento);
-
+                request.setAttribute("novo", 1);
                 rd.forward(request, response);
             } catch (AppException e) {
                 atendimentoBean.setAtendimentosLista(atendimentoService.listar());
@@ -173,7 +178,6 @@ public class AtendimentoServlet extends HttpServlet {
         if ("formUpdate".equals(acao)) {
             try {
                 Funcionario funcionarioLogado = (Funcionario) s.getAttribute("funcionario");
-
 
                 String id = request.getParameter("id");
                 Atendimento atendimento = atendimentoService.buscar(id);

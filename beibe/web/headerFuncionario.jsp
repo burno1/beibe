@@ -9,7 +9,7 @@
     <ul class="nav navbar-nav">
         <li class="nav-item active"><a class="nav-link" href="PortalServlet">Portal</a></li>
         <li class="nav-item"><a class="nav-link" href='ProdutoServlet'>Produtos</a></li>
-        <li class="nav-item"><a class="nav-link" href='categoria.jsp'>Categorias</a></li>
+        <li class="nav-item"><a class="nav-link" href='CategoriaServlet'>Categorias</a></li>
     </ul>
     <ul class="nav navbar-nav ml-auto">
         <li nav-item><a href='Invalidar'>User ${login.user} Logout</a></li>

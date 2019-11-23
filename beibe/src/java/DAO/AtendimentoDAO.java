@@ -145,7 +145,7 @@ public class AtendimentoDAO {
                     + "(?, ?, ?, ?, ?, ?, ?)");
             st.setDate(1, Date.valueOf(atendimento.getData()));
             st.setString(2, atendimento.getDescricao());
-            st.setInt(3, atendimento.getProduto().getIdProduto());
+            st.setString(3, atendimento.getProduto().getIdProduto());
             st.setInt(4, atendimento.getTipoAtendimento().getIdTipo());
             st.setString(5, atendimento.getFuncionario().getId());
             st.setInt(6, atendimento.getCliente().getId());
@@ -198,7 +198,7 @@ public class AtendimentoDAO {
             st.setDate(1, Date.valueOf(atendimento.getData()));
             st.setString(2, atendimento.getDescricao());
             st.setString(3, atendimento.getSolucao());
-            st.setInt(4, atendimento.getProduto().getIdProduto());
+            st.setString(4, atendimento.getProduto().getIdProduto());
             st.setInt(5, atendimento.getTipoAtendimento().getIdTipo());
             st.setString(6, atendimento.getFuncionario().getId());
             st.setInt(7, atendimento.getCliente().getId());

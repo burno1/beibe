@@ -71,7 +71,7 @@
                         Data/Hora
                     </div>
                     <div class="col-sm-3">
-                        <input class="form-control" type="date" value="${atendimento.data}" name="data" id="data">
+                        <input class="form-control" type="date" value="${atendimento.data}" name="data" id="data" required>
                     </div>
                 </div>
 
@@ -81,11 +81,10 @@
                         Cliente
                     </div>
                     <div class="col-sm-6">
-                        <select class="custom-select custom-select-md" name="cliente" id="cliente">
-                            <option selected value="${atendimento.cliente.id}">${atendimento.cliente.nome}</option>
-                            <c:forEach items="${atendimentoBean.clientes}" var="c">     
+                        <select class="custom-select custom-select-md" name="cliente" id="cliente" required>
 
-                                <option value="${c.id}">${c.nome}</option>
+                            <c:forEach items="${atendimentoBean.clientes}" var="c">     
+                                <option value="${c.id}" ${c.id == atendimento.cliente.id ? 'selected="selected"' :'' }>${c.nome}</option>
                             </c:forEach>
                         </select>   
                     </div>
@@ -111,10 +110,9 @@
                     <label class="col-sm-2 col-form-label" for="produto">Produtos</label>
                     <div class="col-sm-6">
                         <select class="custom-select custom-select-md" name="produto" id="produto">
-                            <option selected value="${atendimento.produto.idProduto}">${atendimento.produto.nomeProduto}</option>
-                            <c:forEach items="${atendimentoBean.produtos}" var="p">     
 
-                                <option value="${p.idProduto}">${p.nomeProduto}</option>
+                            <c:forEach items="${atendimentoBean.produtos}" var="p">
+                                <option value="${p.idProduto}" ${p.idProduto == atendimento.produto.idProduto? 'selected="selected"' : ''}>${p.nomeProduto}</option>
                             </c:forEach>
                         </select>   
                     </div>
@@ -124,9 +122,8 @@
                     <label class="col-sm-2 col-form-label" for="tipoAtendimento">Tipo de Atendimento</label>
                     <div class="col-sm-6">
                         <select class="custom-select custom-select-md" name="tipoAtendimento" id="tipoAtendimento">
-                            <option selected value="${atendimento.tipoAtendimento.idTipo}">${atendimento.tipoAtendimento.nomeTipo}</option>
                             <c:forEach items="${atendimentoBean.tiposAtendimento}" var="t">     
-                                <option value="${t.idTipo}">${t.nomeTipo}</option>
+                                <option value="${t.idTipo}" ${t.idTipo == atendimento.tipoAtendimento.idTipo ? 'selected="selected"' : ''}>${t.nomeTipo}</option>
                             </c:forEach>
                         </select>   
                     </div>
@@ -137,7 +134,7 @@
                         Descrição Atendimento
                     </div>
                     <div class="col-sm-6">
-                        <textarea class="form-control"  name="descricao">${atendimento.descricao}</textarea>
+                        <textarea class="form-control"  name="descricao" required>${atendimento.descricao}</textarea>
                     </div>
                 </div>
 
@@ -147,7 +144,7 @@
 
                     </div>
                     <div class="col-sm-6">
-                        <textarea class="form-control"  name="solucao">${atendimento.solucao}</textarea>
+                        <textarea class="form-control"  name="solucao" >${atendimento.solucao}</textarea>
                     </div>
                 </div>
 
@@ -162,7 +159,7 @@
                         <button class="btn btn-success btn-block " type="button" name="back" onclick="history.back()">Voltar</button>
                     </div>
 
-                    <div id="finaliza" ${(funcionario.getTipo() == 1 || funcionario.getTipo() == 2) && atendimento.resolvido != 1   ? '' : 'hidden'}>
+                    <div id="finaliza" ${(funcionario.getTipo() == 1 || funcionario.getTipo() == 2) && atendimento.resolvido != 1 && novo != 1   ? '' : 'hidden'}>
                         <button class="btn btn-danger btn-block" type="button" onclick="callServlet()">Finalizar</button>
                     </div>
 
@@ -177,7 +174,7 @@
             var finalizar = '${finalizar}';
 
             $(document).ready(function () {
-                
+
                 if (mostra) {
                     $('#form input').prop("disabled", true);
                     $('#form select').prop("disabled", true);
@@ -186,7 +183,8 @@
                     $("#cancelar").hide();
                     $("#finaliza").hide();
                 }
-
+                
+                
             });
 
             function callServlet() {
@@ -194,11 +192,11 @@
                 var solucao = $('#form').find('textarea[name="solucao"]').val();
                 var id = $('#form').find('input[name="idAtend"]').val();
 
-                console.log (id,solucao);
+                console.log(id, solucao);
                 var myForm = document.createElement("form");
-                var formAction ="AtendimentoServlet?action=finalizar&id=" + id + "&solucao=" + solucao; 
+                var formAction = "AtendimentoServlet?action=finalizar&id=" + id + "&solucao=" + solucao;
                 myForm.action = formAction;
-                myForm.method="post";
+                myForm.method = "post";
                 document.body.appendChild(myForm);
                 myForm.submit();
             }

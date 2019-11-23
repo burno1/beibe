@@ -5,6 +5,7 @@
  */
 package Bean;
 
+import Model.Categoria;
 import Model.Produto;
 import java.util.List;
 
@@ -13,11 +14,11 @@ import java.util.List;
  * @author Bruno Fernandes
  */
 public class ProdutoBean {
-    String nome;
-    int idProduto;
-    List<Produto> listaProdutos = null;
-    
-        public List<Produto> getListaProdutos() {
+
+    private List<Produto> listaProdutos = null;
+    private List<Categoria> categorias;
+
+    public List<Produto> getListaProdutos() {
         return listaProdutos;
     }
 
@@ -25,5 +26,13 @@ public class ProdutoBean {
         this.listaProdutos = listaProdutos;
     }
 
+    public List<Categoria> getCategorias() {
+        return categorias;
+    }
+
+    public void setCategorias(List<Categoria> categorias) {
+        this.categorias = categorias;
+    }
+    
     
 }

@@ -55,19 +55,19 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="cpf">CPF</label>
                     <div class="col-sm-6">
-                        <input class="form-control" maxlength="14" type="text" value="${cliente.cpf}" name="cpf" id="cpf" >
+                        <input class="form-control" maxlength="14" type="text" value="${cliente.cpf}" name="cpf" id="cpf" required>
                     </div>
                 </div>   
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="nome">NOME</label>
                     <div class="col-sm-6">
-                        <input class="form-control" type="text" value="${cliente.nome}" name="nome" id="nome">
+                        <input class="form-control" type="text" value="${cliente.nome}" name="nome" id="nome" required>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="email">E-MAIL</label>
                     <div class="col-sm-6">
-                        <input class="form-control" type="email" value="${cliente.email}" name="email" id="email">
+                        <input class="form-control" type="email" value="${cliente.email}" name="email" id="email" required>
                     </div>
                 </div>
                 <h4> Dados Pessoais</h4>
@@ -76,25 +76,25 @@
                     <label class="col-sm-2 col-form-label" for="data">DATA</label>
                     <div class="col-sm-6">
 
-                        <input class="form-control" type="date" value="${cliente.data}" name="data" id="data">
+                        <input class="form-control" type="date" value="${cliente.data}" name="data" id="data" required>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="rua">RUA</label>
                     <div class="col-sm-6">
-                        <input class="form-control" type="text" value="${cliente.rua}" name="rua" id="rua">
+                        <input class="form-control" type="text" value="${cliente.rua}" name="rua" id="rua" required>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="numero">NÚMERO</label>
                     <div class="col-sm-6">
-                        <input class="form-control" type="number" value="${cliente.numero}" name="numero" id="numero">
+                        <input class="form-control" type="number" value="${cliente.numero}" name="numero" id="numero" required>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="cep">CEP</label>
                     <div class="col-sm-6">
-                        <input class="form-control" type="text" value="${cliente.cep}" name="cep" id="cep">
+                        <input class="form-control" type="text" value="${cliente.cep}" name="cep" id="cep" required>
                     </div>
                 </div>
                 <div class="form-group row">

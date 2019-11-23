@@ -32,7 +32,7 @@ public class AtendimentoService {
 
     public List<Produto> buscarProdutos() {
         List<Produto> retorno = new ArrayList<Produto>();
-        retorno = produtoDao.buscarTodos();
+        retorno = produtoDao.listar();
 
         return retorno;
     }

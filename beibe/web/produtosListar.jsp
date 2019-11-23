@@ -35,18 +35,12 @@
 
         <br/>
         <div class="container-fluid">
-
             <div class="row">
-                <div class="col">
-                    <form action="cadastrarProduto.jsp">
-                        <button class="btn btn-success" type="submit">
-                            Cadastrar Novo Produto
-                        </button>
-                    </form>
+                <div class="col-sm-12"><a href="ProdutoServlet?action=formNew">  <button class="btn btn-primary"> Novo </button></a>
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row">    
                 <div class="col-sm-12">
                     <h3> Produtos Cadastrados</h3>
                     <table class="table">
@@ -54,8 +48,8 @@
                             <tr>
                                 <th scope="col">Nº</th>
                                 <th scope="col">Nome</th>   
-                                <th scope="col">Detalhes</th>
-                                <th scope="col">Remover</th> 
+                                <th scope="col">Opções</th>
+
                             </tr>
                         </thead>
 
@@ -66,10 +60,10 @@
                                     <td><c:out value="${p.idProduto}"/></td>
                                     <td><c:out value="${p.nomeProduto}" /></td>
                                     <td>
-                                        <button class="btn btn-primary" data-toggle="modal" data-target="#modalExemplo" >Detalhes</button>
+                                        <a href="ProdutoServlet?action=show&id=${p.idProduto}&mostra=0"><button type="button" class="btn btn-info">Visualizar</button> </a>
+                                        <a href="ProdutoServlet?action=formUpdate&id=${p.idProduto}"><button type="button" class="btn btn-secondary">Alterar</button> </a>
+                                        <a href="ProdutoServlet?action=remove&id=${p.idProduto}"><button type="button" class="btn btn-danger">Remover</button> </a>
                                     </td>
-                                    <td><button class="btn btn-danger">Remover</button></td>
-
                                 </c:forEach>
                         </tbody>
                     </table>
@@ -77,68 +71,7 @@
                 </div>
             </div>
 
-            <div class="modal fade" id="target" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Descrição Produto</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form>
-                                <div class="form-group row">
-                                    <div class="col-sm-4">
-                                        Nome
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <input class="form-control" value="Produto A" name="data" disabled="true">
-                                    </div>
-                                </div>
 
-
-                                <div class="form-group row">
-                                    <div class="col-sm-4">
-                                        Categoria
-                                    </div>
-                                    <div class="input-group col-sm-6">
-                                        <select class="custom-select" id="inputGroupSelect02" disabled="true">
-                                            <option selected>Choose...</option>
-                                            <option value="1">One</option>
-                                            <option value="2">Two</option>
-                                            <option value="3">Three</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <div class="col-sm-4">
-                                        Descrição Produto
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <textarea class="form-control" value="" name="descProduto" disabled="true"></textarea>
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <div class="col-sm-4">
-                                        Peso (g)
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <input type="text" class="form-control" value="100" name="data" disabled="true">
-                                    </div>
-                                </div>
-
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                            <button type="button" id="buttonModal" class="btn btn-primary">Alterar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>       
         <footer id="sticky-footer" class="py-4 bg-info text-white-50">
             <div class="container text-center">
@@ -147,21 +80,3 @@
         </footer>
     </body>
 </html>
-
-<script>
-    $("#button").click(function () {
-        if ($(this).html() == "-") {
-            $(this).html("+");
-        } else {
-            $(this).html("-");
-        }
-        $("#box").slideToggle();
-    });
-
-    $("#buttonModal").click(function () {
-        $("#target :input").prop("disabled", false);
-
-        $("#buttonModal").prop("disabled", false);
-
-    })
-</script>
