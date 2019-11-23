@@ -38,7 +38,7 @@ public class AtendimentoDAO {
 
         try {
             con = ConnectionFactory.getConnection();
-            st = con.prepareStatement("SELECT id_atendimento, dt_hr_atendimento, dsc_atendimento, id_produto, id_tipo_atendimento, id_usuario, id_cliente, res_atendimento FROM beibe.tb_atendimento WHERE id_atendimento = ?");
+            st = con.prepareStatement("SELECT id_atendimento, dt_hr_atendimento, dsc_atendimento,solucao, id_produto, id_tipo_atendimento, id_usuario, id_cliente, res_atendimento FROM beibe.tb_atendimento WHERE id_atendimento = ?");
             st.setString(1, id);
             rs = st.executeQuery();
 
@@ -52,6 +52,7 @@ public class AtendimentoDAO {
                 atendimento.setId(rs.getString("id_atendimento"));
                 atendimento.setData(rs.getDate("dt_hr_atendimento").toLocalDate());
                 atendimento.setDescricao(rs.getString("dsc_atendimento"));
+                atendimento.setSolucao(rs.getString("solucao"));
                 
                 
                 TipoAtendimento tipoAtendimento = tipoAtendimentoDAO.buscar(rs.getString("id_tipo_atendimento"));
@@ -186,6 +187,7 @@ public class AtendimentoDAO {
             st = con.prepareStatement("UPDATE tb_atendimento SET"
                     + " dt_hr_atendimento = ?, "
                     + " dsc_atendimento = ?, "
+                    + " solucao = ?, "
                     + " id_produto = ?, "
                     + " id_tipo_atendimento = ?, "
                     + " id_usuario = ?, "
@@ -195,12 +197,13 @@ public class AtendimentoDAO {
 
             st.setDate(1, Date.valueOf(atendimento.getData()));
             st.setString(2, atendimento.getDescricao());
-            st.setInt(3, atendimento.getProduto().getIdProduto());
-            st.setInt(4, atendimento.getTipoAtendimento().getIdTipo());
-            st.setString(5, atendimento.getFuncionario().getId());
-            st.setInt(6, atendimento.getCliente().getId());
-            st.setInt(7, atendimento.getResolvido());
-            st.setString(8, atendimento.getId());
+            st.setString(3, atendimento.getSolucao());
+            st.setInt(4, atendimento.getProduto().getIdProduto());
+            st.setInt(5, atendimento.getTipoAtendimento().getIdTipo());
+            st.setString(6, atendimento.getFuncionario().getId());
+            st.setInt(7, atendimento.getCliente().getId());
+            st.setInt(8, atendimento.getResolvido());
+            st.setString(9, atendimento.getId());
             
             int retorno = st.executeUpdate();
             if (retorno == 0){
@@ -282,5 +285,99 @@ public class AtendimentoDAO {
         }
 
     }
+    
+    public List<Atendimento> listarAbertos() {
 
+        Connection con = null;
+        con = ConnectionFactory.getConnection();
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        List<Atendimento> retorno = new ArrayList<Atendimento>();
+        ProdutoDAO produtoDAO = new ProdutoDAO();
+        ClienteDAO clienteDAO = new ClienteDAO();
+
+        try {
+            st = con.prepareStatement("SELECT id_atendimento, dt_hr_atendimento,  id_produto, id_cliente from tb_atendimento where res_atendimento = 0 order by dt_hr_atendimento");
+            rs = st.executeQuery();
+
+            while (rs.next()) {
+
+                Produto produto = produtoDAO.buscar(rs.getString("id_produto"));
+                Cliente cliente = clienteDAO.buscarCliente(rs.getString("id_cliente"));
+
+                Atendimento atendimento = new Atendimento();
+                atendimento.setId(rs.getString("id_atendimento"));
+                atendimento.setData(rs.getDate("dt_hr_atendimento").toLocalDate());
+                
+                LocalDate data;
+                data = rs.getDate("dt_hr_atendimento").toLocalDate();
+                
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                
+                atendimento.setDataString(data.format(formatter));
+                
+                
+                atendimento.setProduto(produto);
+                atendimento.setCliente(cliente);
+
+                retorno.add(atendimento);
+            }
+            return retorno;
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (st != null) {
+                try {
+                    st.close();
+                } catch (Exception e) {
+                }
+            }
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (Exception e) {
+                }
+            }
+        }
+    }
+    
+    public boolean finalizar(String id, String solucao) {
+        Connection con = null;
+        con = ConnectionFactory.getConnection();
+        PreparedStatement st = null;
+
+        try {
+            st = con.prepareStatement("UPDATE tb_atendimento SET"
+                    + " res_atendimento = 1, "
+                    + " solucao = ? "
+                    + " WHERE id_atendimento = ? ");
+
+            st.setString(1, solucao);
+            st.setString(2, id);
+            
+            int retorno = st.executeUpdate();
+            if (retorno == 0){
+                return false;
+            }
+            return true;
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (st != null) {
+                try {
+                    st.close();
+                } catch (Exception e) {
+                }
+            }
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (Exception e) {
+                }
+            }
+        }
+    }
+    
 }

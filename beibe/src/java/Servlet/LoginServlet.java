@@ -74,6 +74,7 @@ public class LoginServlet extends HttpServlet {
                 AtendimentoService atendimentoService = new AtendimentoService();
                 
                 atendimentoBean.setAtendimentosLista(atendimentoService.listar());
+                atendimentoBean.setAtendimentosAbertos(atendimentoService.listarAbertos());
                 
             RequestDispatcher rd = request.
                         getRequestDispatcher("/portalFuncionario.jsp");

@@ -16,6 +16,7 @@ public class Atendimento {
     private LocalDate data;
     private String dataString;
     private String descricao;
+    private String solucao;
     private Produto produto;
     private TipoAtendimento tipoAtendimento;
     private Funcionario funcionario;
@@ -117,8 +118,14 @@ public class Atendimento {
     public void setAtrasado(int atrasado) {
         this.atrasado = atrasado;
     }
-    
-    
+
+    public String getSolucao() {
+        return solucao;
+    }
+
+    public void setSolucao(String solucao) {
+        this.solucao = solucao;
+    }
     
     
 }

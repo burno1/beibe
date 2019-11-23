@@ -4,14 +4,7 @@
 
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link href="./css/login.css" rel="stylesheet" />
-        <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
-        <script src="./bootstrap/js/jquery.min.js"></script>
-        <script src="./bootstrap/js/bootstrap.min.js"></script>
-        <title>BEIBE - Beauty Embuste Indústria de Beleza e Estética
-        </title>
-
+        <%@include file="imports.jsp" %> 
     </head>
     <body>
         <nav  class="navbar navbar-expand-lg navbar-light bg-light">
@@ -19,19 +12,8 @@
                 <div class="navbar-header">
                     <a class="navbar-brand" href="#">BEIBE</a>
                 </div>
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <li class="nav-item"><a class="nav-link" href="portalGerente.jsp">Portal (Gerente) <span class="sr-only">(current)</span></a></li>
-                        <li class="nav-item"><a class="nav-link" href="AtendimentoServlet">Atendimentos</a></li>
-                        <li class="nav-item active"><a class="nav-link" href='ProdutoServlet'>Produtos</a></li>
-                        <li class="nav-item"><a class="nav-link" href='ClienteServlet'>Clientes</a></li>
-                        <li class="nav-item"><a class="nav-link" href="FuncionarioServlet">Funcionarios</a></li>
-                        <li class="nav-item"><a class="nav-link" href="relatorios.jsp">Relatórios</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav ml-auto">
-                        <li nav-item><a href='Invalidar'>User ${login.user} Logout</a></li>
-                    </ul>
-                </div><!-- /.navbar-collapse -->
+                <!-- Cabeçalho -->
+                <%@include file="headerFuncionario.jsp" %>
             </div> 
         </nav>
 

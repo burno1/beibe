@@ -22,6 +22,7 @@ public class AtendimentoBean {
 
     private String descricaoAtendimento;
     private List<Atendimento> atendimentosLista;
+    private List<Atendimento> atendimentosAbertos;
     private List<TipoAtendimento> tiposAtendimento;
     private List<Cliente> clientes;
     private List<Produto> produtos;
@@ -42,13 +43,11 @@ public class AtendimentoBean {
     }
 
     public void setAtendimentosLista(List<Atendimento> atendimentosLista) {
-        System.out.println("set lista");
+        
         for (Atendimento atendimento : atendimentosLista) {
             Period period = Period.between( atendimento.getData(),LocalDate.now());
-            System.out.println(period.getDays());
             atendimento.setAtrasado(0);
             if(period.getDays() >= 7 ){
-                System.out.println("atrasado");
                 atendimento.setAtrasado(1);
             }
         }
@@ -79,4 +78,24 @@ public class AtendimentoBean {
     public void setClientes(List<Cliente> clientes) {
         this.clientes = clientes;
     }
+
+    public List<Atendimento> getAtendimentosAbertos() {
+        return atendimentosAbertos;
+    }
+
+    public void setAtendimentosAbertos(List<Atendimento> atendimentosAbertos) {
+        
+                
+        for (Atendimento atendimento : atendimentosAbertos) {
+            Period period = Period.between( atendimento.getData(),LocalDate.now());
+            atendimento.setAtrasado(0);
+            if(period.getDays() >= 7 ){
+                atendimento.setAtrasado(1);
+            }
+        }
+
+        this.atendimentosAbertos = atendimentosAbertos;
+    }
+    
+    
 }

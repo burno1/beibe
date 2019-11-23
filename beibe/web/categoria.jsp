@@ -17,53 +17,16 @@
 
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link href="./css/login.css" rel="stylesheet" />
-        <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
-        <link href="./css/atendimento.css" rel="stylesheet" />
-
-        <script src="./bootstrap/js/jquery.min.js"></script>
-        <script src="./bootstrap/js/bootstrap.min.js"></script>
-        <script src="jquery-3.4.1.min.js"></script>
-        <title>BEIBE - Beauty Embuste Indústria de Beleza e Estética
-        </title>
-
-
-        <style>
-
-            #title_bar{
-                background: #FEFEFE;
-            }
-            #button{
-                border:solid 1px;
-                width: 25px;
-                height: 23px;
-                float:right;
-                cursor:pointer;
-            }
-            #box{
-            }
-        </style>
+        <%@include file="imports.jsp" %>
     </head>
     <body>
-        <!-- Cabeçalho -->
         <nav  class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="#">BEIBE</a>
                 </div>
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <li class="nav-item"><a class="nav-link" href="portal.jsp">Portal (Cliente) <span class="sr-only">(current)</span></a></li>
-                        <li class="nav-item e"><a class="nav-link" href="portalFuncionario.jsp">Portal (Funcionario) <span class="sr-only">(current)</span></a></li>
-                        <li class="nav-item"><a class="nav-link" href="portalGerente.jsp">Portal (Gerente) <span class="sr-only">(current)</span></a></li>
-                        <li class="nav-item"><a class="nav-link" href='#'>Produtos</a></li>
-                        <li class="nav-item active"><a class="nav-link" href='#'>Categorias</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav ml-auto">
-                        <li nav-item><a href='Invalidar'>User ${login.user} Logout</a></li>
-                    </ul>
-                </div><!-- /.navbar-collapse -->
+                <!-- Cabeçalho -->
+                <%@include file="headerFuncionario.jsp" %>
             </div> 
         </nav>
 

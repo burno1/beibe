@@ -5,10 +5,14 @@
  */
 package Servlet;
 
+import Bean.AtendimentoBean;
+import Bean.LoginBean;
 import Bean.PortalBean;
+import Facade.AtendimentoService;
 import Facade.LoginService;
 
 import Model.Funcionario;
+import Utils.MD5;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -42,35 +46,38 @@ public class PortalServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PortalBean pb = new PortalBean();
         HttpSession s = request.getSession();
-        ArrayList<Funcionario> funcionarios = ((ArrayList<Funcionario>) s.getAttribute("listaFuncionarios"));
-        List<Funcionario> listaFuncionarios = new ArrayList<Funcionario>();
-        LoginService loginService = new LoginService();
-        
-        String nome = "";
-        String email = "";
-        String senha = "";
 
-        try {
-            if (s.getAttribute("login") == null) {
-                RequestDispatcher rd = request.
-                        getRequestDispatcher("/ErroServlet");
-                request.setAttribute("msg", "Erro acessando a Servlet");
-                request.setAttribute("page", "index.jsp");
-                rd.forward(request, response);
-            }
-            if (request.getParameter("email") != null) {
-                nome = (String) request.getParameter("nome");
-                email = (String) request.getParameter("email");
-                senha = (String) request.getParameter("senha");
+        Funcionario funcionarioLogado = (Funcionario) s.getAttribute("funcionario");
 
-                Funcionario funcionario = new Funcionario(nome, email, senha, "");
-                funcionarios.add(funcionario);
-            }
+        //Condicional de erro para login
+        if ("1".equals(funcionarioLogado.getTipo())) {
+            AtendimentoBean atendimentoBean = new AtendimentoBean();
+            AtendimentoService atendimentoService = new AtendimentoService();
+            atendimentoBean.setAtendimentosLista(atendimentoService.listar());
+            atendimentoBean.setAtendimentosAbertos(atendimentoService.listarAbertos());
+
             RequestDispatcher rd = request.
-                    getRequestDispatcher("/portal");
+                    getRequestDispatcher("atendimentoListar.jsp");
+            request.setAttribute("atendimentoBean", atendimentoBean);
             rd.forward(request, response);
 
-        } catch (Exception e) {
+        }
+
+        if ("2".equals(funcionarioLogado.getTipo())) {
+            AtendimentoBean atendimentoBean = new AtendimentoBean();
+            AtendimentoService atendimentoService = new AtendimentoService();
+
+            atendimentoBean.setAtendimentosLista(atendimentoService.listar());
+            atendimentoBean.setAtendimentosAbertos(atendimentoService.listarAbertos());
+
+            RequestDispatcher rd = request.
+                    getRequestDispatcher("/portalFuncionario.jsp");
+            request.setAttribute("atendimentoBean", atendimentoBean);
+            rd.forward(request, response);
+        }
+
+        if ("3".equals(funcionarioLogado.getTipo())) {
+            response.sendRedirect("./portal.jsp");
         }
 
     }

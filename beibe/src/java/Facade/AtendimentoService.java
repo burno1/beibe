@@ -50,6 +50,12 @@ public class AtendimentoService {
 
         return retorno;
     }
+    public List<Atendimento> listarAbertos() {
+        List<Atendimento> retorno = new ArrayList<Atendimento>();
+        retorno = atendimentoDAO.listarAbertos();
+
+        return retorno;
+    }
 
     public boolean atualizar(Atendimento atendimento) {
         return atendimentoDAO.atualizar(atendimento);
@@ -66,10 +72,6 @@ public class AtendimentoService {
 
             retorno = atendimentoDAO.buscarAtendimento(id);
             return retorno;
-            
-
-        
-
     }
 
     public Produto buscarProduto(String id) {
@@ -89,6 +91,10 @@ public class AtendimentoService {
 
     public boolean remover(String id) {
         return atendimentoDAO.removerAtendimento(id);
+    }
+    
+    public boolean finalizar(String id, String solucao) {
+        return atendimentoDAO.finalizar(id, solucao);
     }
 
 }

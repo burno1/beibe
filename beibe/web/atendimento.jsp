@@ -22,14 +22,7 @@
 
 <html>
     <head>
-
-        <link href="./css/login.css" rel="stylesheet" />
-        <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
-        <script src="./bootstrap/js/jquery.min.js"></script>
-        <script src="./bootstrap/js/bootstrap.min.js"></script>
-        <title>BEIBE - Beauty Embuste Indústria de Beleza e Estética
-
-        </title>
+        <%@include file="imports.jsp" %>
     </head>
     <body>
         <jsp:useBean id="atendimentoBean" class="Bean.AtendimentoBean" scope="request" />
@@ -42,19 +35,18 @@
                 </div>
 
                 <!-- Cabeçalho -->
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <li class="nav-item"><a class="nav-link" href="portalGerente.jsp">Portal<span class="sr-only">(current)</span></a></li>
-                        <li class="nav-item active"><a class="nav-link" href="AtendimentoServlet">Atendimentos</a></li>
-                        <li class="nav-item"><a class="nav-link" href='ProdutoServlet'>Produtos</a></li>
-                        <li class="nav-item"><a class="nav-link" href='ClienteServlet'>Clientes</a></li>
-                        <li class="nav-item"><a class="nav-link" href="FuncionarioServlet">Funcionarios</a></li>
-                        <li class="nav-item"><a class="nav-link" href="relatorios.jsp">Relatórios</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav ml-auto">
-                        <li nav-item><a href='Invalidar'>User ${login.user} Logout</a></li>
-                    </ul>
-                </div><!-- /.navbar-collapse -->
+                <c:choose>
+                    <c:when test="${funcionario.tipo == 1}">
+
+                        <%@ include file = "headerGerente.jsp" %> 
+                    </c:when>
+                    <c:when test="${funcionario.tipo == 2}">
+
+                        <%@ include file = "headerFuncionario.jsp" %> 
+                    </c:when>
+                </c:choose>
+
+
             </div> 
         </nav>
 
@@ -105,21 +97,21 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="custom-control custom-radio">
-                            <input type="radio" value="resolvido" name="resolvido" class="custom-control-input"  <c:if test="${resolvido}">checked</c:if> >
-                                <label class="custom-control-label" for="customRadio1" >Solucionado</label>
-                            </div>
-                            <div class="custom-control custom-radio">
-                                <input type="radio"  value="naoResolvido"  name="resolvido" class="custom-control-input" <c:if test="${!resolvido}">checked</c:if>>
-                                <label class="custom-control-label" for="customRadio2">Não Solucionado</label>
-                            </div>
+                            <input type="radio" value="resolvido" name="resolvido" id="customRadio1" class="custom-control-input"  ${atendimento.resolvido==1 ?'checked' : '' } >
+                            <label class="custom-control-label" for="customRadio1" >Solucionado</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input type="radio"  value="naoResolvido"  name="resolvido" id="customRadio2" class="custom-control-input" ${atendimento.resolvido==0 ?'checked' : '' }>
+                            <label class="custom-control-label" for="customRadio2">Não Solucionado</label>
                         </div>
                     </div>
+                </div>
 
-                    <div class="form-group row">
-                        <label class="col-sm-2 col-form-label" for="produto">Produtos</label>
-                        <div class="col-sm-6">
-                            <select class="custom-select custom-select-md" name="produto" id="produto">
-                                <option selected value="${atendimento.produto.idProduto}">${atendimento.produto.nomeProduto}</option>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label" for="produto">Produtos</label>
+                    <div class="col-sm-6">
+                        <select class="custom-select custom-select-md" name="produto" id="produto">
+                            <option selected value="${atendimento.produto.idProduto}">${atendimento.produto.nomeProduto}</option>
                             <c:forEach items="${atendimentoBean.produtos}" var="p">     
 
                                 <option value="${p.idProduto}">${p.nomeProduto}</option>
@@ -149,27 +141,42 @@
                     </div>
                 </div>
 
+                <div id="solucao" class="form-group row" ${atendimento.resolvido == 1  || (funcionario.getTipo() == 1 || funcionario.getTipo() == 2 ) ? '' : 'hidden'}>
+                    <div class="col-sm-2">
+                        Solução Atendimento
 
-                <div id="salvar" class="form-group row">
-                    <div class="col-sm-4">
+                    </div>
+                    <div class="col-sm-6">
+                        <textarea class="form-control"  name="solucao">${atendimento.solucao}</textarea>
+                    </div>
+                </div>
+
+
+                <div class="row">
+
+                    <div id="salvar" class="col-sm-4">
                         <button  type="submit" class="btn btn-success btn-block">Salvar</button>
                     </div>
 
                     <div id="voltar" class="col-sm-4">
                         <button class="btn btn-success btn-block " type="button" name="back" onclick="history.back()">Voltar</button>
                     </div>
+
+                    <div id="finaliza" ${(funcionario.getTipo() == 1 || funcionario.getTipo() == 2) && atendimento.resolvido != 1   ? '' : 'hidden'}>
+                        <button class="btn btn-danger btn-block" type="button" onclick="callServlet()">Finalizar</button>
+                    </div>
+
                 </div>
 
-                
+
             </form>
         </div>
 
         <script>
             var mostra = '${mostra}';
+            var finalizar = '${finalizar}';
 
-            console.log(mostra);
             $(document).ready(function () {
-
                 
                 if (mostra) {
                     $('#form input').prop("disabled", true);
@@ -177,11 +184,24 @@
                     $('#form textarea').prop("disabled", true);
                     $("#salvar").hide();
                     $("#cancelar").hide();
-                    
-                    console.log('ihu');
+                    $("#finaliza").hide();
                 }
 
             });
+
+            function callServlet() {
+                console.log('ihu');
+                var solucao = $('#form').find('textarea[name="solucao"]').val();
+                var id = $('#form').find('input[name="idAtend"]').val();
+
+                console.log (id,solucao);
+                var myForm = document.createElement("form");
+                var formAction ="AtendimentoServlet?action=finalizar&id=" + id + "&solucao=" + solucao; 
+                myForm.action = formAction;
+                myForm.method="post";
+                document.body.appendChild(myForm);
+                myForm.submit();
+            }
         </script>
     </body>
 </html>

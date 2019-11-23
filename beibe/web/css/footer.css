@@ -5,9 +5,10 @@ body {
   display: flex;
   flex-direction: column;
 }
-.content {
+.container-fluid {
   flex: 1 0 auto;
 }
-.footer {
+footer {
+  display: flex;
   flex-shrink: 0;
 }
