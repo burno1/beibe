@@ -10,17 +10,13 @@ import Facade.CidadeService;
 import Factories.ConnectionFactory;
 import Model.Cidade;
 import Model.Cliente;
-import Utils.DateConverter;
+import Utils.MD5;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLIntegrityConstraintViolationException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import java.util.List;
 
@@ -44,7 +40,7 @@ public class ClienteDAO {
             rs = st.executeQuery();
 
             while (rs.next()) {
-                cl.setId(Integer.valueOf(rs.getString("id_cliente")));
+                cl.setId(rs.getString("id_cliente"));
                 cl.setCpf(rs.getString("cpf_cliente"));
                 cl.setNome((rs.getString("nome_cliente")));
                 cl.setEmail(rs.getString("email_cliente"));
@@ -80,7 +76,7 @@ public class ClienteDAO {
         }
     }
     
-    public Cliente buscarClientePorCpf(String cpf) {
+    public Cliente buscarPorEmail(String email) {
         Connection con = null;
         PreparedStatement st = null;
         ResultSet rs = null;
@@ -88,13 +84,22 @@ public class ClienteDAO {
 
         try {
             con = ConnectionFactory.getConnection();
-            st = con.prepareStatement("SELECT id_cliente,email_cliente FROM beibe.tb_cliente WHERE cpf_cliente = ?");
-            st.setString(1, cpf);
+            st = con.prepareStatement("SELECT id_cliente, cpf_cliente, nome_cliente,senha, email_cliente, data_cliente, rua_cliente, nr_cliente, cep_cliente, id_cidade_cliente FROM beibe.tb_cliente WHERE email_cliente = ?");
+            st.setString(1, email);
             rs = st.executeQuery();
 
             while (rs.next()) {
-                cl.setId(Integer.valueOf(rs.getString("id_cliente")));
+                cl.setId(rs.getString("id_cliente"));
+                cl.setCpf(rs.getString("cpf_cliente"));
+                cl.setNome((rs.getString("nome_cliente")));
+                cl.setSenha((rs.getString("senha")));
                 cl.setEmail(rs.getString("email_cliente"));
+                cl.setData(rs.getDate("data_cliente").toLocalDate());
+                cl.setRua(rs.getString("rua_cliente"));
+                cl.setNumero(Integer.valueOf(rs.getString("nr_cliente")));
+                cl.setCep(Integer.valueOf(rs.getString("cep_cliente")));
+                Cidade cidade = cidadeService.buscarPorId(rs.getInt("id_cidade_cliente"));
+                cl.setCidade(cidade);
             }
             return cl;
         } catch (Exception e) {
@@ -121,7 +126,7 @@ public class ClienteDAO {
         }
     }
 
-    public boolean removerCliente(String id) {
+    public boolean removerCliente(String id) throws ErroCliente {
         Connection con = null;
         PreparedStatement st = null;
         ResultSet rs = null;
@@ -140,7 +145,7 @@ public class ClienteDAO {
             return true;
 
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new ErroCliente("Cliente não pode ser excluido, verifique atendimentos");
         } finally {
             if (rs != null) {
                 try {
@@ -174,7 +179,7 @@ public class ClienteDAO {
             rs = st.executeQuery();
             while (rs.next()) {
                 Cliente cl = new Cliente();
-                cl.setId(Integer.valueOf(rs.getString("id_cliente")));
+                cl.setId(rs.getString("id_cliente"));
                 cl.setCpf(rs.getString("cpf_cliente"));
                 cl.setNome((rs.getString("nome_cliente")));
                 cl.setEmail(rs.getString("email_cliente"));
@@ -211,26 +216,30 @@ public class ClienteDAO {
             }
         }
     }
+    
+    
+    
 
-    public boolean inserirCliente(Cliente cliente) {
+    public boolean inserirCliente(Cliente cliente) throws ErroCliente {
         Connection con = null;
         PreparedStatement st = null;
 
         LocalDate dt = cliente.getData();
+        MD5 md5 = new MD5();
 
         try {
             con = ConnectionFactory.getConnection();
             st = con.prepareStatement(
-                    "insert into beibe.tb_cliente(cpf_cliente, nome_cliente, email_cliente, data_cliente, rua_cliente, nr_cliente, cep_cliente, id_cidade_cliente) values (?, ?, ?, ?, ?, ?, ? , ?)");
+                    "insert into beibe.tb_cliente(cpf_cliente, nome_cliente, senha, email_cliente, data_cliente, rua_cliente, nr_cliente, cep_cliente, id_cidade_cliente) values (?, ?, ?, ?, ?, ?, ? , ?,?)");
             st.setString(1, cliente.getCpf());
             st.setString(2, cliente.getNome());
-            st.setString(3, cliente.getEmail());
-            System.out.println("chegando" + cliente.getData());
-            st.setDate(4, Date.valueOf(dt));
-            st.setString(5, cliente.getRua());
-            st.setInt(6, cliente.getNumero());
-            st.setInt(7, cliente.getCep());
-            st.setInt(8, cliente.getCidade().getId());
+            st.setString(3, md5.MD5Transformed(cliente.getSenha()));
+            st.setString(4, cliente.getEmail());
+            st.setDate(5, Date.valueOf(dt));
+            st.setString(6, cliente.getRua());
+            st.setInt(7, cliente.getNumero());
+            st.setInt(8, cliente.getCep());
+            st.setInt(9, cliente.getCidade().getId());
             int retorno = st.executeUpdate();
             
             if(retorno == 0){
@@ -239,8 +248,8 @@ public class ClienteDAO {
             return true;
 
         } catch (Exception e) {
+            throw new ErroCliente("Não foi possivel inserir o Cliente");
             
-            throw new RuntimeException(e);
         }  finally {
             if (st != null) {
                 try {
@@ -255,10 +264,9 @@ public class ClienteDAO {
                 }
             }
         }
-
     }
 
-    public boolean updateCliente(Cliente cliente) {
+    public boolean updateCliente(Cliente cliente) throws ErroCliente {
         Connection con = null;
         PreparedStatement st = null;
         try {
@@ -274,7 +282,7 @@ public class ClienteDAO {
             st.setInt(6, cliente.getNumero());
             st.setInt(7, cliente.getCep());
             st.setInt(8, cliente.getCidade().getId());
-            st.setInt(9, cliente.getId());
+            st.setString(9, cliente.getId());
             int retorno = st.executeUpdate();
             
             if(retorno == 0){
@@ -283,7 +291,7 @@ public class ClienteDAO {
             return true;
 
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new ErroCliente("Cliente não pode ser atualizado.");
         } finally {
             if (st != null) {
                 try {

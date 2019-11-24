@@ -5,6 +5,7 @@
  */
 package DAO;
 
+import Exceptions.ErroFuncionario;
 import Facade.CidadeService;
 import Factories.ConnectionFactory;
 import Model.Cidade;
@@ -165,7 +166,7 @@ public class FuncionarioDAO {
         }
     }
 
-    public Funcionario inserir(Funcionario funcionario) {
+    public Funcionario inserir(Funcionario funcionario) throws ErroFuncionario {
         Connection con = null;
         PreparedStatement st = null;
         MD5 md5 = new MD5();
@@ -190,7 +191,7 @@ public class FuncionarioDAO {
 
             return funcionarioSalvo;
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new ErroFuncionario("CPF ou Email ja cadastrados.");
         } finally {
             if (st != null) {
                 try {
@@ -208,7 +209,7 @@ public class FuncionarioDAO {
 
     }
 
-    public boolean removerFuncionario(String id) {
+    public boolean removerFuncionario(String id) throws ErroFuncionario {
         Connection con = null;
         PreparedStatement st = null;
         ResultSet rs = null;
@@ -226,7 +227,7 @@ public class FuncionarioDAO {
             return true;
 
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new ErroFuncionario("Funcionario não pode ser removido pois tem ligação com atendimentos.");
         } finally {
             if (rs != null) {
                 try {
@@ -249,7 +250,7 @@ public class FuncionarioDAO {
         }
     }
 
-    public boolean updateFuncionario(Funcionario funcionario) {
+    public boolean updateFuncionario(Funcionario funcionario) throws ErroFuncionario {
         Connection con = null;
         PreparedStatement st = null;
         try {
@@ -275,7 +276,7 @@ public class FuncionarioDAO {
             return true;
 
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new ErroFuncionario("Funcionario não pode ser atualizado.");
         } finally {
             if (st != null) {
                 try {

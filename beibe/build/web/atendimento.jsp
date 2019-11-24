@@ -34,6 +34,7 @@
                     <a class="navbar-brand" href="portal.jsp">BEIBE</a>
                 </div>
 
+                
                 <!-- Cabeçalho -->
                 <c:choose>
                     <c:when test="${funcionario.tipo == 1}">
@@ -44,9 +45,11 @@
 
                         <%@ include file = "headerFuncionario.jsp" %> 
                     </c:when>
+                    <c:when test="${cliente.id != null}">
+
+                        <%@ include file = "headerCliente.jsp" %> 
+                    </c:when>
                 </c:choose>
-
-
             </div> 
         </nav>
 

@@ -6,15 +6,13 @@
 package Servlet;
 
 import Bean.AtendimentoBean;
-import Bean.LoginBean;
 import Bean.PortalBean;
 import Facade.AtendimentoService;
-import Facade.LoginService;
+import Model.Atendimento;
+import Model.Cliente;
 
 import Model.Funcionario;
-import Utils.MD5;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -48,6 +46,7 @@ public class PortalServlet extends HttpServlet {
         HttpSession s = request.getSession();
 
         Funcionario funcionarioLogado = (Funcionario) s.getAttribute("funcionario");
+        Cliente clienteLogado = (Cliente) s.getAttribute("cliente");
 
         //Condicional de erro para login
         if ("1".equals(funcionarioLogado.getTipo())) {
@@ -76,8 +75,17 @@ public class PortalServlet extends HttpServlet {
             rd.forward(request, response);
         }
 
-        if ("3".equals(funcionarioLogado.getTipo())) {
-            response.sendRedirect("./portal.jsp");
+        if (clienteLogado.getId() != null) {
+            AtendimentoBean atendimentoBean = new AtendimentoBean();
+            AtendimentoService atendimentoService = new AtendimentoService();
+            List<Atendimento> atendimentosLista = new ArrayList<Atendimento>();
+            atendimentosLista = atendimentoService.listarPorCliente(clienteLogado.getId());
+            atendimentoBean.setAtendimentosLista(atendimentosLista);
+
+            RequestDispatcher rd = request.
+                    getRequestDispatcher("/portal.jsp");
+            request.setAttribute("atendimentoBean", atendimentoBean);
+            rd.forward(request, response);
         }
 
     }

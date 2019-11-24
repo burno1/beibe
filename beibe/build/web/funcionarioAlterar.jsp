@@ -95,7 +95,6 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="data">Data</label>
                     <div class="col-sm-6">
-
                         <input class="form-control" type="date" value="${funcionario.data}" name="data" id="data" required>
                     </div>
                 </div>

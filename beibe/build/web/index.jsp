@@ -36,7 +36,8 @@
                             <form action="LoginServlet" method="post">
 
                                 <fieldset class="clearfix">
-
+                                    <span style="color:yellow">${mensagem}</span>
+                                    
                                     <p ><span class="fa fa-user"></span><input type="text" id="email" name="email" placeholder="a@a.com" required="true" autofocus></p> <!-- JS because of IE support; better: placeholder="Username" -->
                                     <p><span class="fa fa-lock"></span><input type="password"  id="senha" name="senha" required="true"></p> <!-- JS because of IE support; better: placeholder="Password" -->
 
@@ -53,8 +54,8 @@
 
                         </div> <!-- end login -->
                         <div class="logo">BEIBE
-
                             <div class="clearfix"></div>
+
                         </div>
 
                     </div>

@@ -142,15 +142,14 @@ public class AtendimentoDAO {
 
         try {
             st = con.prepareStatement("INSERT INTO tb_atendimento "
-                    + "(dt_hr_atendimento, dsc_atendimento, id_produto, id_tipo_atendimento, id_usuario, id_cliente, res_atendimento) VALUES "
-                    + "(?, ?, ?, ?, ?, ?, ?)");
+                    + "(dt_hr_atendimento, dsc_atendimento, id_produto, id_tipo_atendimento, id_cliente, res_atendimento) VALUES "
+                    + "(?, ?, ?, ?, ?, ?)");
             st.setDate(1, Date.valueOf(atendimento.getData()));
             st.setString(2, atendimento.getDescricao());
             st.setString(3, atendimento.getProduto().getIdProduto());
             st.setInt(4, atendimento.getTipoAtendimento().getIdTipo());
-            st.setString(5, atendimento.getFuncionario().getId());
-            st.setInt(6, atendimento.getCliente().getId());
-            st.setInt(7, atendimento.getResolvido());
+            st.setString(5, atendimento.getCliente().getId());
+            st.setInt(6, atendimento.getResolvido());
 
             int retorno = st.executeUpdate();
             
@@ -202,7 +201,7 @@ public class AtendimentoDAO {
             st.setString(4, atendimento.getProduto().getIdProduto());
             st.setInt(5, atendimento.getTipoAtendimento().getIdTipo());
             st.setString(6, atendimento.getFuncionario().getId());
-            st.setInt(7, atendimento.getCliente().getId());
+            st.setString(7, atendimento.getCliente().getId());
             st.setInt(8, atendimento.getResolvido());
             st.setString(9, atendimento.getId());
             
@@ -252,6 +251,65 @@ public class AtendimentoDAO {
                 Atendimento atendimento = new Atendimento();
                 atendimento.setId(rs.getString("id_atendimento"));
                 atendimento.setData(rs.getDate("dt_hr_atendimento").toLocalDate());
+                
+                LocalDate data;
+                data = rs.getDate("dt_hr_atendimento").toLocalDate();
+                
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                
+                atendimento.setDataString(data.format(formatter));
+                
+                
+                atendimento.setProduto(produto);
+                atendimento.setCliente(cliente);
+
+                retorno.add(atendimento);
+            }
+            return retorno;
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (st != null) {
+                try {
+                    st.close();
+                } catch (Exception e) {
+                }
+            }
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (Exception e) {
+                }
+            }
+        }
+
+    }
+    
+    public List<Atendimento> listarPorCliente(String id) {
+
+        Connection con = null;
+        con = ConnectionFactory.getConnection();
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        List<Atendimento> retorno = new ArrayList<Atendimento>();
+        ProdutoDAO produtoDAO = new ProdutoDAO();
+        ClienteDAO clienteDAO = new ClienteDAO();
+
+        try {
+            st = con.prepareStatement("SELECT id_atendimento, dt_hr_atendimento,  id_produto, id_cliente,res_atendimento from tb_atendimento where id_cliente = ? order by dt_hr_atendimento desc ");
+            st.setInt(1, Integer.valueOf(id));
+            rs = st.executeQuery();
+
+            while (rs.next()) {
+
+                Produto produto = produtoDAO.buscar(rs.getString("id_produto"));
+                Cliente cliente = clienteDAO.buscarCliente(rs.getString("id_cliente"));
+
+                Atendimento atendimento = new Atendimento();
+                atendimento.setId(rs.getString("id_atendimento"));
+                atendimento.setData(rs.getDate("dt_hr_atendimento").toLocalDate());
+                atendimento.setResolvido(rs.getInt("res_atendimento"));
                 
                 LocalDate data;
                 data = rs.getDate("dt_hr_atendimento").toLocalDate();

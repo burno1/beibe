@@ -35,6 +35,4 @@ public class CidadesBean {
     public void setCidades(List<Cidade> cidades) {
         this.cidades = cidades;
     }
-        
-    
 }

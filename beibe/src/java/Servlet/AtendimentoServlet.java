@@ -71,6 +71,7 @@ public class AtendimentoServlet extends HttpServlet {
         AtendimentoService atendimentoService = new AtendimentoService();
         AtendimentoBean atendimentoBean = new AtendimentoBean();
         ProdutoBean pBean = new ProdutoBean();
+        Cliente clienteLogado = (Cliente) s.getAttribute("cliente");
         String acao = request.getParameter("action");
 
         if (null == acao || "listar".equals(acao)) {
@@ -163,6 +164,12 @@ public class AtendimentoServlet extends HttpServlet {
                 if (atendimentoBean.getTiposAtendimento() == null || atendimentoBean.getProdutos() == null || atendimentoBean.getClientes() == null) {
                     throw new ErroAtendimento("Não foi possivel carregar combos");
                 }
+
+                if (clienteLogado.getId() != null) {
+                    atendimentoBean.setClientes(new ArrayList<Cliente>());
+                    atendimentoBean.getClientes().add(clienteLogado);
+                }
+
                 RequestDispatcher rd = request.
                         getRequestDispatcher("/atendimento.jsp");
                 request.setAttribute("atendimentoBean", atendimentoBean);
@@ -262,7 +269,7 @@ public class AtendimentoServlet extends HttpServlet {
 
                 Funcionario funcionario = new Funcionario();
                 funcionario = (Funcionario) s.getAttribute("funcionario");
-                atendimento.setFuncionario(funcionario);
+
                 String idAtend = request.getParameter("idAtend");
 
                 if (!("".equals(idAtend))) {
@@ -327,6 +334,16 @@ public class AtendimentoServlet extends HttpServlet {
                         request.setAttribute("atendimentoBean", atendimentoBean);
                         rd.forward(request, response);
                     }
+                    if (clienteLogado.getId() != null) {
+                        List<Atendimento> atendimentosLista = new ArrayList<Atendimento>();
+                        atendimentosLista = atendimentoService.listarPorCliente(clienteLogado.getId());
+                        atendimentoBean.setAtendimentosLista(atendimentosLista);
+
+                        RequestDispatcher rd = request.
+                                getRequestDispatcher("/portal.jsp");
+                        request.setAttribute("atendimentoBean", atendimentoBean);
+                        rd.forward(request, response);
+                    }
                 }
 
             } catch (AppException e) {
@@ -352,6 +369,16 @@ public class AtendimentoServlet extends HttpServlet {
 
                 if (!atendimentoService.remover(id)) {
                     throw new ErroAtendimento("Impossivel remover atendimento");
+                }
+                if (clienteLogado.getId() != null) {
+                    List<Atendimento> atendimentosLista = new ArrayList<Atendimento>();
+                    atendimentosLista = atendimentoService.listarPorCliente(clienteLogado.getId());
+                    atendimentoBean.setAtendimentosLista(atendimentosLista);
+
+                    RequestDispatcher rd = request.
+                            getRequestDispatcher("/portal.jsp");
+                    request.setAttribute("atendimentoBean", atendimentoBean);
+                    rd.forward(request, response);
                 }
 
                 atendimentoBean.setAtendimentosLista(atendimentoService.listar());

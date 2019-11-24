@@ -6,6 +6,7 @@
 package Facade;
 
 import DAO.ClienteDAO;
+import Exceptions.ErroCliente;
 import Model.Cliente;
 import java.util.List;
 /**
@@ -15,28 +16,28 @@ import java.util.List;
 public class ClienteService {
     static ClienteDAO clienteDAO = new ClienteDAO();
     
-    public static boolean remover(String id){
+    public static boolean remover(String id) throws ErroCliente{
          return clienteDAO.removerCliente(id);
     }
     
-    public static boolean inserir(Cliente cliente){
+    public static boolean inserir(Cliente cliente) throws ErroCliente{
         return clienteDAO.inserirCliente(cliente);
     }
     
-    public static boolean alterar (Cliente cliente){
+    public static boolean alterar (Cliente cliente) throws ErroCliente{
         return clienteDAO.updateCliente(cliente);
     }
     
     public static  List<Cliente> listar(){
         return clienteDAO.buscarTodos();
         
-    }
-    
+    }    
     public static  Cliente buscar(String id){
         return clienteDAO.buscarCliente(id);
     }
-    
-    public static  Cliente buscarPorCpf(String cpf){
-        return clienteDAO.buscarClientePorCpf(cpf);
+        
+    public static  Cliente buscarPorEmail(String email){
+        return clienteDAO.buscarPorEmail(email);
     }
+    
 }

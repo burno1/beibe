@@ -50,6 +50,14 @@ public class AtendimentoService {
 
         return retorno;
     }
+    
+    public List<Atendimento> listarPorCliente(String id) {
+        List<Atendimento> retorno = new ArrayList<Atendimento>();
+        retorno = atendimentoDAO.listarPorCliente(id);
+
+        return retorno;
+    }
+    
     public List<Atendimento> listarAbertos() {
         List<Atendimento> retorno = new ArrayList<Atendimento>();
         retorno = atendimentoDAO.listarAbertos();

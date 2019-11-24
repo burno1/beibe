@@ -6,6 +6,7 @@
 package Facade;
 
 import DAO.FuncionarioDAO;
+import Exceptions.ErroFuncionario;
 import Model.Funcionario;
 import java.util.List;
 
@@ -17,15 +18,15 @@ public class FuncionarioService {
 
     static FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
 
-    public boolean remover(String id) {
+    public boolean remover(String id) throws ErroFuncionario {
         return funcionarioDAO.removerFuncionario(id);
     }
 
-    public Funcionario inserir(Funcionario funcionario) {
+    public Funcionario inserir(Funcionario funcionario) throws ErroFuncionario {
         return funcionarioDAO.inserir(funcionario);
     }
 
-    public boolean alterar(Funcionario funcionario) {
+    public boolean alterar(Funcionario funcionario) throws ErroFuncionario {
         return funcionarioDAO.updateFuncionario(funcionario);
     }
 

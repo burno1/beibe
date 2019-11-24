@@ -29,7 +29,20 @@
                 </div>
 
                 <!-- Cabeçalho -->
-                <%@ include file = "headerGerente.jsp" %>
+                <c:choose>
+                    <c:when test="${funcionario.tipo == 1}">
+
+                        <%@ include file = "headerGerente.jsp" %> 
+                    </c:when>
+                    <c:when test="${funcionario.tipo == 2}">
+
+                        <%@ include file = "headerFuncionario.jsp" %> 
+                    </c:when>
+                    <c:when test="${cliente.id != null}">
+
+                        <%@ include file = "headerCliente.jsp" %> 
+                    </c:when>
+                </c:choose>
             </div> 
         </nav>
 
@@ -46,8 +59,8 @@
                     <span style="color: red">${msg}</span>
                 </div>
             </div>
-                
-                
+
+
             <div class="row">
                 <div class="col-sm-12">
                     <h3> Todos os Atendimentos </h3>
@@ -79,7 +92,7 @@
                     </table>
                 </div>
             </div>
-                
+
             <div class="row">
                 <div class="col-sm-12">
                     <h3> Todos os Atendimentos Abertos</h3>
@@ -112,7 +125,7 @@
                     </table>
                 </div>
             </div>    
-                
+
         </div>       
         <footer id="sticky-footer" class="py-4 bg-info text-white-50">
             <div class="container text-center">

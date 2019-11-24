@@ -5,9 +5,10 @@
  */
 package Servlet;
 
+import Bean.AtendimentoBean;
 import Bean.CidadesBean;
 import Bean.ClienteBean;
-import Bean.EstadosBean;
+import Bean.LoginBean;
 import Bean.PortalBean;
 import DAO.CidadeDAO;
 import Exceptions.AppException;
@@ -18,11 +19,11 @@ import Facade.CidadeService;
 import Facade.ClienteService;
 import Model.Cidade;
 import Model.Cliente;
+import Model.Funcionario;
+import Utils.MD5;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -52,7 +53,7 @@ public class ClienteServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         HttpSession s = request.getSession();
 
-        if (s.getAttribute("login") == null) {
+        if (s.getAttribute("login") == null && request.getParameter("email") == null) {
             System.out.println("true");
             RequestDispatcher rd = request.
                     getRequestDispatcher("ErroServlet");
@@ -189,7 +190,7 @@ public class ClienteServlet extends HttpServlet {
                 cpf = cpf.replaceAll("[^0-9]", "");
 
                 cl.setCpf(cpf);
-                cl.setId(Integer.valueOf(request.getParameter("id")));
+                cl.setId(request.getParameter("id"));
                 cl.setNome(request.getParameter("nome"));
                 cl.setEmail(request.getParameter("email"));
                 cl.setData(data.plusDays(1));
@@ -200,15 +201,13 @@ public class ClienteServlet extends HttpServlet {
 
                 if (request.getParameter("id").equals("")) {
                     Cliente clienteBanco = new Cliente();
-                    clienteBanco = clienteService.buscarPorCpf(cl.getCpf());
-                    if (clienteBanco.getId() != 0 || clienteBanco.getEmail() != null) {
-                        throw new ErroCliente("CPF ou Email já cadastrado");
-                    } else if (!clienteService.inserir(cl)) {
+
+                    if (!clienteService.inserir(cl)) {
                         throw new ErroCliente("Não foi possível inserir cliente");
                     }
 
                 } else {
-                   if(!clienteService.alterar(cl)) {
+                    if (!clienteService.alterar(cl)) {
                         throw new ErroCliente("Não foi possivel alterar este cliente");
                     }
                 }
@@ -244,34 +243,46 @@ public class ClienteServlet extends HttpServlet {
                 String str = request.getParameter("data");   // Data como String
 
                 data = LocalDate.parse(str);
+                AtendimentoBean atendBean = new AtendimentoBean();
 
-            } catch (Exception e) {
+                String cpf = request.getParameter("cpf");
+                cpf = cpf.replaceAll("[^0-9]", "");
 
-            }
-            try {
                 Cliente cl = new Cliente();
-                cl.setCpf(request.getParameter("cpf"));
+                cl.setCpf(cpf);
                 cl.setNome(request.getParameter("nome"));
+                cl.setSenha(request.getParameter("senha"));
                 cl.setEmail(request.getParameter("email"));
                 cl.setData(data);
                 cl.setRua(request.getParameter("rua"));
                 cl.setNumero(Integer.valueOf(request.getParameter("numero")));
                 cl.setCep(Integer.valueOf(request.getParameter("cep")));
                 cl.setCidade(new Cidade(Integer.valueOf(request.getParameter("cidade")), request.getParameter("uf")));
-                clienteService.inserir(cl);
 
-                cbean.setListaClientes(clienteService.listar());
+                if (!clienteService.inserir(cl)) {
+                    throw new ErroCliente("Não foi possível inserir cliente");
+                }
+                
+                Cliente clienteLogado = clienteService.buscarPorEmail(cl.getEmail());
+                LoginBean loginBean = new LoginBean();
+                loginBean.setUser(cl.getEmail());
+                Funcionario funcionarioLogado = new Funcionario();
+
+                loginBean.setSenha(MD5.MD5Transformed(cl.getSenha()));
+                s.setAttribute("login", loginBean);
+                s.setAttribute("funcionario", funcionarioLogado);
+                s.setAttribute("cliente", clienteLogado);
+                s.setAttribute("portalBean", new PortalBean());
 
                 RequestDispatcher rd = request.
-                        getRequestDispatcher("./clientesListar.jsp");
-                request.setAttribute("clienteBean", cbean);
+                        getRequestDispatcher("./portal.jsp");
                 rd.forward(request, response);
 
-            } catch (Exception e) {
-                request.setAttribute("javax.servlet.jsp.jspException", e);
-                request.setAttribute("javax.servlet.error.status_code", 500);
+            } catch (AppException e) {
 
-                RequestDispatcher rd = getServletContext().getRequestDispatcher("/erro.jsp");
+                RequestDispatcher rd = request.
+                        getRequestDispatcher("/cadastrarUsuario.jsp");
+                request.setAttribute("msg", e.getMsg());
                 rd.forward(request, response);
             }
         }

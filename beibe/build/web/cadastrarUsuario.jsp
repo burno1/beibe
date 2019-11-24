@@ -9,15 +9,14 @@
 
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link href="./css/login.css" rel="stylesheet" />
-        <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
-        <script src="./bootstrap/js/jquery.min.js"></script>
-        <script src="./bootstrap/js/bootstrap.min.js"></script>
-        <title>BEIBE - Beauty Embuste Indústria de Beleza e Estética
-        </title>
+        <%@include file="imports.jsp" %>
     </head>
     <body>
+        <jsp:useBean id="p" class="Bean.ClienteBean" />
+        <jsp:setProperty name="p" property="*" />
+
+        <jsp:useBean id="estadosBean" class="Bean.EstadosBean" scope="request" />
+        <jsp:setProperty name="estadosBean" property="*" />
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -36,7 +35,7 @@
 
 
         <div class="container">
-            <form action="CadastrarFuncionarioServlet" method="post">
+            <form action="ClienteServlet?action=new" method="post">
 
 
                 <div class="form-group row">
@@ -44,19 +43,20 @@
                         <button class="btn btn-success btn-block " type="button" name="back" onclick="history.back()">Voltar</button>
                     </div>
                 </div>    
-
+                <span style="color: red">${msg}</span>
                 <h4> Dados do Sistema </h4>
                 <hr>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="email">E-mail</label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-6">
                         <input type="email" name="email" class="form-control" required>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="senha">Senha</label>
-                    <div class="col-sm-10">
-                        <input type="password" name="senha" class="form-control" required>                                        </div>
+                    <div class="col-sm-6">
+                        <input type="password" name="senha" class="form-control" required>                                        
+                    </div>
                 </div>
 
                 <h4> Dados pessoais </h4>
@@ -64,45 +64,67 @@
 
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="nome">Nome</label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-6">
                         <input type="text" name="nome" class="form-control" required>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="senha">CPF</label>
-                    <div class="col-sm-10">
-                        <input type="text" name="CPF" class="form-control" required>                                        </div>
+                    <div class="col-sm-6">
+                        <input type="text" maxlength="14" id="cpf" name="cpf" class="form-control" required>                                        
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label" for="data">Data</label>
+                    <div class="col-sm-6">
+                        <input class="form-control" type="date" name="data" id="data" required>
+                    </div>
                 </div>
 
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="senha">RUA</label>
-                    <div class="col-sm-10">
-                        <input type="text" name="RUA" class="form-control" required>                                        </div>
+                    <div class="col-sm-6">
+                        <input type="text" name="rua" class="form-control" required>                                       
+                    </div>
                 </div>
 
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="senha">NÚMERO</label>
-                    <div class="col-sm-10">
-                        <input type="text" name="numero" class="form-control" required>                                        </div>
+                    <div class="col-sm-6">
+                        <input type="number" name="numero" class="form-control" required>                                        
+                    </div>
                 </div>
 
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="senha">CEP</label>
-                    <div class="col-sm-10">
-                        <input type="text" name="CEP" class="form-control" required>                                        </div>
+                    <div class="col-sm-6">
+                        <input type="number" name="cep" class="form-control" required>                                      
+                    </div>
                 </div>
 
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label" for="senha">CIDADE</label>
-                    <div class="col-sm-10">
-                        <input type="text" name="cidade" class="form-control" required>                                        </div>
+                    <label class="col-sm-2 col-form-label" for="uf">UF</label>
+                    <div class="col-sm-6">
+                        <select id="uf" class="custom-select custom-select-md" name="uf">
+                            <option selected><c:out value="${cliente.cidade.estado.uf}"/></option>
+                            <c:forEach items="${estadosBean.estados}" var="e">                        
+                                <option value="${e.uf}">${e.uf}</option>
+                            </c:forEach>
+                        </select>   
+                    </div>
                 </div>
-
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label" for="senha">UF</label>
-                    <div class="col-sm-10">
-                        <input type="text" name="cidade" class="form-control" required>                                        </div>
+                    <label class="col-sm-2 col-form-label" for="cidade">CIDADE</label>
+                    <div class="col-sm-6">
+                        <select class="custom-select custom-select-md" name="cidade" id="cidade">
+                            <option selected value="${cliente.cidade.id}">${cliente.cidade.nome}</option>
+                            <c:forEach items="${cidadesBean.cidades}" var="c">                        
+                                <option value="${c.id}">${c.nome}</option>
+                            </c:forEach>
+                        </select>   
+                    </div>
                 </div>
 
                 <div class="form-group row">
@@ -117,7 +139,50 @@
             </form>
         </div>
         <!--//inserção não aperencedo msg-->
+        <script>
+            var cidades;
 
+            $(document).ready(function () {
+                var $campoCpf = $("#cpf");
+                $campoCpf.mask('000.000.000-00', {reverse: true});
+
+
+
+                $("#uf").change(function () {
+                    getCidades();
+                });
+            });
+
+            function carregarCombo(data)
+            {
+                // Se sucesso, limpa e preenche a combo de cidade
+                $("#cidade").empty();
+                $.each(data, function (i, obj) {
+                    $("#cidade").append('<option value=' + obj.id + '>' + obj.nome + '</option>');
+                });
+            }
+
+
+            function getCidades() {
+                cidades = $.ajax({
+                    url: "./ajaxCidadesServlet",
+                    data: {uf: $("#uf").val()},
+                    async: false,
+                    dataType: 'json'
+                }).responseJSON;
+                carregarCombo(cidades)
+            }
+
+            function getCidades() {
+                cidades = $.ajax({
+                    url: "./ajaxCidadesServlet",
+                    data: {uf: $("#uf").val()},
+                    async: false,
+                    dataType: 'json'
+                }).responseJSON;
+                carregarCombo(cidades)
+            }
+        </script>
         <footer id="sticky-footer" class="py-4 bg-info text-white-50">
             <div class="container text-center">
                 <small> Em caso de problemas, favor contatar o administrador pelo email: ${configuracao.email}</small>

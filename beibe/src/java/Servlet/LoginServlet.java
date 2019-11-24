@@ -9,13 +9,17 @@ import Bean.AtendimentoBean;
 import Bean.LoginBean;
 import Bean.PortalBean;
 import Facade.AtendimentoService;
+import Facade.ClienteService;
 import Facade.LoginService;
+import Model.Atendimento;
+import Model.Cliente;
 
 import Model.Funcionario;
 import Utils.MD5;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -43,56 +47,71 @@ public class LoginServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        LoginService loginService  = new LoginService();
+        LoginService loginService = new LoginService();
         String email = "";
         String senha = "";
 
         email = request.getParameter("email");
         senha = request.getParameter("senha");
 
-        
+        ClienteService clienteService = new ClienteService();
+
         Funcionario funcionarioLogado = loginService.buscar(email);
+        Cliente clienteLogado = clienteService.buscarPorEmail(email);
 
         HttpSession s = request.getSession();
         LoginBean loginBean = new LoginBean();
         
+        senha = MD5.MD5Transformed(senha);
+        
+
+        
         //Condicional de erro para login
-        if (MD5.MD5Transformed(senha).equals(funcionarioLogado.getSenha())) {
+        if (senha.equals(clienteLogado.getSenha()) || senha.equals(funcionarioLogado.getSenha()) )  {
             loginBean.setUser(email);
-            
+
             loginBean.setSenha(MD5.MD5Transformed(senha));
             s.setAttribute("login", loginBean);
             s.setAttribute("funcionario", funcionarioLogado);
+            s.setAttribute("cliente", clienteLogado);
             s.setAttribute("portalBean", new PortalBean());
-            
-            if("1".equals(funcionarioLogado.getTipo())){
-            response.sendRedirect("./portalGerente.jsp");
+
+            if ("1".equals(funcionarioLogado.getTipo())) {
+                response.sendRedirect("./portalGerente.jsp");
             }
-            
-            if("2".equals(funcionarioLogado.getTipo())){
-                AtendimentoBean atendimentoBean  = new AtendimentoBean();
+
+            if ("2".equals(funcionarioLogado.getTipo())) {
+                AtendimentoBean atendimentoBean = new AtendimentoBean();
                 AtendimentoService atendimentoService = new AtendimentoService();
-                
+
                 atendimentoBean.setAtendimentosLista(atendimentoService.listar());
                 atendimentoBean.setAtendimentosAbertos(atendimentoService.listarAbertos());
-                
-            RequestDispatcher rd = request.
+
+                RequestDispatcher rd = request.
                         getRequestDispatcher("/portalFuncionario.jsp");
                 request.setAttribute("atendimentoBean", atendimentoBean);
                 rd.forward(request, response);
             }
-            
-            if("3".equals(funcionarioLogado.getTipo())){
-            response.sendRedirect("./portal.jsp");
+
+            if (clienteLogado.getId() != null) {
+                AtendimentoBean atendimentoBean = new AtendimentoBean();
+                AtendimentoService atendimentoService = new AtendimentoService();
+                List<Atendimento> atendimentosLista = new ArrayList<Atendimento>();
+                atendimentosLista =  atendimentoService.listarPorCliente(clienteLogado.getId());
+                atendimentoBean.setAtendimentosLista(atendimentosLista);
+                
+                RequestDispatcher rd = request.
+                        getRequestDispatcher("/portal.jsp");
+                request.setAttribute("atendimentoBean", atendimentoBean);
+                rd.forward(request, response);
             }
-            
-            
+
         } else {
             RequestDispatcher rd = request.
                     getRequestDispatcher("/ErroServlet");
             request.setAttribute("msg", "Senha ou Usuário incorretos!");
             request.setAttribute("page", "index.jsp");
-            
+
             rd.forward(request, response);
         }
 

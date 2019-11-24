@@ -7,6 +7,7 @@ package Facade;
 
 
 import DAO.FuncionarioDAO;
+import Exceptions.ErroFuncionario;
 import Model.Funcionario;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class LoginService {
     public void remover(String id){
     }
     
-    public Funcionario inserir(Funcionario funcionario){
+    public Funcionario inserir(Funcionario funcionario) throws ErroFuncionario{
         return funcionarioDAO.inserir(funcionario);
     }
     

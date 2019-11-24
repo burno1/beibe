@@ -12,21 +12,22 @@ import java.time.LocalDate;
  * @author Erick Alessi
  */
 public class Cliente {
-    private int id;
+    private String id;
     private String cpf;
     private String nome;
+    private String senha;
     private String email;
     private LocalDate data;
     private String rua;
     private int numero;
     private int cep;
     private Cidade cidade;
-
-    public int getId() {
+    
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -94,4 +95,11 @@ public class Cliente {
         this.cidade = cidade;
     }
 
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
 }
