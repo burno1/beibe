@@ -85,7 +85,7 @@ public class FuncionarioDAO {
             while (rs.next()) {
                 u.setId(rs.getString("id_usuario"));
                 u.setNome(rs.getString("nome_usuario"));
-                
+                u.setSenha(rs.getString("senha_usuario"));
                 u.setEmail(rs.getString("login_usuario"));
                 u.setTipo(rs.getString("tipo_usuario"));
                 u.setData(rs.getDate("data").toLocalDate());

@@ -44,7 +44,7 @@
                 </div>
             </div>
             <!--//inserção não aperencedo msg-->
-            ${msg}
+            <span style="color: red">${msg}</span>
 
             <br/>
             <h4> Clientes</h4>

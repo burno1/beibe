@@ -56,7 +56,7 @@ public class AtendimentoServlet extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         HttpSession s = request.getSession();
-
+        String pagina = null;
         if (s.getAttribute("login") == null) {
             System.out.println("true");
             RequestDispatcher rd = request.
@@ -85,10 +85,17 @@ public class AtendimentoServlet extends HttpServlet {
                 request.setAttribute("atendimentoBean", atendimentoBean);
                 rd.forward(request, response);
             } catch (AppException e) {
+                Funcionario funcionarioLogado = (Funcionario) s.getAttribute("funcionario");
                 atendimentoBean.setAtendimentosLista(atendimentoService.listar());
                 atendimentoBean.setAtendimentosAbertos(atendimentoService.listarAbertos());
+
+                if ("2".equals(funcionarioLogado.getTipo())) {
+                    pagina = "PortalServlet";
+                } else {
+                    pagina = "/atendimentoListar.jsp";
+                }
                 RequestDispatcher rd = request.
-                        getRequestDispatcher("/atendimentoListar.jsp");
+                        getRequestDispatcher(pagina);
                 request.setAttribute("atendimentoBean", atendimentoBean);
                 request.setAttribute("msg", e.getMsg());
                 rd.forward(request, response);
@@ -120,11 +127,16 @@ public class AtendimentoServlet extends HttpServlet {
                 rd.forward(request, response);
 
             } catch (AppException e) {
-
+                Funcionario funcionarioLogado = (Funcionario) s.getAttribute("funcionario");
                 atendimentoBean.setAtendimentosLista(atendimentoService.listar());
                 atendimentoBean.setAtendimentosAbertos(atendimentoService.listarAbertos());
+                if ("2".equals(funcionarioLogado.getTipo())) {
+                    pagina = "PortalServlet";
+                } else {
+                    pagina = "/atendimentoListar.jsp";
+                }
                 RequestDispatcher rd = request.
-                        getRequestDispatcher("/atendimentoListar.jsp");
+                        getRequestDispatcher(pagina);
                 request.setAttribute("atendimentoBean", atendimentoBean);
                 request.setAttribute("msg", e.getMsg());
                 rd.forward(request, response);
@@ -158,6 +170,7 @@ public class AtendimentoServlet extends HttpServlet {
                 request.setAttribute("novo", 1);
                 rd.forward(request, response);
             } catch (AppException e) {
+                Funcionario funcionarioLogado = (Funcionario) s.getAttribute("funcionario");
                 atendimentoBean.setAtendimentosLista(atendimentoService.listar());
                 atendimentoBean.setAtendimentosAbertos(atendimentoService.listarAbertos());
                 RequestDispatcher rd = request.
@@ -200,10 +213,16 @@ public class AtendimentoServlet extends HttpServlet {
                 rd.forward(request, response);
 
             } catch (AppException e) {
+                Funcionario funcionarioLogado = (Funcionario) s.getAttribute("funcionario");
                 atendimentoBean.setAtendimentosLista(atendimentoService.listar());
                 atendimentoBean.setAtendimentosAbertos(atendimentoService.listarAbertos());
+                if ("2".equals(funcionarioLogado.getTipo())) {
+                    pagina = "PortalServlet";
+                } else {
+                    pagina = "/atendimentoListar.jsp";
+                }
                 RequestDispatcher rd = request.
-                        getRequestDispatcher("/atendimentoListar.jsp");
+                        getRequestDispatcher(pagina);
                 request.setAttribute("atendimentoBean", atendimentoBean);
                 request.setAttribute("msg", e.getMsg());
                 rd.forward(request, response);
@@ -311,10 +330,16 @@ public class AtendimentoServlet extends HttpServlet {
                 }
 
             } catch (AppException e) {
+                Funcionario funcionarioLogado = (Funcionario) s.getAttribute("funcionario");
                 atendimentoBean.setAtendimentosLista(atendimentoService.listar());
                 atendimentoBean.setAtendimentosAbertos(atendimentoService.listarAbertos());
+                if ("2".equals(funcionarioLogado.getTipo())) {
+                    pagina = "PortalServlet";
+                } else {
+                    pagina = "/atendimentoListar.jsp";
+                }
                 RequestDispatcher rd = request.
-                        getRequestDispatcher("/atendimentoListar.jsp");
+                        getRequestDispatcher(pagina);
                 request.setAttribute("atendimentoBean", atendimentoBean);
                 request.setAttribute("msg", e.getMsg());
                 rd.forward(request, response);
@@ -336,10 +361,18 @@ public class AtendimentoServlet extends HttpServlet {
                 request.setAttribute("atendimentoBean", atendimentoBean);
                 rd.forward(request, response);
             } catch (AppException e) {
+
+                Funcionario funcionarioLogado = (Funcionario) s.getAttribute("funcionario");
                 atendimentoBean.setAtendimentosLista(atendimentoService.listar());
                 atendimentoBean.setAtendimentosAbertos(atendimentoService.listarAbertos());
+
+                if ("2".equals(funcionarioLogado.getTipo())) {
+                    pagina = "PortalServlet";
+                } else {
+                    pagina = "/atendimentoListar.jsp";
+                }
                 RequestDispatcher rd = request.
-                        getRequestDispatcher("/atendimentoListar.jsp");
+                        getRequestDispatcher(pagina);
                 request.setAttribute("atendimentoBean", atendimentoBean);
                 request.setAttribute("msg", e.getMsg());
                 rd.forward(request, response);
@@ -362,10 +395,16 @@ public class AtendimentoServlet extends HttpServlet {
                 request.setAttribute("atendimentoBean", atendimentoBean);
                 rd.forward(request, response);
             } catch (AppException e) {
+                Funcionario funcionarioLogado = (Funcionario) s.getAttribute("funcionario");
                 atendimentoBean.setAtendimentosLista(atendimentoService.listar());
                 atendimentoBean.setAtendimentosAbertos(atendimentoService.listarAbertos());
+                if ("2".equals(funcionarioLogado.getTipo())) {
+                    pagina = "PortalServlet";
+                } else {
+                    pagina = "/atendimentoListar.jsp";
+                }
                 RequestDispatcher rd = request.
-                        getRequestDispatcher("/PortalServlet");
+                        getRequestDispatcher(pagina);
                 request.setAttribute("atendimentoBean", atendimentoBean);
                 request.setAttribute("msg", e.getMsg());
                 rd.forward(request, response);

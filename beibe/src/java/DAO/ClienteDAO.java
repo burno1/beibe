@@ -5,6 +5,7 @@
  */
 package DAO;
 
+import Exceptions.ErroCliente;
 import Facade.CidadeService;
 import Factories.ConnectionFactory;
 import Model.Cidade;
@@ -14,6 +15,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -52,6 +54,47 @@ public class ClienteDAO {
                 cl.setCep(Integer.valueOf(rs.getString("cep_cliente")));
                 Cidade cidade = cidadeService.buscarPorId(rs.getInt("id_cidade_cliente"));
                 cl.setCidade(cidade);
+            }
+            return cl;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (Exception e) {
+                }
+            }
+            if (st != null) {
+                try {
+                    st.close();
+                } catch (Exception e) {
+                }
+            }
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (Exception e) {
+                }
+            }
+        }
+    }
+    
+    public Cliente buscarClientePorCpf(String cpf) {
+        Connection con = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        Cliente cl = new Cliente();
+
+        try {
+            con = ConnectionFactory.getConnection();
+            st = con.prepareStatement("SELECT id_cliente,email_cliente FROM beibe.tb_cliente WHERE cpf_cliente = ?");
+            st.setString(1, cpf);
+            rs = st.executeQuery();
+
+            while (rs.next()) {
+                cl.setId(Integer.valueOf(rs.getString("id_cliente")));
+                cl.setEmail(rs.getString("email_cliente"));
             }
             return cl;
         } catch (Exception e) {
@@ -196,8 +239,9 @@ public class ClienteDAO {
             return true;
 
         } catch (Exception e) {
+            
             throw new RuntimeException(e);
-        } finally {
+        }  finally {
             if (st != null) {
                 try {
                     st.close();

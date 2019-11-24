@@ -134,6 +134,7 @@ public class ClienteServlet extends HttpServlet {
                 cidadeBean.setCidades(cidadeService.buscarPorEstado(cl.getCidade().getEstado()));
 
                 request.setAttribute("cliente", cl);
+                request.setAttribute("altera", 1);
                 request.setAttribute("cidadesBean", cidadeBean);
                 rd.forward(request, response);
 
@@ -178,71 +179,39 @@ public class ClienteServlet extends HttpServlet {
         if ("update".equals(acao)) {
             try {
 
-                if (request.getParameter("id").equals("")) {
-
-                    LocalDate data = null;
-                    Cliente cl = new Cliente();
-                    try {
-                        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-                        String str = request.getParameter("data");   // Data como String
-
-                        data = LocalDate.parse(str);
-
-                    } catch (Exception e) {
-
-                    }
-                    String cpf = request.getParameter("cpf");
-                    cpf = cpf.replaceAll("[^0-9]", "");
-
-                    cl.setCpf(cpf);
-                    cl.setNome(request.getParameter("nome"));
-                    cl.setEmail(request.getParameter("email"));
-                    cl.setData(data.plusDays(1));
-                    cl.setRua(request.getParameter("rua"));
-                    cl.setNumero(Integer.valueOf(request.getParameter("numero")));
-                    cl.setCep(Integer.valueOf(request.getParameter("cep")));
-                    cl.setCidade(new Cidade(Integer.valueOf(request.getParameter("cidade")), request.getParameter("uf")));
-
-                    if (clienteService.inserir(cl)) {
-                        throw new ErroCliente("Não foi possível inserir cliente");
-                    }
-
-                    cbean.setListaClientes(clienteService.listar());
-
-                    RequestDispatcher rd = request.
-                            getRequestDispatcher("/clientesListar.jsp");
-                    request.setAttribute("clienteBean", cbean);
-                    request.setAttribute("action", "listar");
-
-                    rd.forward(request, response);
-
-                }
-
                 LocalDate data = null;
                 Cliente cl = new Cliente();
                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
                 String str = request.getParameter("data");   // Data como String
-
                 data = LocalDate.parse(str);
-
-                cl.setId(Integer.valueOf(request.getParameter("id")));
 
                 String cpf = request.getParameter("cpf");
                 cpf = cpf.replaceAll("[^0-9]", "");
 
                 cl.setCpf(cpf);
+                cl.setId(Integer.valueOf(request.getParameter("id")));
                 cl.setNome(request.getParameter("nome"));
                 cl.setEmail(request.getParameter("email"));
-                cl.setData(data);
+                cl.setData(data.plusDays(1));
                 cl.setRua(request.getParameter("rua"));
                 cl.setNumero(Integer.valueOf(request.getParameter("numero")));
                 cl.setCep(Integer.valueOf(request.getParameter("cep")));
                 cl.setCidade(new Cidade(Integer.valueOf(request.getParameter("cidade")), request.getParameter("uf")));
-                
-                if(clienteService.alterar(cl)){
-                    throw new ErroCliente("Não foi possivel alterar este cliente");
+
+                if (request.getParameter("id").equals("")) {
+                    Cliente clienteBanco = new Cliente();
+                    clienteBanco = clienteService.buscarPorCpf(cl.getCpf());
+                    if (clienteBanco.getId() != 0 || clienteBanco.getEmail() != null) {
+                        throw new ErroCliente("CPF ou Email já cadastrado");
+                    } else if (!clienteService.inserir(cl)) {
+                        throw new ErroCliente("Não foi possível inserir cliente");
+                    }
+
+                } else {
+                   if(!clienteService.alterar(cl)) {
+                        throw new ErroCliente("Não foi possivel alterar este cliente");
+                    }
                 }
-                
 
                 cbean.setListaClientes(clienteService.listar());
 

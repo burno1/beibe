@@ -45,7 +45,7 @@
                         </div>
                     </div>
                     <!--//inserção não aperencedo msg-->
-                    ${msg}
+                    <span style="color: red">${msg}</span>
                     <table class="table">
                         <thead class="thead-light">
                             <tr>

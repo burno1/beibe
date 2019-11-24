@@ -62,6 +62,7 @@
         <br/>
         <div class="container">
             <div class="row">
+                <span style="color: red">${msg}</span>
                 <div class="col-sm-12">
                     <h3> Todos os Atendimentos </h3>
                     <hr/>
@@ -84,7 +85,7 @@
                                     <td><c:out value="${a.cliente.nome}" /></td>
                                     <td>
                                         <a href="AtendimentoServlet?action=show&id=${a.id}&mostra=0"><button type="button" class="btn btn-info">Visualizar</button> </a>
-                                        <a href="AtendimentoServlet?action=formUpdate&id=${a.id}"><button type="button" class="btn btn-secondary">Alterar</button> </a>
+                                        <a href="AtendimentoServlet?action=formUpdate&id=${a.id}"><button type="button" class="btn btn-secondary">Resolver</button> </a>
                                         <a href="AtendimentoServlet?action=remove&id=${a.id}"><button type="button" class="btn btn-danger">Remover</button> </a>
                                     </td>
                                 </tr>
@@ -95,6 +96,7 @@
             </div>
                 
             <div class="row">
+                
                 <div class="col-sm-12">
                     <h3> Todos os Atendimentos Abertos</h3>
                     <hr/>
@@ -117,7 +119,7 @@
                                     <td><c:out value="${a.cliente.nome}" /></td>
                                     <td>
                                         <a href="AtendimentoServlet?action=show&id=${a.id}&mostra=0"><button type="button" class="btn btn-info">Visualizar</button> </a>
-                                        <a href="AtendimentoServlet?action=formUpdate&id=${a.id}"><button type="button" class="btn btn-secondary">Alterar</button> </a>
+                                        <a href="AtendimentoServlet?action=formUpdate&id=${a.id}"><button type="button" class="btn btn-secondary">Resolver</button> </a>
                                         <a href="AtendimentoServlet?action=remove&id=${a.id}"><button type="button" class="btn btn-danger">Remover</button> </a>
                                     </td>
                                 </tr>

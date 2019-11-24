@@ -138,12 +138,12 @@
                     </div>
                 </div>
 
-                <div id="solucao" class="form-group row" ${atendimento.resolvido == 1  || (funcionario.getTipo() == 1 || funcionario.getTipo() == 2 ) ? '' : 'hidden'}>
+                <div id="solucao" class="form-group row" ${atendimento.resolvido == 1  || (funcionario.getTipo() == 1 || funcionario.getTipo() == 2 ) && novo != 1 ? '' : 'hidden'}>
                     <div class="col-sm-2">
                         Solução Atendimento
 
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-6" >
                         <textarea class="form-control"  name="solucao" >${atendimento.solucao}</textarea>
                     </div>
                 </div>
@@ -183,8 +183,8 @@
                     $("#cancelar").hide();
                     $("#finaliza").hide();
                 }
-                
-                
+
+
             });
 
             function callServlet() {

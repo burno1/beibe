@@ -35,4 +35,8 @@ public class ClienteService {
     public static  Cliente buscar(String id){
         return clienteDAO.buscarCliente(id);
     }
+    
+    public static  Cliente buscarPorCpf(String cpf){
+        return clienteDAO.buscarClientePorCpf(cpf);
+    }
 }

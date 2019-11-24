@@ -42,6 +42,7 @@
 
             <div class="row">    
                 <div class="col-sm-12">
+                <span style="color: red">${msg}</span>
                     <h3> Produtos Cadastrados</h3>
                     <table class="table">
                         <thead class="thead-light">

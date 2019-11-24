@@ -67,13 +67,13 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="email">Email (Login)</label>
                     <div class="col-sm-6">
-                        <input class="form-control" type="email" value="${funcionario.email}" name="email" id="email" required>
+                        <input class="form-control" type="email" value="${funcionario.email}" name="email" id="email" required ${mostra == 0 ? 'readonly' : ''}>
                     </div>
                 </div>
-                <div id="divSenha" class="form-group row">
+                <div id="divSenha" class="form-group row" }>
                     <label class="col-sm-2 col-form-label" for="senha">Senha</label>
                     <div class="col-sm-6">
-                        <input class="form-control" type="text" value="${funcionario.senha}" name="senha" id="senha" required>
+                        <input class="form-control" type="password" value="${funcionario.senha}" name="senha" id="senha" required ${mostra == 0 ? 'readonly' : ''}>
                     </div>
                 </div>
 
@@ -82,7 +82,7 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="cpf">CPF</label>
                     <div class="col-sm-6">
-                        <input class="form-control" maxlength="14" type="text" value="${funcionario.cpf}" name="cpf" id="cpf" required>
+                        <input class="form-control" maxlength="14" type="text" value="${funcionario.cpf}" name="cpf" id="cpf" required ${mostra == 0 ? 'readonly' : ''}>
 
                     </div>
                 </div>
@@ -173,12 +173,7 @@
                 var $campoCpf = $("#cpf");
                 $campoCpf.mask('000.000.000-00', {reverse: true});
 
-                console.log('mostra', mostra);
 
-                if (mostra == 0) {
-                    console.log('dentro');
-                    $("#divSenha").hide();
-                }
                 if (mostra == 1) {
                     console.log('dentro1');
                     $('#form input').prop("disabled", true);

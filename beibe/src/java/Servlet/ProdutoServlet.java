@@ -40,30 +40,31 @@ public class ProdutoServlet extends HttpServlet {
             throws ServletException, IOException {
 
         response.setContentType("text/html;charset=UTF-8");
-
+        String pagina = null;
         ProdutoDAO dao = new ProdutoDAO();
-        ProdutoBean cbean = new ProdutoBean();
+        ProdutoBean prodBean = new ProdutoBean();
         ProdutoService service = new ProdutoService();
         String acao = request.getParameter("action");
         CategoriaService categoriaService = new CategoriaService();
 
         if (null == acao || "listar".equals(acao)) {
             try {
-                cbean.setListaProdutos(service.listar());
+                prodBean.setListaProdutos(service.listar());
 
-                if (cbean.getListaProdutos().isEmpty()) {
+                if (prodBean.getListaProdutos().isEmpty()) {
                     throw new ErroProduto("Não foi possivel carregar atendimentos");
                 }
                 RequestDispatcher rd = request.
                         getRequestDispatcher("/produtosListar.jsp");
-                request.setAttribute("produtoBean", cbean);
+                request.setAttribute("produtoBean", prodBean);
                 rd.forward(request, response);
 
             } catch (AppException e) {
+                prodBean.setListaProdutos(service.listar());
                 RequestDispatcher rd = request.
                         getRequestDispatcher("/produtosListar.jsp");
+                request.setAttribute("produtoBean", prodBean);
                 request.setAttribute("msg", e.getMsg());
-                request.setAttribute("produtoBean", cbean);
                 rd.forward(request, response);
             }
         }
@@ -77,15 +78,21 @@ public class ProdutoServlet extends HttpServlet {
                     throw new ErroProduto("Produto Não Encontrado");
                 }
 
-                cbean.setCategorias(categoriaService.listar());
-                cbean.setListaProdutos(service.listar());
+                prodBean.setCategorias(categoriaService.listar());
+                prodBean.setListaProdutos(service.listar());
                 RequestDispatcher rd = request.
                         getRequestDispatcher("./produtosAlterar.jsp");
                 request.setAttribute("produto", produto);
-                request.setAttribute("produtoBean", cbean);
+                request.setAttribute("produtoBean", prodBean);
                 request.setAttribute("mostra", 1);
                 rd.forward(request, response);
             } catch (AppException e) {
+                prodBean.setListaProdutos(service.listar());
+                RequestDispatcher rd = request.
+                        getRequestDispatcher("/produtosListar.jsp");
+                request.setAttribute("produtoBean", prodBean);
+                request.setAttribute("msg", e.getMsg());
+                rd.forward(request, response);
 
             }
         }
@@ -97,15 +104,21 @@ public class ProdutoServlet extends HttpServlet {
                 if (produto.getIdProduto() == null) {
                     throw new ErroProduto("Produto Não Encontrado");
                 }
-                cbean.setCategorias(categoriaService.listar());
-                cbean.setListaProdutos(service.listar());
+                prodBean.setCategorias(categoriaService.listar());
+                prodBean.setListaProdutos(service.listar());
                 RequestDispatcher rd = request.
                         getRequestDispatcher("./produtosAlterar.jsp");
                 request.setAttribute("produto", produto);
-                request.setAttribute("produtoBean", cbean);
+                request.setAttribute("produtoBean", prodBean);
 
                 rd.forward(request, response);
             } catch (AppException e) {
+                prodBean.setListaProdutos(service.listar());
+                RequestDispatcher rd = request.
+                        getRequestDispatcher("/produtosListar.jsp");
+                request.setAttribute("produtoBean", prodBean);
+                request.setAttribute("msg", e.getMsg());
+                rd.forward(request, response);
 
             }
 
@@ -118,17 +131,17 @@ public class ProdutoServlet extends HttpServlet {
                     throw new ErroProduto("Impossivel remover produto");
                 }
 
-                cbean.setListaProdutos(service.listar());
+                prodBean.setListaProdutos(service.listar());
                 RequestDispatcher rd = request.
                         getRequestDispatcher("/produtosListar.jsp");
-                request.setAttribute("produtoBean", cbean);
+                request.setAttribute("produtoBean", prodBean);
                 rd.forward(request, response);
 
             } catch (AppException e) {
-                cbean.setListaProdutos(service.listar());
+                prodBean.setListaProdutos(service.listar());
                 RequestDispatcher rd = request.
                         getRequestDispatcher("/produtosListar.jsp");
-                request.setAttribute("produtoBean", cbean);
+                request.setAttribute("produtoBean", prodBean);
                 request.setAttribute("msg", e.getMsg());
                 rd.forward(request, response);
 
@@ -153,32 +166,38 @@ public class ProdutoServlet extends HttpServlet {
                         throw new ErroProduto("Erro ao atualizar produto");
                     }
 
-                    cbean.setListaProdutos(service.listar());
+                    prodBean.setListaProdutos(service.listar());
                     RequestDispatcher rd = request.
                             getRequestDispatcher("/produtosListar.jsp");
-                    request.setAttribute("produtoBean", cbean);
+                    request.setAttribute("produtoBean", prodBean);
                     rd.forward(request, response);
 
                 } else {
                     if (!service.inserir(produto)) {
                         throw new ErroProduto("Erro ao inserir produto");
                     }
-                    cbean.setListaProdutos(service.listar());
+                    prodBean.setListaProdutos(service.listar());
                     RequestDispatcher rd = request.
                             getRequestDispatcher("/produtosListar.jsp");
-                    request.setAttribute("produtoBean", cbean);
+                    request.setAttribute("produtoBean", prodBean);
                     rd.forward(request, response);
 
                 }
 
             } catch (AppException e) {
+                prodBean.setListaProdutos(service.listar());
+                RequestDispatcher rd = request.
+                        getRequestDispatcher("/produtosListar.jsp");
+                request.setAttribute("produtoBean", prodBean);
+                request.setAttribute("msg", e.getMsg());
+                rd.forward(request, response);
             }
         }
         if ("formNew".equals(acao)) {
             Produto produto = new Produto();
 
-            cbean.setCategorias(categoriaService.listar());
-            request.setAttribute("produtoBean", cbean);
+            prodBean.setCategorias(categoriaService.listar());
+            request.setAttribute("produtoBean", prodBean);
 
             RequestDispatcher rd = request.
                     getRequestDispatcher("/produtosAlterar.jsp");

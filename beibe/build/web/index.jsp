@@ -41,8 +41,7 @@
                                     <p><span class="fa fa-lock"></span><input type="password"  id="senha" name="senha" required="true"></p> <!-- JS because of IE support; better: placeholder="Password" -->
 
                                     <div>
-                                        <span style="width:48%; text-align:left;  display: inline-block;"><a class="small-text" href="#">Forgot
-                                                password?</a></span>
+                                        <span style="width:48%; text-align:left;  display: inline-block;"><a class="small-text" href="cadastrarUsuario.jsp">Cadastre-se</a></span>
                                         <span style="width:50%; text-align:right;  display: inline-block;"><input type="submit" value="Sign In"></span>
                                     </div>
 

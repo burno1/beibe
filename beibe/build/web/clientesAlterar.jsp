@@ -55,7 +55,7 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="cpf">CPF</label>
                     <div class="col-sm-6">
-                        <input class="form-control" maxlength="14" type="text" value="${cliente.cpf}" name="cpf" id="cpf" required>
+                        <input class="form-control" maxlength="14" type="text" value="${cliente.cpf}" name="cpf" id="cpf" required ${altera==1? 'readonly' : ''}>
                     </div>
                 </div>   
                 <div class="form-group row">
@@ -67,7 +67,7 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="email">E-MAIL</label>
                     <div class="col-sm-6">
-                        <input class="form-control" type="email" value="${cliente.email}" name="email" id="email" required>
+                        <input class="form-control" type="email" value="${cliente.email}" name="email" id="email" required ${altera==1? 'readonly' : ''}>
                     </div>
                 </div>
                 <h4> Dados Pessoais</h4>
