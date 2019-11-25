@@ -84,7 +84,7 @@
                                     <td><c:out value="${a.cliente.nome}" /></td>
                                     <td>
                                         <a href="AtendimentoServlet?action=show&id=${a.id}&mostra=0"><button type="button" class="btn btn-info">Visualizar</button> </a>
-                                        <a href="AtendimentoServlet?action=remove&id=${a.id}"><button type="button" class="btn btn-danger">Remover</button> </a>
+                                        <button type="button" class="btn btn-danger" onclick="confirmRemove(${a.id})">Remover</button>
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -117,7 +117,7 @@
                                     <td>
                                         <a href="AtendimentoServlet?action=show&id=${a.id}&mostra=0"><button type="button" class="btn btn-info">Visualizar</button> </a>
                                         <a href="AtendimentoServlet?action=formUpdate&id=${a.id}"><button type="button" class="btn btn-secondary">Alterar</button> </a>
-                                        <a href="AtendimentoServlet?action=remove&id=${a.id}"><button type="button" class="btn btn-danger">Remover</button> </a>
+                                        <button type="button" class="btn btn-danger" onclick="confirmRemove(${a.id})">Remover</button>
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -136,12 +136,12 @@
 </html>
 
 <script>
-    $("#button").click(function () {
-        if ($(this).html() == "-") {
-            $(this).html("+");
-        } else {
-            $(this).html("-");
+    function confirmRemove(id) {
+        var txt;
+        var r = confirm("Deseja Remover? :(");
+        if (r == true) {
+            window.location.replace("./AtendimentoServlet?action=remove&id=" + id);
         }
-        $("#box").slideToggle();
-    });
+        console.log(txt);
+    }
 </script>

@@ -82,7 +82,7 @@
                                     <td>
                                         <a href="CategoriaServlet?action=show&id=${c.id}&mostra=0"><button type="button" class="btn btn-info">Visualizar</button> </a>
                                         <a href="CategoriaServlet?action=formUpdate&id=${c.id}"><button type="button" class="btn btn-secondary">Alterar</button> </a>
-                                        <a href="CategoriaServlet?action=remove&id=${c.id}"><button type="button" class="btn btn-danger">Remover</button> </a>
+                                        <button type="button" class="btn btn-danger" onclick="confirmRemove(${c.id})">Remover</button>
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -91,19 +91,6 @@
                 </div>
             </div>
         </div>    
-        <script>
-            var cidades;
-            var mostra = '${mostra}';
-            
-            console.log(mostra);
-            $(document).ready(function () {
-                if (mostra) {
-                    $('#form input').prop("disabled", true);
-
-                }
-
-            });
-        </script>
         <footer id="sticky-footer" class="py-4 bg-info text-white-50">
             <div class="container text-center">
                 <small> Em caso de problemas, favor contatar o administrador pelo email: ${configuracao.email}</small>
@@ -111,3 +98,26 @@
         </footer>
     </body>
 </html>
+
+<script>
+    var cidades;
+    var mostra = '${mostra}';
+    console.log(mostra);
+    $(document).ready(function () {
+        if (mostra) {
+            $('#form input').prop("disabled", true);
+        }
+
+    });
+
+
+    function confirmRemove(id) {
+        var txt;
+        var r = confirm("Deseja Remover? :(");
+        if (r == true) {
+            window.location.replace("./CategoriaServlet?action=remove&id=" + id);
+        }
+        console.log(txt);
+    }
+
+</script>

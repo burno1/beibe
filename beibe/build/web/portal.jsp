@@ -122,7 +122,7 @@
                             <td><c:out value="${a.cliente.nome}" /></td>
                             <td>
                                 <a href="AtendimentoServlet?action=show&id=${a.id}&mostra=0"><button type="button" class="btn btn-info">Visualizar</button> </a>
-                                <a href="AtendimentoServlet?action=remove&id=${a.id}" ><button type="button" class="btn btn-danger" ${a.resolvido == 0 ? '' : 'hidden'}>Remover</button> </a>
+                                <button type="button" class="btn btn-danger" onclick="confirmRemove(${a.id})" ${a.resolvido == 0 ? '' : 'hidden'}>Remover</button>
                             </td>
                         </tr>
                     </c:forEach>
@@ -157,3 +157,14 @@
         </footer>
     </body>
 </html>
+
+<script>
+    function confirmRemove(id) {
+        var txt;
+        var r = confirm("Deseja Remover? :(");
+        if (r == true) {
+            window.location.replace("./AtendimentoServlet?action=remove&id=" + id);
+        }
+        console.log(txt);
+    }
+</script>

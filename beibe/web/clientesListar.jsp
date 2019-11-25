@@ -73,7 +73,7 @@
                                     <td>
                                         <a href="ClienteServlet?action=show&id=${c.id}&mostra=0"><button type="button" class="btn btn-info">Visualizar</button> </a>
                                         <a href="ClienteServlet?action=formUpdate&id=${c.id}"><button type="button" class="btn btn-secondary">Alterar</button> </a>
-                                        <a href="ClienteServlet?action=remove&id=${c.id}"><button type="button" class="btn btn-danger">Remover</button> </a>
+                                        <button type="button" class="btn btn-danger" onclick="confirmRemove(${c.id})">Remover</button>
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -90,3 +90,15 @@
         </footer>
     </body>
 </html>
+
+<script>
+    function confirmRemove(id) {
+        var txt;
+        var r = confirm("Deseja Remover? :(");
+        if (r == true) {
+            window.location.replace("./ClienteServlet?action=remove&id=" + id);
+        }
+        console.log(txt);
+    }
+</script>
+

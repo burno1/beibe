@@ -42,7 +42,7 @@
 
             <div class="row">    
                 <div class="col-sm-12">
-                <span style="color: red">${msg}</span>
+                    <span style="color: red">${msg}</span>
                     <h3> Produtos Cadastrados</h3>
                     <table class="table">
                         <thead class="thead-light">
@@ -63,7 +63,7 @@
                                     <td>
                                         <a href="ProdutoServlet?action=show&id=${p.idProduto}&mostra=0"><button type="button" class="btn btn-info">Visualizar</button> </a>
                                         <a href="ProdutoServlet?action=formUpdate&id=${p.idProduto}"><button type="button" class="btn btn-secondary">Alterar</button> </a>
-                                        <a href="ProdutoServlet?action=remove&id=${p.idProduto}"><button type="button" class="btn btn-danger">Remover</button> </a>
+                                        <button type="button" class="btn btn-danger" onclick="confirmRemove(${p.idProduto})">Remover</button>
                                     </td>
                                 </c:forEach>
                         </tbody>
@@ -81,3 +81,13 @@
         </footer>
     </body>
 </html>
+<script>
+    function confirmRemove(id) {
+        var txt;
+        var r = confirm("Deseja Remover? :(");
+        if (r == true) {
+            window.location.replace("./ProdutoServlet?action=remove&id=" + id);
+        }
+        console.log(txt);
+    }
+</script>
