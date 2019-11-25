@@ -162,7 +162,7 @@
                                 <input hidden name="dataInicio" value="1">
                                 <input hidden name="dataFim" value="2">
                                 <div class="custom-control custom-radio">
-                                    <input type="radio" id="todas" value="todas" name="situacao" class="custom-control-input">
+                                    <input type="radio" id="todas" value="todas" name="situacao" checked class="custom-control-input">
                                     <label class="custom-control-label" for="todas">Todas</label>
                                 </div>
                                 <div class="custom-control custom-radio">
