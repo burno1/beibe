@@ -12,6 +12,8 @@ package Model;
 public class TipoAtendimento {
     private String nomeTipo;
     private int idTipo;
+    private int quantidadeAtendimentosAbertos;
+    private int quantidadeAtendimentos;
 
     public String getNomeTipo() {
         return nomeTipo;
@@ -28,6 +30,23 @@ public class TipoAtendimento {
     public void setIdTipo(int idTipo) {
         this.idTipo = idTipo;
     }
+
+    public int getQuantidadeAtendimentosAbertos() {
+        return quantidadeAtendimentosAbertos;
+    }
+
+    public void setQuantidadeAtendimentosAbertos(int quantidadeAtendimentosAbertos) {
+        this.quantidadeAtendimentosAbertos = quantidadeAtendimentosAbertos;
+    }
+
+    public int getQuantidadeAtendimentos() {
+        return quantidadeAtendimentos;
+    }
+
+    public void setQuantidadeAtendimentos(int quantidadeAtendimentos) {
+        this.quantidadeAtendimentos = quantidadeAtendimentos;
+    }
+    
     
     
     

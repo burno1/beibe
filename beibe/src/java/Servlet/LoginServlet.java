@@ -77,7 +77,7 @@ public class LoginServlet extends HttpServlet {
             s.setAttribute("portalBean", new PortalBean());
 
             if ("1".equals(funcionarioLogado.getTipo())) {
-                response.sendRedirect("./portalGerente.jsp");
+                response.sendRedirect("PortalServlet");
             }
 
             if ("2".equals(funcionarioLogado.getTipo())) {

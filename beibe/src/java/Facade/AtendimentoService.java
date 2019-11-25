@@ -104,5 +104,9 @@ public class AtendimentoService {
     public boolean finalizar(String id, String solucao) {
         return atendimentoDAO.finalizar(id, solucao);
     }
+    
+    public int quantidadeAtendimentos(){
+        return atendimentoDAO.quantidadeAtendimentos();
+    }
 
 }

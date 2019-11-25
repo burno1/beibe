@@ -5,9 +5,7 @@
  */
 package Bean;
 
-
-import Facade.LoginService;
-import Model.Funcionario;
+import Model.TipoAtendimento;
 import java.util.List;
 
 /**
@@ -16,11 +14,47 @@ import java.util.List;
  */
 public class PortalBean {
 
-    
-    LoginService loginService = new LoginService();
+    private int quantidadeAtendimentos = 0;
+    private int quantidadeAbertos = 0;
+    private double porcentagemAbertos = 0.0;
+    private List<TipoAtendimento> tiposAtendimento;
+
 
     public PortalBean() {
 
     }
 
+    public int getQuantidadeAtendimentos() {
+        return quantidadeAtendimentos;
+    }
+
+    public void setQuantidadeAtendimentos(int quantidadeAtendimentos) {
+        this.quantidadeAtendimentos = quantidadeAtendimentos;
+    }
+
+    public int getQuantidadeAbertos() {
+        return quantidadeAbertos;
+    }
+
+    public void setQuantidadeAbertos(int quantidadeAbertos) {
+        this.quantidadeAbertos = quantidadeAbertos;
+    }
+
+    public double getPorcentagemAbertos() {
+        return porcentagemAbertos;
+    }
+
+    public void setPorcentagemAbertos(double porcentagemAbertos) {
+        this.porcentagemAbertos = porcentagemAbertos;
+    }
+
+    public List<TipoAtendimento> getTiposAtendimento() {
+        return tiposAtendimento;
+    }
+
+    public void setTiposAtendimento(List<TipoAtendimento> tiposAtendimento) {
+        this.tiposAtendimento = tiposAtendimento;
+    }
+
+    
 }

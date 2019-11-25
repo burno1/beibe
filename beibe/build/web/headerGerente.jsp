@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <ul class="nav navbar-nav">
-        <li class="nav-item"><a class="nav-link" href="portalGerente.jsp">Portal<span class="sr-only">(current)</span></a></li>
+        <li class="nav-item"><a class="nav-link" href="PortalServlet">Portal<span class="sr-only">(current)</span></a></li>
         <li class="nav-item"><a class="nav-link" href="AtendimentoServlet">Atendimentos</a></li>
         <li class="nav-item"><a class="nav-link" href='ClienteServlet'>Clientes</a></li>
         <li class="nav-item"><a class="nav-link" href="FuncionarioServlet">Funcionarios</a></li>

@@ -19,6 +19,8 @@
         <%@include file="imports.jsp" %>
     </head>
     <body>
+        <jsp:useBean id="portalBean" class="Bean.PortalBean" scope="request"/>
+        <jsp:setProperty name="portalBean" property="*"/>
         <nav  class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -40,7 +42,7 @@
                         </div>
                         <div class="card-body">
                             <blockquote class="blockquote mb-0">
-                                <p>1234</p>
+                                <p>${portalBean.quantidadeAtendimentos}</p>
                             </blockquote>
                         </div>
                     </div>
@@ -53,7 +55,7 @@
                         </div>
                         <div class="card-body">
                             <blockquote class="blockquote mb-0">
-                                <p>24% (2435)</p>
+                                <p>${portalBean.porcentagemAbertos}% (${portalBean.quantidadeAbertos})</p>
                             </blockquote>
                         </div>
                     </div>
@@ -77,21 +79,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>12</td>
-                                <td>30</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>591</td>
-                                <td>2321</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>423</td>
-                                <td>4122</td>
-                            </tr>
+                            <c:forEach items="${portalBean.tiposAtendimento}" var="t">
+                                <tr>
+                                    <td><c:out value="${t.nomeTipo}" /></td>
+                                    <td><c:out value="${t.quantidadeAtendimentosAbertos}"/></td>
+                                    <td><c:out value="${t.quantidadeAtendimentos}"/></td>
+                                </tr>
+                            </c:forEach>
                         </tbody>
                     </table>
                 </div>

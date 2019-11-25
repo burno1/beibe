@@ -71,7 +71,7 @@ public class AtendimentoServlet extends HttpServlet {
         AtendimentoService atendimentoService = new AtendimentoService();
         AtendimentoBean atendimentoBean = new AtendimentoBean();
         ProdutoBean pBean = new ProdutoBean();
-        Cliente clienteLogado = (Cliente) s.getAttribute("cliente");
+        Cliente clienteLogado = (Cliente) s.getAttribute("clienteLogado");
         String acao = request.getParameter("action");
 
         if (null == acao || "listar".equals(acao)) {

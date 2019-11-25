@@ -8,10 +8,13 @@ package Servlet;
 import Bean.AtendimentoBean;
 import Bean.PortalBean;
 import Facade.AtendimentoService;
+import Facade.TipoAtendimentoService;
 import Model.Atendimento;
 import Model.Cliente;
 
 import Model.Funcionario;
+import Model.TipoAtendimento;
+import Utils.DoubleConverter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -51,13 +54,25 @@ public class PortalServlet extends HttpServlet {
         //Condicional de erro para login
         if ("1".equals(funcionarioLogado.getTipo())) {
             AtendimentoBean atendimentoBean = new AtendimentoBean();
+            PortalBean portal = new PortalBean();
             AtendimentoService atendimentoService = new AtendimentoService();
-            atendimentoBean.setAtendimentosLista(atendimentoService.listar());
-            atendimentoBean.setAtendimentosAbertos(atendimentoService.listarAbertos());
-
+            List<TipoAtendimento> tipos = new ArrayList<TipoAtendimento>();
+            TipoAtendimentoService tipoService = new TipoAtendimentoService();
+            double quantidadeAtendimentos = atendimentoService.quantidadeAtendimentos();
+            double quantidadeAbertos = atendimentoService.listarAbertos().size();
+            double porcentagemAbertos = ((quantidadeAbertos / quantidadeAtendimentos) * 100);
+            
+            porcentagemAbertos = DoubleConverter.converterDoubleDoisDecimais(porcentagemAbertos);
+            portal.setQuantidadeAbertos((int) quantidadeAbertos);
+            portal.setPorcentagemAbertos(porcentagemAbertos);
+            portal.setQuantidadeAtendimentos((int) quantidadeAtendimentos);
+            portal.setTiposAtendimento(tipoService.buscaTipo());
+            
+            
+            
             RequestDispatcher rd = request.
-                    getRequestDispatcher("atendimentoListar.jsp");
-            request.setAttribute("atendimentoBean", atendimentoBean);
+                    getRequestDispatcher("/portalGerente.jsp");
+            request.setAttribute("portalBean", portal);
             rd.forward(request, response);
 
         }
@@ -65,7 +80,7 @@ public class PortalServlet extends HttpServlet {
         if ("2".equals(funcionarioLogado.getTipo())) {
             AtendimentoBean atendimentoBean = new AtendimentoBean();
             AtendimentoService atendimentoService = new AtendimentoService();
-
+            
             atendimentoBean.setAtendimentosLista(atendimentoService.listar());
             atendimentoBean.setAtendimentosAbertos(atendimentoService.listarAbertos());
 

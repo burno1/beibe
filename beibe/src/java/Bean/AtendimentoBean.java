@@ -26,6 +26,7 @@ public class AtendimentoBean {
     private List<TipoAtendimento> tiposAtendimento;
     private List<Cliente> clientes;
     private List<Produto> produtos;
+    
 
     public AtendimentoBean() {
     }
@@ -96,6 +97,4 @@ public class AtendimentoBean {
 
         this.atendimentosAbertos = atendimentosAbertos;
     }
-    
-    
 }

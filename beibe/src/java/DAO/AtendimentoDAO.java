@@ -43,7 +43,6 @@ public class AtendimentoDAO {
             st.setString(1, id);
             rs = st.executeQuery();
 
-            
             Atendimento atendimento = new Atendimento();
             while (rs.next()) {
 
@@ -54,11 +53,10 @@ public class AtendimentoDAO {
                 atendimento.setData(rs.getDate("dt_hr_atendimento").toLocalDate());
                 atendimento.setDescricao(rs.getString("dsc_atendimento"));
                 atendimento.setSolucao(rs.getString("solucao"));
-                
-                
+
                 TipoAtendimento tipoAtendimento = tipoAtendimentoDAO.buscar(rs.getString("id_tipo_atendimento"));
                 Funcionario funcionario = funcionarioDAO.buscarID(rs.getString("id_usuario"));
-                
+
                 atendimento.setProduto(produto);
                 atendimento.setTipoAtendimento(tipoAtendimento);
                 atendimento.setFuncionario(funcionario);
@@ -103,12 +101,11 @@ public class AtendimentoDAO {
             st = con.prepareStatement("delete from beibe.tb_atendimento where id_atendimento = ?");
             st.setInt(1, Integer.valueOf(id));
             int retorno = st.executeUpdate();
-            
-            if(retorno == 0){
+
+            if (retorno == 0) {
                 return false;
             }
             return true;
-            
 
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -152,11 +149,11 @@ public class AtendimentoDAO {
             st.setInt(6, atendimento.getResolvido());
 
             int retorno = st.executeUpdate();
-            
-            if (retorno == 0){
-            return false;
+
+            if (retorno == 0) {
+                return false;
             }
-            
+
             return true;
 
         } catch (Exception e) {
@@ -204,9 +201,9 @@ public class AtendimentoDAO {
             st.setString(7, atendimento.getCliente().getId());
             st.setInt(8, atendimento.getResolvido());
             st.setString(9, atendimento.getId());
-            
+
             int retorno = st.executeUpdate();
-            if (retorno == 0){
+            if (retorno == 0) {
                 return false;
             }
             return true;
@@ -251,15 +248,14 @@ public class AtendimentoDAO {
                 Atendimento atendimento = new Atendimento();
                 atendimento.setId(rs.getString("id_atendimento"));
                 atendimento.setData(rs.getDate("dt_hr_atendimento").toLocalDate());
-                
+
                 LocalDate data;
                 data = rs.getDate("dt_hr_atendimento").toLocalDate();
-                
+
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                
+
                 atendimento.setDataString(data.format(formatter));
-                
-                
+
                 atendimento.setProduto(produto);
                 atendimento.setCliente(cliente);
 
@@ -285,7 +281,42 @@ public class AtendimentoDAO {
         }
 
     }
-    
+
+    public int quantidadeAtendimentos() {
+
+        Connection con = null;
+        con = ConnectionFactory.getConnection();
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        int retorno = 0;
+
+        try {
+            st = con.prepareStatement("select max(id_atendimento) qtde from tb_atendimento");
+            rs = st.executeQuery();
+            while (rs.next()) {
+                retorno = rs.getInt("qtde");
+            }
+            return retorno;
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (st != null) {
+                try {
+                    st.close();
+                } catch (Exception e) {
+                }
+            }
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (Exception e) {
+                }
+            }
+        }
+
+    }
+
     public List<Atendimento> listarPorCliente(String id) {
 
         Connection con = null;
@@ -310,15 +341,14 @@ public class AtendimentoDAO {
                 atendimento.setId(rs.getString("id_atendimento"));
                 atendimento.setData(rs.getDate("dt_hr_atendimento").toLocalDate());
                 atendimento.setResolvido(rs.getInt("res_atendimento"));
-                
+
                 LocalDate data;
                 data = rs.getDate("dt_hr_atendimento").toLocalDate();
-                
+
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                
+
                 atendimento.setDataString(data.format(formatter));
-                
-                
+
                 atendimento.setProduto(produto);
                 atendimento.setCliente(cliente);
 
@@ -344,7 +374,7 @@ public class AtendimentoDAO {
         }
 
     }
-    
+
     public List<Atendimento> listarAbertos() {
 
         Connection con = null;
@@ -367,15 +397,14 @@ public class AtendimentoDAO {
                 Atendimento atendimento = new Atendimento();
                 atendimento.setId(rs.getString("id_atendimento"));
                 atendimento.setData(rs.getDate("dt_hr_atendimento").toLocalDate());
-                
+
                 LocalDate data;
                 data = rs.getDate("dt_hr_atendimento").toLocalDate();
-                
+
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                
+
                 atendimento.setDataString(data.format(formatter));
-                
-                
+
                 atendimento.setProduto(produto);
                 atendimento.setCliente(cliente);
 
@@ -400,7 +429,7 @@ public class AtendimentoDAO {
             }
         }
     }
-    
+
     public boolean finalizar(String id, String solucao) {
         Connection con = null;
         con = ConnectionFactory.getConnection();
@@ -414,9 +443,9 @@ public class AtendimentoDAO {
 
             st.setString(1, solucao);
             st.setString(2, id);
-            
+
             int retorno = st.executeUpdate();
-            if (retorno == 0){
+            if (retorno == 0) {
                 return false;
             }
             return true;
@@ -438,5 +467,51 @@ public class AtendimentoDAO {
             }
         }
     }
-    
+
+    public List<TipoAtendimento> buscaPorTipo() {
+
+        Connection con = null;
+        con = ConnectionFactory.getConnection();
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        List<TipoAtendimento> retorno = new ArrayList<TipoAtendimento>();
+        ProdutoDAO produtoDAO = new ProdutoDAO();
+        ClienteDAO clienteDAO = new ClienteDAO();
+
+        try {
+            st = con.prepareStatement("select tipo.nome_tipo_atendimento as nome, count(atend.id_tipo_atendimento) as quantidadeTotal,\n"
+                    + "count( case when res_atendimento = 0 then 1 end) as quantidadeAberto\n"
+                    + " from tb_atendimento atend \n"
+                    + " inner join tb_tipo_atendimento tipo on (tipo.id_tipo_atendimento = atend.id_tipo_atendimento)\n"
+                    + " group by atend.id_tipo_atendimento;");
+            rs = st.executeQuery();
+
+            while (rs.next()) {
+
+                TipoAtendimento tipo = new TipoAtendimento();
+                tipo.setNomeTipo( rs.getString("nome"));
+                tipo.setQuantidadeAtendimentos(rs.getInt("quantidadeTotal"));
+                tipo.setQuantidadeAtendimentosAbertos(rs.getInt("quantidadeAberto"));
+                retorno.add(tipo);
+            }
+            return retorno;
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (st != null) {
+                try {
+                    st.close();
+                } catch (Exception e) {
+                }
+            }
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (Exception e) {
+                }
+            }
+        }
+
+    }
 }
