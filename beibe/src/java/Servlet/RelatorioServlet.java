@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Bruno Fernandes
  */
-@WebServlet(name = "Relatorios", urlPatterns = {"/Relatorios"})
+@WebServlet(name = "RelatorioServlet", urlPatterns = {"/RelatorioServlet"})
 public class RelatorioServlet extends HttpServlet {
 
     /**
@@ -39,11 +39,7 @@ public class RelatorioServlet extends HttpServlet {
 
         String acao = request.getParameter("action");
         TipoAtendimentoBean tipoBean = new TipoAtendimentoBean();
-        AtendimentoService atendimentoService = new AtendimentoService();
-        
-        
-
-        
+        AtendimentoService atendimentoService = new AtendimentoService();    
             tipoBean.setListaTipos(atendimentoService.buscarTipos());
 
             RequestDispatcher rd = request.

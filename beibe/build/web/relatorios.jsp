@@ -51,9 +51,24 @@
 
             <div class="row">
                 <div class="col-xl-12">
-                    <h4>Relatório de Clientes</h4>
+                    <h4>Relatório de Funcionarios</h4>
                     <hr/>
                     <form action="RelatorioDownload?action=r1" target="_blank" method="post">
+                        <input hidden name="tipoAtendimento" value="1">
+                        <input hidden name="dataInicio" value="1">
+                        <input hidden name="dataFim" value="2">
+                        <button class="btn btn-outline-primary" typ="submit"> Imprimir Relatório</button>
+                    </form>
+                    <br/>                    
+
+                    <br/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-12">
+                    <h4>Produtos Mais reclamados</h4>
+                    <hr/>
+                    <form action="RelatorioDownload?action=produtosReclamados" target="_blank" method="post">
                         <input hidden name="tipoAtendimento" value="1">
                         <input hidden name="dataInicio" value="1">
                         <input hidden name="dataFim" value="2">
@@ -79,7 +94,7 @@
                             </div>
 
                             <div class="col-md-4">
-                                <input class="form-input" id="dataInicio" type="date" name="dataInicio">
+                                <input class="form-input" id="dataInicio" type="date" name="dataInicio" required>
                             </div>
                         </div>
                         <br/>
@@ -87,7 +102,7 @@
                         <div class="row">
                             <div class="col-xl-2">Data Fim:</div>
                             <div class="col-md-4">
-                                <input class="form-input" id="dataFim" type="date" name="dataFim">
+                                <input class="form-input" id="dataFim" type="date" name="dataFim" required>
                             </div>
 
                         </div>
@@ -135,8 +150,37 @@
 
                         <button class="btn btn-outline-primary" type="submit"> Imprimir Relatório</button>
                         <br/>
+
+
                     </form>
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <h4>Relatório de Reclamações</h4>
+                            <hr/>
+                            <form action="RelatorioDownload?action=r5" target="_blank" method="post">
+                                <input hidden name="tipoAtendimento" value="1">
+                                <input hidden name="dataInicio" value="1">
+                                <input hidden name="dataFim" value="2">
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" id="todas" value="todas" name="situacao" class="custom-control-input">
+                                    <label class="custom-control-label" for="todas">Todas</label>
+                                </div>
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" id="aberto" value="0" name="situacao" class="custom-control-input">
+                                    <label class="custom-control-label" for="aberto">Em Aberto</label>
+                                </div>
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" id="finalizado" value="1" name="situacao" class="custom-control-input">
+                                    <label class="custom-control-label" for="finalizado">Finalizados</label>
+                                </div>
+                                <br/>
+                                <button class="btn btn-outline-primary" type="submit"> Imprimir Relatório</button> 
+                                <br/>
+                            </form>
+                        </div>
+                    </div>
                 </div>
+
 
             </div>
 

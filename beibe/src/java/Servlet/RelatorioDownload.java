@@ -42,7 +42,7 @@ public class RelatorioDownload extends HttpServlet {
             throws ServletException, IOException {
 
         String acao = request.getParameter("action");
-
+        String situacao = request.getParameter("situacao");
         String data1 = request.getParameter("dataInicio");
         String data2 = request.getParameter("dataFim");
 
@@ -51,6 +51,7 @@ public class RelatorioDownload extends HttpServlet {
             idTipo = Integer.parseInt(request.getParameter("tipoAtendimento"));
         }
 
+        
         java.util.Date dataInicioo = null;
         java.util.Date dataFiim = null;
 
@@ -61,29 +62,36 @@ public class RelatorioDownload extends HttpServlet {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
             dataInicioo = format.parse(data1);
+            
             dataFiim = format.parse(data2);
 
             dataInicio = new java.sql.Date(dataInicioo.getTime());
             dataFim = new java.sql.Date(dataFiim.getTime());
-
         } catch (Exception e) {
 
         }
 
         try {
+            HashMap params = new HashMap();
             Connection con = ConnectionFactory.getConnection();
 
             String jasper = request.getContextPath()
-                    + "/relatorio.jasper";
+                    + "/relatorioFuncionarios.jasper";
 
             if ("r1".equals(acao)) {
                 jasper = request.getContextPath()
-                        + "/relatorio.jasper";
-
+                        + "/relatorioFuncionarios.jasper";
+                System.out.println("uhuuu");
+            }
+            
+            if ("produtosReclamados".equals(acao)) {
+                jasper = request.getContextPath()
+                        + "/relatorioProdutosReclamados.jasper";
+                System.out.println("uhuuu");
             }
             if ("r2".equals(acao)) {
                 jasper = request.getContextPath()
-                        + "/relatorio2.jasper";
+                        + "/relatorioPorData.jasper";
 
             }
             if ("r3".equals(acao)) {
@@ -94,6 +102,16 @@ public class RelatorioDownload extends HttpServlet {
                 jasper = request.getContextPath()
                         + "/relatorio4.jasper";
             }
+            if ("r5".equals(acao)) {
+                if ("todas".equals(situacao)){
+                    jasper = request.getContextPath()
+                        + "/relatorioPorSituacaoAberto.jasper";
+                } else {
+                jasper = request.getContextPath()
+                        + "/relatorioPorSituacao.jasper";
+                params.put("situacao", situacao);
+                }
+            }
 
             // Host onde o servlet esta executando
             String host = "http://" + request.getServerName()
@@ -101,11 +119,11 @@ public class RelatorioDownload extends HttpServlet {
             // URL para acesso ao relatório
             URL jasperURL = new URL(host + jasper);
             // Parâmetros do relatório
-            HashMap params = new HashMap();
 
             params.put("data1", dataInicio);
             params.put("data2", dataFim);
             params.put("idTipo", idTipo);
+            
 
             // Geração do relatório
             byte[] bytes = JasperRunManager.runReportToPdf(
