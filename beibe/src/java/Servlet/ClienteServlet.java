@@ -211,11 +211,14 @@ public class ClienteServlet extends HttpServlet {
                         throw new ErroCliente("Não foi possivel alterar este cliente");
                     }
                 }
-
+                String pagina = "/clientesListar.jsp";
                 cbean.setListaClientes(clienteService.listar());
-
+                Cliente clienteLogado = (Cliente) s.getAttribute("clienteLogado");
+                if (clienteLogado.getId() != null) {
+                     pagina = "PortalServlet";
+                }
                 RequestDispatcher rd = request.
-                        getRequestDispatcher("/clientesListar.jsp");
+                        getRequestDispatcher(pagina);
                 request.setAttribute("clienteBean", cbean);
                 request.setAttribute("action", "listar");
 
@@ -262,7 +265,7 @@ public class ClienteServlet extends HttpServlet {
                 if (!clienteService.inserir(cl)) {
                     throw new ErroCliente("Não foi possível inserir cliente");
                 }
-                
+
                 Cliente clienteLogado = clienteService.buscarPorEmail(cl.getEmail());
                 LoginBean loginBean = new LoginBean();
                 loginBean.setUser(cl.getEmail());

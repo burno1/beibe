@@ -38,7 +38,7 @@
 
                         <%@ include file = "headerFuncionario.jsp" %> 
                     </c:when>
-                    <c:when test="${cliente.id != null}">
+                    <c:when test="${clienteLogado.id != null}">
 
                         <%@ include file = "headerCliente.jsp" %> 
                     </c:when>

@@ -46,46 +46,11 @@
 
         <div class="container">
             <h3>Detalhes do Cliente</h3>
-            <form action="atualizaClienteServlet"  method="post">
-                <div class="form-group row">
-                    <div class="col-sm-2">
-                        CPF:
-                    </div>
-                    <div class="col-sm-4">
-                        <input class="form-control" value="111111" name="CPF" disabled="true">
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <div class="col-sm-2">
-                        Email:
-                    </div>
-                    <div class="col-sm-4">
-                        <input class="form-control" value="a@a.com" nome="email" disabled="true" >
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <div class="col-sm-2">
-                        Nome:
-                    </div>
-                    <div class="col-sm-4">
-                        <input class="form-control" value="Erick" name="nome">
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <div class="col-sm-2">
-                        Rua:
-                    </div>
-                    <div class="col-sm-4">
-                        <input class="form-control" value="Maneira, nº666" name="endereco">
-                    </div>
-                </div>
+            <form action="ClienteServlet?action=formUpdate&id=${clienteLogado.id}"  method="post">
 
                 <div class="form-group row">
                     <div class="col-sm-4">
-                        <button class="btn btn-success btn-block" type="submit">Atualizar Dados</button>
+                        <button class="btn btn-success btn-block" type="submit">Atualizar Dados Cadastrais</button>
                     </div>
                 </div>
             </form>

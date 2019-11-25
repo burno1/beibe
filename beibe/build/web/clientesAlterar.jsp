@@ -33,7 +33,20 @@
                 </div>
 
                 <!-- Cabeçalho -->
-                <%@ include file = "headerGerente.jsp" %>
+                <c:choose>
+                    <c:when test="${funcionario.tipo == 1}">
+
+                        <%@ include file = "headerGerente.jsp" %> 
+                    </c:when>
+                    <c:when test="${funcionario.tipo == 2}">
+
+                        <%@ include file = "headerFuncionario.jsp" %> 
+                    </c:when>
+                    <c:when test="${clienteLogado.id != null}">
+
+                        <%@ include file = "headerCliente.jsp" %> 
+                    </c:when>
+                </c:choose>
             </div><!-- /.container-fluid -->
         </nav>
 
@@ -129,13 +142,13 @@
                     </div>
 
                     <div id="cancelar" class="col-sm-2">
-                        <a href="ClienteServlet"><button type="button" class="btn btn-secondary btn-block">Cancelar</button></a>
+                        <a onclick="history.back()"><button type="button" class="btn btn-secondary btn-block">Cancelar</button></a>
                     </div>
                 </div>
 
                 <div id="voltar" class="row">
                     <div class="col-sm-2">
-                        <a href="ClienteServlet"><button type="button" class="btn btn-secondary btn-block">Voltar</button></a>
+                        <a onclick="history.back()"><button type="button" class="btn btn-secondary btn-block">Voltar</button></a>
                     </div>
                 </div>
             </form>
@@ -157,7 +170,7 @@
                     $("#salvar").hide();
                     $("#cancelar").hide();
                     $("#voltar").show();
-                    
+
                 }
 
                 $("#uf").change(function () {

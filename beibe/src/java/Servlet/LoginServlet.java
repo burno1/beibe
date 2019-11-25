@@ -73,7 +73,7 @@ public class LoginServlet extends HttpServlet {
             loginBean.setSenha(MD5.MD5Transformed(senha));
             s.setAttribute("login", loginBean);
             s.setAttribute("funcionario", funcionarioLogado);
-            s.setAttribute("cliente", clienteLogado);
+            s.setAttribute("clienteLogado", clienteLogado);
             s.setAttribute("portalBean", new PortalBean());
 
             if ("1".equals(funcionarioLogado.getTipo())) {

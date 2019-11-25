@@ -46,7 +46,7 @@ public class PortalServlet extends HttpServlet {
         HttpSession s = request.getSession();
 
         Funcionario funcionarioLogado = (Funcionario) s.getAttribute("funcionario");
-        Cliente clienteLogado = (Cliente) s.getAttribute("cliente");
+        Cliente clienteLogado = (Cliente) s.getAttribute("clienteLogado");
 
         //Condicional de erro para login
         if ("1".equals(funcionarioLogado.getTipo())) {
