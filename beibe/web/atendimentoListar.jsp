@@ -80,7 +80,7 @@
                                     <td><c:out value="${a.cliente.nome}" /></td>
                                     <td>
                                         <a href="AtendimentoServlet?action=show&id=${a.id}&mostra=0"><button type="button" class="btn btn-info">Visualizar</button> </a>
-                                        <button type="button" class="btn btn-danger" onclick="confirmRemove(${a.id})">Remover</button>
+                                        
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -112,8 +112,7 @@
                                     <td><c:out value="${a.cliente.nome}" /></td>
                                     <td>
                                         <a href="AtendimentoServlet?action=show&id=${a.id}&mostra=0"><button type="button" class="btn btn-info">Visualizar</button> </a>
-                                        <a href="AtendimentoServlet?action=formUpdate&id=${a.id}"><button type="button" class="btn btn-secondary">Alterar</button> </a>
-                                        <button type="button" class="btn btn-danger" onclick="confirmRemove(${a.id})">Remover</button>
+                                       
                                     </td>
                                 </tr>
                             </c:forEach>
