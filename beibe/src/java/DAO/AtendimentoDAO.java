@@ -237,7 +237,7 @@ public class AtendimentoDAO {
         ClienteDAO clienteDAO = new ClienteDAO();
 
         try {
-            st = con.prepareStatement("SELECT id_atendimento, dt_hr_atendimento,  id_produto, id_cliente from tb_atendimento order by dt_hr_atendimento");
+            st = con.prepareStatement("SELECT id_atendimento, dt_hr_atendimento,  id_produto,res_atendimento, id_cliente from tb_atendimento order by dt_hr_atendimento");
             rs = st.executeQuery();
 
             while (rs.next()) {
@@ -248,7 +248,7 @@ public class AtendimentoDAO {
                 Atendimento atendimento = new Atendimento();
                 atendimento.setId(rs.getString("id_atendimento"));
                 atendimento.setData(rs.getDate("dt_hr_atendimento").toLocalDate());
-
+                atendimento.setResolvido(rs.getInt("res_atendimento"));
                 LocalDate data;
                 data = rs.getDate("dt_hr_atendimento").toLocalDate();
 
@@ -386,7 +386,7 @@ public class AtendimentoDAO {
         ClienteDAO clienteDAO = new ClienteDAO();
 
         try {
-            st = con.prepareStatement("SELECT id_atendimento, dt_hr_atendimento,  id_produto, id_cliente from tb_atendimento where res_atendimento = 0 order by dt_hr_atendimento");
+            st = con.prepareStatement("SELECT id_atendimento, dt_hr_atendimento,  id_produto,res_atendimento,id_cliente from tb_atendimento where res_atendimento = 0 order by dt_hr_atendimento");
             rs = st.executeQuery();
 
             while (rs.next()) {
@@ -397,7 +397,7 @@ public class AtendimentoDAO {
                 Atendimento atendimento = new Atendimento();
                 atendimento.setId(rs.getString("id_atendimento"));
                 atendimento.setData(rs.getDate("dt_hr_atendimento").toLocalDate());
-
+                atendimento.setResolvido(rs.getInt("res_atendimento"));
                 LocalDate data;
                 data = rs.getDate("dt_hr_atendimento").toLocalDate();
 

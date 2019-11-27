@@ -99,11 +99,11 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="custom-control custom-radio">
-                            <input type="radio" value="resolvido" name="resolvido" id="customRadio1" class="custom-control-input"  ${atendimento.resolvido==1 ?'checked' : '' } >
+                            <input type="radio" value="resolvido" name="resolvido" id="customRadio1" disabled class="custom-control-input"  ${atendimento.resolvido==1?'checked' : '' } >
                             <label class="custom-control-label" for="customRadio1" >Solucionado</label>
                         </div>
                         <div class="custom-control custom-radio">
-                            <input type="radio"  value="naoResolvido"  name="resolvido" id="customRadio2" class="custom-control-input" ${atendimento.resolvido==0 ?'checked' : '' }>
+                            <input type="radio"  value="naoResolvido"  name="resolvido" id="customRadio2" class="custom-control-input" disabled ${atendimento.resolvido==0 ?'checked' : '' }>
                             <label class="custom-control-label" for="customRadio2">Não Solucionado</label>
                         </div>
                     </div>
@@ -153,8 +153,7 @@
 
 
                 <div class="row">
-
-                    <div id="salvar" class="col-sm-4">
+                      <div id="salvar" class="col-sm-4" ${clienteLogado.id != null ? '' : 'hidden' }>
                         <button  type="submit" class="btn btn-success btn-block">Salvar</button>
                     </div>
 

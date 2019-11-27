@@ -107,7 +107,7 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="uf">UF</label>
                     <div class="col-sm-6">
-                        <select id="uf" class="custom-select custom-select-md" name="uf">
+                        <select id="uf" class="custom-select custom-select-md" name="uf" required>
                             <option selected><c:out value="${cliente.cidade.estado.uf}"/></option>
                             <c:forEach items="${estadosBean.estados}" var="e">                        
                                 <option value="${e.uf}">${e.uf}</option>
@@ -118,7 +118,7 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="cidade">CIDADE</label>
                     <div class="col-sm-6">
-                        <select class="custom-select custom-select-md" name="cidade" id="cidade">
+                        <select class="custom-select custom-select-md" name="cidade" id="cidade" required>
                             <option selected value="${cliente.cidade.id}">${cliente.cidade.nome}</option>
                             <c:forEach items="${cidadesBean.cidades}" var="c">                        
                                 <option value="${c.id}">${c.nome}</option>

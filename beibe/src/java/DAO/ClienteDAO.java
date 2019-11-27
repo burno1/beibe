@@ -35,7 +35,7 @@ public class ClienteDAO {
 
         try {
             con = ConnectionFactory.getConnection();
-            st = con.prepareStatement("SELECT id_cliente, cpf_cliente, nome_cliente, email_cliente, data_cliente, rua_cliente, nr_cliente, cep_cliente, id_cidade_cliente FROM beibe.tb_cliente WHERE id_cliente = ?");
+            st = con.prepareStatement("SELECT id_cliente,senha,cpf_cliente, nome_cliente, email_cliente, data_cliente, rua_cliente, nr_cliente, cep_cliente, id_cidade_cliente FROM beibe.tb_cliente WHERE id_cliente = ?");
             st.setString(1, id);
             rs = st.executeQuery();
 
@@ -44,6 +44,7 @@ public class ClienteDAO {
                 cl.setCpf(rs.getString("cpf_cliente"));
                 cl.setNome((rs.getString("nome_cliente")));
                 cl.setEmail(rs.getString("email_cliente"));
+                cl.setSenha((rs.getString("senha")));
                 cl.setData(rs.getDate("data_cliente").toLocalDate());
                 cl.setRua(rs.getString("rua_cliente"));
                 cl.setNumero(Integer.valueOf(rs.getString("nr_cliente")));

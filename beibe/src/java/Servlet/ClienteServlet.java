@@ -193,6 +193,7 @@ public class ClienteServlet extends HttpServlet {
                 cl.setId(request.getParameter("id"));
                 cl.setNome(request.getParameter("nome"));
                 cl.setEmail(request.getParameter("email"));
+                cl.setSenha(request.getParameter("senha"));
                 cl.setData(data.plusDays(1));
                 cl.setRua(request.getParameter("rua"));
                 cl.setNumero(Integer.valueOf(request.getParameter("numero")));
@@ -274,7 +275,7 @@ public class ClienteServlet extends HttpServlet {
                 loginBean.setSenha(MD5.MD5Transformed(cl.getSenha()));
                 s.setAttribute("login", loginBean);
                 s.setAttribute("funcionario", funcionarioLogado);
-                s.setAttribute("cliente", clienteLogado);
+                s.setAttribute("clienteLogado", clienteLogado);
                 s.setAttribute("portalBean", new PortalBean());
 
                 RequestDispatcher rd = request.

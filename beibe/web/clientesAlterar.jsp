@@ -83,6 +83,12 @@
                         <input class="form-control" type="email" value="${cliente.email}" name="email" id="email" required ${altera==1? 'readonly' : ''}>
                     </div>
                 </div>
+                <div id="senha" class="form-group row">
+                    <label class="col-sm-2 col-form-label" for="senha">Senha</label>
+                    <div class="col-sm-6">
+                        <input type="password" value="${cliente.senha}" name="senha" class="form-control" required ${altera==1? 'readonly' : ''}>   
+                    </div>
+                </div>
                 <h4> Dados Pessoais</h4>
                 <hr>
                 <div class="form-group row">
@@ -168,6 +174,7 @@
                     $('#form input').prop("disabled", true);
                     $('#form select').prop("disabled", true);
                     $("#salvar").hide();
+                    $("#senha").hide();
                     $("#cancelar").hide();
                     $("#voltar").show();
 

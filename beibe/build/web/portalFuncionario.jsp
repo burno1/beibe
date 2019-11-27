@@ -83,10 +83,11 @@
                                     <td><c:out value="${a.dataString} " /></td>
                                     <td><c:out value="${a.produto.nomeProduto}" /></td>
                                     <td><c:out value="${a.cliente.nome}" /></td>
+                                    
                                     <td>
                                         <a href="AtendimentoServlet?action=show&id=${a.id}&mostra=0"><button type="button" class="btn btn-info">Visualizar</button> </a>
-                                        <a href="AtendimentoServlet?action=formUpdate&id=${a.id}"><button type="button" class="btn btn-secondary">Resolver</button> </a>
-                                        <button type="button" class="btn btn-danger" onclick="confirmRemove(${a.id})" ${a.resolvido == 0 ? '' : 'hidden'}>Remover</button>
+                                        <a href="AtendimentoServlet?action=formUpdate&id=${a.id}" ${a.resolvido == 0? '' : 'hidden' }><button type="button" class="btn btn-secondary">Resolver</button> </a>
+                                      
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -120,7 +121,7 @@
                                     <td>
                                         <a href="AtendimentoServlet?action=show&id=${a.id}&mostra=0"><button type="button" class="btn btn-info">Visualizar</button> </a>
                                         <a href="AtendimentoServlet?action=formUpdate&id=${a.id}"><button type="button" class="btn btn-secondary">Resolver</button> </a>
-                                         <button type="button" class="btn btn-danger" onclick="confirmRemove(${a.id})" ${a.resolvido == 0 ? '' : 'hidden'}>Remover</button>
+                                         
                                     </td>
                                 </tr>
                             </c:forEach>

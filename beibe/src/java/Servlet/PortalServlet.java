@@ -60,9 +60,12 @@ public class PortalServlet extends HttpServlet {
             TipoAtendimentoService tipoService = new TipoAtendimentoService();
             double quantidadeAtendimentos = atendimentoService.quantidadeAtendimentos();
             double quantidadeAbertos = atendimentoService.listarAbertos().size();
-            double porcentagemAbertos = ((quantidadeAbertos / quantidadeAtendimentos) * 100);
             
-            porcentagemAbertos = DoubleConverter.converterDoubleDoisDecimais(porcentagemAbertos);
+            
+            
+            double porcentagemAbertos =  ((quantidadeAbertos / quantidadeAtendimentos) * 100);
+            
+            porcentagemAbertos = quantidadeAtendimentos > 0 ? DoubleConverter.converterDoubleDoisDecimais(porcentagemAbertos) : 0;
             portal.setQuantidadeAbertos((int) quantidadeAbertos);
             portal.setPorcentagemAbertos(porcentagemAbertos);
             portal.setQuantidadeAtendimentos((int) quantidadeAtendimentos);
