@@ -1,4 +1,4 @@
-<%-- 
+ <%-- 
     Document   : portal
     Created on : Sep 10, 2019, 8:47:22 PM
     Author     : Erick Alessi
@@ -72,7 +72,7 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="senha">CPF</label>
                     <div class="col-sm-6">
-                        <input type="text" maxlength="14" id="cpf" name="cpf" class="form-control" required>                                        
+                        <input type="text" pattern=".{14,}" maxlength="14" id="cpf" name="cpf" class="form-control" required>                                        
                     </div>
                 </div>
 

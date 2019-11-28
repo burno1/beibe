@@ -68,7 +68,7 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="cpf">CPF</label>
                     <div class="col-sm-6">
-                        <input class="form-control" maxlength="14" type="text" value="${cliente.cpf}" name="cpf" id="cpf" required ${altera==1? 'readonly' : ''}>
+                        <input class="form-control" pattern=".{14,}" maxlength="14" type="text" value="${cliente.cpf}" name="cpf" id="cpf" required ${altera==1? 'readonly' : ''}>
                     </div>
                 </div>   
                 <div class="form-group row">
