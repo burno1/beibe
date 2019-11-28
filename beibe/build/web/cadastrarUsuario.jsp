@@ -1,7 +1,7 @@
- <%-- 
-    Document   : portal
-    Created on : Sep 10, 2019, 8:47:22 PM
-    Author     : Erick Alessi
+<%-- 
+   Document   : portal
+   Created on : Sep 10, 2019, 8:47:22 PM
+   Author     : Erick Alessi
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -82,6 +82,12 @@
                         <input class="form-control" type="date" name="data" id="data" required>
                     </div>
                 </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label" for="telefone">TELEFONE</label>
+                    <div class="col-sm-6">
+                        <input class="form-control" pattern=".{11,}" maxlength="14" type="text" name="telefone" id="telefone" required>
+                    </div>
+                </div>
 
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="senha">RUA</label>
@@ -98,9 +104,9 @@
                 </div>
 
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label" for="senha">CEP</label>
+                    <label class="col-sm-2 col-form-label" for="cep">CEP</label>
                     <div class="col-sm-6">
-                        <input type="number" name="cep" class="form-control" required>                                      
+                        <input class="form-control" pattern=".{8,}" type="text" name="cep" id="cep" required>
                     </div>
                 </div>
 
@@ -145,7 +151,8 @@
             $(document).ready(function () {
                 var $campoCpf = $("#cpf");
                 $campoCpf.mask('000.000.000-00', {reverse: true});
-
+                $("#cep").mask("99.999-999");
+                $('#telefone').mask('(00) 0000-00009');
 
 
                 $("#uf").change(function () {
@@ -190,3 +197,4 @@
         </footer>
     </body>
 </html>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>

@@ -99,6 +99,12 @@
                     </div>
                 </div>
                 <div class="form-group row">
+                    <label class="col-sm-2 col-form-label" for="cep">Telefone</label>
+                    <div class="col-sm-6">
+                        <input class="form-control" pattern=".{11,}" maxlength="14" type="text" value="${funcionario.telefone}" name="telefone" id="telefone" required>
+                    </div>
+                </div>
+                <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="rua">Rua</label>
                     <div class="col-sm-6">
                         <input class="form-control" type="text" value="${funcionario.rua}" name="rua" id="rua" required>
@@ -113,7 +119,7 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="cep">Cep</label>
                     <div class="col-sm-6">
-                        <input class="form-control" type="text" value="${funcionario.cep}" name="cep" id="cep" required>
+                        <input class="form-control" pattern=".{8,}" type="text" value="${funcionario.cep}" name="cep" id="cep" required>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -171,6 +177,8 @@
                 $("#voltar").hide();
                 var $campoCpf = $("#cpf");
                 $campoCpf.mask('000.000.000-00', {reverse: true});
+                $("#cep").mask("99.999-999");
+                $('#telefone').mask('(00) 0000-00009');
 
 
                 if (mostra == 1) {

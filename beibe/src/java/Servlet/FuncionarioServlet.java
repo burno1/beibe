@@ -93,7 +93,7 @@ public class FuncionarioServlet extends HttpServlet {
                 Funcionario funcionario = funcionarioService.buscarID(id);
                 List<Cargo> cargos = new ArrayList<Cargo>();
                 cargos = Cargo.geraCargos();
-                
+
                 if ("1".equals(funcionario.getTipo())) {
                     funcionario.setCargo(new Cargo(1, "Gerente"));
                 } else {
@@ -128,11 +128,11 @@ public class FuncionarioServlet extends HttpServlet {
 
                 List<Cargo> cargos = new ArrayList<Cargo>();
                 cargos = Cargo.geraCargos();
-                
+
                 Funcionario funcionario = funcionarioService.buscarID(id);
-                if (funcionario.getCidade()== null){
+                if (funcionario.getCidade() == null) {
                     throw new ErroFuncionario("Não foi possivel buscar este funcionario");
-                } 
+                }
 
                 if ("1".equals(funcionario.getTipo())) {
                     funcionario.setCargo(new Cargo(1, "Funcionario"));
@@ -209,9 +209,15 @@ public class FuncionarioServlet extends HttpServlet {
 
                 data = LocalDate.parse(str);
 
+                
                 String cpf = request.getParameter("cpf");
                 cpf = cpf.replaceAll("[^0-9]", "");
 
+                String telefone = request.getParameter("telefone");
+                telefone = telefone.replaceAll("[^0-9]", "");
+
+                String cep = request.getParameter("cep");
+                cep = cep.replaceAll("[^0-9]", "");
                 funcionario.setId(request.getParameter("id"));
                 funcionario.setCpf(cpf);
                 funcionario.setTipo(request.getParameter("tipo"));
@@ -221,7 +227,8 @@ public class FuncionarioServlet extends HttpServlet {
                 funcionario.setData(data.plusDays(1));
                 funcionario.setRua(request.getParameter("rua"));
                 funcionario.setNumero(Integer.valueOf(request.getParameter("numero")));
-                funcionario.setCep(Integer.valueOf(request.getParameter("cep")));
+                funcionario.setCep(cep);
+                funcionario.setTelefone(telefone);
                 funcionario.setCidade(new Cidade(Integer.valueOf(request.getParameter("cidade")), request.getParameter("uf")));
 
                 if (!("".equals(funcionario.getId()))) {

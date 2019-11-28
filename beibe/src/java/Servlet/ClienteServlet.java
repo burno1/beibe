@@ -189,15 +189,22 @@ public class ClienteServlet extends HttpServlet {
                 String cpf = request.getParameter("cpf");
                 cpf = cpf.replaceAll("[^0-9]", "");
 
+                String telefone = request.getParameter("telefone");
+                telefone = telefone.replaceAll("[^0-9]", "");
+
+                String cep = request.getParameter("cep");
+                cep = cep.replaceAll("[^0-9]", "");
+
                 cl.setCpf(cpf);
                 cl.setId(request.getParameter("id"));
                 cl.setNome(request.getParameter("nome"));
                 cl.setEmail(request.getParameter("email"));
                 cl.setSenha(request.getParameter("senha"));
+                cl.setTelefone(telefone);
                 cl.setData(data.plusDays(1));
                 cl.setRua(request.getParameter("rua"));
                 cl.setNumero(Integer.valueOf(request.getParameter("numero")));
-                cl.setCep(Integer.valueOf(request.getParameter("cep")));
+                cl.setCep(cep);
                 cl.setCidade(new Cidade(Integer.valueOf(request.getParameter("cidade")), request.getParameter("uf")));
 
                 if (request.getParameter("id").equals("")) {
@@ -216,7 +223,7 @@ public class ClienteServlet extends HttpServlet {
                 cbean.setListaClientes(clienteService.listar());
                 Cliente clienteLogado = (Cliente) s.getAttribute("clienteLogado");
                 if (clienteLogado.getId() != null) {
-                     pagina = "PortalServlet";
+                    pagina = "PortalServlet";
                 }
                 RequestDispatcher rd = request.
                         getRequestDispatcher(pagina);
@@ -252,17 +259,25 @@ public class ClienteServlet extends HttpServlet {
                 String cpf = request.getParameter("cpf");
                 cpf = cpf.replaceAll("[^0-9]", "");
 
+                String telefone = request.getParameter("telefone");
+                telefone = telefone.replaceAll("[^0-9]", "");
+
+                String cep = request.getParameter("cep");
+                cep = cep.replaceAll("[^0-9]", "");
+
                 Cliente cl = new Cliente();
                 cl.setCpf(cpf);
+                cl.setId(request.getParameter("id"));
                 cl.setNome(request.getParameter("nome"));
-                cl.setSenha(request.getParameter("senha"));
                 cl.setEmail(request.getParameter("email"));
-                cl.setData(data);
+                cl.setSenha(request.getParameter("senha"));
+                cl.setTelefone(telefone);
+                cl.setData(data.plusDays(1));
                 cl.setRua(request.getParameter("rua"));
                 cl.setNumero(Integer.valueOf(request.getParameter("numero")));
-                cl.setCep(Integer.valueOf(request.getParameter("cep")));
+                cl.setCep(cep);
                 cl.setCidade(new Cidade(Integer.valueOf(request.getParameter("cidade")), request.getParameter("uf")));
-
+                
                 if (!clienteService.inserir(cl)) {
                     throw new ErroCliente("Não foi possível inserir cliente");
                 }

@@ -27,7 +27,7 @@ import java.util.List;
 public class ClienteDAO {
 
     CidadeService cidadeService = new CidadeService();
-    public Cliente buscarCliente(String id) {
+    public Cliente buscarCliente(String id) throws ErroCliente {
         Connection con = null;
         PreparedStatement st = null;
         ResultSet rs = null;
@@ -35,7 +35,7 @@ public class ClienteDAO {
 
         try {
             con = ConnectionFactory.getConnection();
-            st = con.prepareStatement("SELECT id_cliente,senha,cpf_cliente, nome_cliente, email_cliente, data_cliente, rua_cliente, nr_cliente, cep_cliente, id_cidade_cliente FROM beibe.tb_cliente WHERE id_cliente = ?");
+            st = con.prepareStatement("SELECT id_cliente,senha,cpf_cliente, nome_cliente, email_cliente, data_cliente,telefone, rua_cliente, nr_cliente, cep_cliente, id_cidade_cliente FROM beibe.tb_cliente WHERE id_cliente = ?");
             st.setString(1, id);
             rs = st.executeQuery();
 
@@ -45,16 +45,17 @@ public class ClienteDAO {
                 cl.setNome((rs.getString("nome_cliente")));
                 cl.setEmail(rs.getString("email_cliente"));
                 cl.setSenha((rs.getString("senha")));
+                cl.setTelefone((rs.getString("telefone")));
                 cl.setData(rs.getDate("data_cliente").toLocalDate());
                 cl.setRua(rs.getString("rua_cliente"));
                 cl.setNumero(Integer.valueOf(rs.getString("nr_cliente")));
-                cl.setCep(Integer.valueOf(rs.getString("cep_cliente")));
+                cl.setCep(rs.getString("cep_cliente"));
                 Cidade cidade = cidadeService.buscarPorId(rs.getInt("id_cidade_cliente"));
                 cl.setCidade(cidade);
             }
             return cl;
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new ErroCliente("Não foi possivel buscar o cliente");
         } finally {
             if (rs != null) {
                 try {
@@ -77,7 +78,7 @@ public class ClienteDAO {
         }
     }
     
-    public Cliente buscarPorEmail(String email) {
+    public Cliente buscarPorEmail(String email) throws ErroCliente {
         Connection con = null;
         PreparedStatement st = null;
         ResultSet rs = null;
@@ -98,13 +99,13 @@ public class ClienteDAO {
                 cl.setData(rs.getDate("data_cliente").toLocalDate());
                 cl.setRua(rs.getString("rua_cliente"));
                 cl.setNumero(Integer.valueOf(rs.getString("nr_cliente")));
-                cl.setCep(Integer.valueOf(rs.getString("cep_cliente")));
+                cl.setCep(rs.getString("cep_cliente"));
                 Cidade cidade = cidadeService.buscarPorId(rs.getInt("id_cidade_cliente"));
                 cl.setCidade(cidade);
             }
             return cl;
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new ErroCliente("Não foi possivel buscar Cliente");
         } finally {
             if (rs != null) {
                 try {
@@ -169,7 +170,7 @@ public class ClienteDAO {
         }
     }
 
-    public List<Cliente> buscarTodos() {
+    public List<Cliente> buscarTodos() throws ErroCliente {
         List<Cliente> clientes = new ArrayList<Cliente>();
         Connection con = null;
         PreparedStatement st = null;
@@ -188,14 +189,14 @@ public class ClienteDAO {
                 System.out.println(cl.getData());
                 cl.setRua(rs.getString("rua_cliente"));
                 cl.setNumero(Integer.valueOf(rs.getString("nr_cliente")));
-                cl.setCep(Integer.valueOf(rs.getString("cep_cliente")));
+                cl.setCep(rs.getString("cep_cliente"));
                 Cidade cidade = cidadeService.buscarPorId(rs.getInt("id_cidade_cliente"));
                 cl.setCidade(cidade);
                 clientes.add(cl);
             }
             return clientes;
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new ErroCliente("Não foi possivel listar clientes.");
         } finally {
             if (rs != null) {
                 try {
@@ -231,7 +232,7 @@ public class ClienteDAO {
         try {
             con = ConnectionFactory.getConnection();
             st = con.prepareStatement(
-                    "insert into beibe.tb_cliente(cpf_cliente, nome_cliente, senha, email_cliente, data_cliente, rua_cliente, nr_cliente, cep_cliente, id_cidade_cliente) values (?, ?, ?, ?, ?, ?, ? , ?,?)");
+                    "insert into beibe.tb_cliente(cpf_cliente, nome_cliente, senha, email_cliente, data_cliente, rua_cliente, nr_cliente, cep_cliente, id_cidade_cliente, telefone) values (?, ?, ?, ?, ?, ?, ? , ?,?,?)");
             st.setString(1, cliente.getCpf());
             st.setString(2, cliente.getNome());
             st.setString(3, md5.MD5Transformed(cliente.getSenha()));
@@ -239,8 +240,9 @@ public class ClienteDAO {
             st.setDate(5, Date.valueOf(dt));
             st.setString(6, cliente.getRua());
             st.setInt(7, cliente.getNumero());
-            st.setInt(8, cliente.getCep());
+            st.setString(8, cliente.getCep());
             st.setInt(9, cliente.getCidade().getId());
+            st.setString (10, cliente.getTelefone());
             int retorno = st.executeUpdate();
             
             if(retorno == 0){
@@ -274,16 +276,17 @@ public class ClienteDAO {
             System.out.println(cliente.getData() + "bbbbbb");
             con = ConnectionFactory.getConnection();
             st = con.prepareStatement(
-                    "update beibe.tb_cliente set cpf_cliente = ?, nome_cliente = ?, email_cliente = ?, data_cliente = ?, rua_cliente = ?, nr_cliente = ?, cep_cliente = ?, id_cidade_cliente = ? where id_cliente = ?");
+                    "update beibe.tb_cliente set cpf_cliente = ?, nome_cliente = ?, email_cliente = ?, data_cliente = ?, rua_cliente = ?,telefone = ? ,nr_cliente = ?, cep_cliente = ?, id_cidade_cliente = ? where id_cliente = ?");
             st.setString(1, cliente.getCpf());
             st.setString(2, cliente.getNome());
             st.setString(3, cliente.getEmail());
             st.setDate(4, Date.valueOf(cliente.getData()));
             st.setString(5, cliente.getRua());
-            st.setInt(6, cliente.getNumero());
-            st.setInt(7, cliente.getCep());
-            st.setInt(8, cliente.getCidade().getId());
-            st.setString(9, cliente.getId());
+            st.setString(6, cliente.getTelefone());
+            st.setInt(7, cliente.getNumero());
+            st.setString(8, cliente.getCep());
+            st.setInt(9, cliente.getCidade().getId());
+            st.setString(10, cliente.getId());
             int retorno = st.executeUpdate();
             
             if(retorno == 0){

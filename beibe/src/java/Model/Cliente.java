@@ -19,8 +19,9 @@ public class Cliente {
     private String email;
     private LocalDate data;
     private String rua;
+    private String telefone;
     private int numero;
-    private int cep;
+    private String cep;
     private Cidade cidade;
     
     public String getId() {
@@ -79,11 +80,11 @@ public class Cliente {
         this.numero = numero;
     }
 
-    public int getCep() {
+    public String getCep() {
         return cep;
     }
 
-    public void setCep(int cep) {
+    public void setCep(String cep) {
         this.cep = cep;
     }
 
@@ -102,4 +103,14 @@ public class Cliente {
     public void setSenha(String senha) {
         this.senha = senha;
     }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+    
+    
 }

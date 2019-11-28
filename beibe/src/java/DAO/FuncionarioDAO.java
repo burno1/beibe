@@ -79,7 +79,7 @@ public class FuncionarioDAO {
 
         try {
             con = ConnectionFactory.getConnection();
-            st = con.prepareStatement("SELECT id_usuario,nome_usuario,senha_usuario,login_usuario,tipo_usuario,cpf,data,rua,nrua,cep,idCidade,idEstado FROM tb_usuario where id_usuario = ?");
+            st = con.prepareStatement("SELECT id_usuario,nome_usuario,telefone,senha_usuario,login_usuario,tipo_usuario,cpf,data,rua,nrua,cep,idCidade,idEstado FROM tb_usuario where id_usuario = ?");
             st.setString(1, id);
             rs = st.executeQuery();
 
@@ -93,7 +93,8 @@ public class FuncionarioDAO {
                 u.setRua(rs.getString("rua"));
                 u.setCpf(rs.getString("cpf"));
                 u.setNumero(rs.getInt("nrua"));
-                u.setCep(rs.getInt("cep"));
+                u.setCep(rs.getString("cep"));
+                u.setTelefone(rs.getString("telefone"));
                 Cidade cidade = cidadeService.buscarPorId(rs.getInt("idCidade"));
                 u.setCidade(cidade);
             }
@@ -174,7 +175,7 @@ public class FuncionarioDAO {
             Funcionario funcionarioSalvo = new Funcionario();
             con = ConnectionFactory.getConnection();
             st = con.prepareStatement(
-                    "insert into tb_usuario (cpf, nome_usuario, login_usuario,senha_usuario, tipo_usuario, data, rua, nrua, cep, idCidade) values (?,?,?,?,?,?,?,?,?,?)");
+                    "insert into tb_usuario (cpf, nome_usuario, login_usuario,senha_usuario, tipo_usuario, data, rua, nrua, cep, idCidade) values (?,?,?,?,?,?,?,?,?,?,?)");
             st.setString(1, funcionario.getCpf());
             st.setString(2, funcionario.getNome());
             st.setString(3, funcionario.getEmail());
@@ -183,8 +184,9 @@ public class FuncionarioDAO {
             st.setDate(6, Date.valueOf(funcionario.getData()));
             st.setString(7, funcionario.getRua());
             st.setInt(8, funcionario.getNumero());
-            st.setInt(9, funcionario.getCep());
-            st.setInt(10, funcionario.getCidade().getId());
+            st.setString(9, funcionario.getCep());
+            st.setString(10, funcionario.getTelefone());
+            st.setInt(11, funcionario.getCidade().getId());
 
             funcionarioSalvo = funcionario;
             st.executeUpdate();
@@ -257,17 +259,18 @@ public class FuncionarioDAO {
             System.out.println(funcionario.getData() + "bbbbbb");
             con = ConnectionFactory.getConnection();
             st = con.prepareStatement(
-                    "update beibe.tb_usuario set cpf = ?, nome_usuario = ?, login_usuario = ?, data = ?, rua = ?, nrua = ?, cep = ?, idCidade = ?, tipo_usuario = ?  where id_usuario = ?");
+                    "update beibe.tb_usuario set cpf = ?, nome_usuario = ?, login_usuario = ?, data = ?, rua = ?, nrua = ?, cep = ?, telefone = ?,idCidade = ?, tipo_usuario = ?  where id_usuario = ?");
             st.setString(1, funcionario.getCpf());
             st.setString(2, funcionario.getNome());
             st.setString(3, funcionario.getEmail());
             st.setDate(4, Date.valueOf(funcionario.getData()));
             st.setString(5, funcionario.getRua());
             st.setInt(6, funcionario.getNumero());
-            st.setInt(7, funcionario.getCep());
-            st.setInt(8, funcionario.getCidade().getId());
-            st.setString(9, funcionario.getTipo());
-            st.setInt(10, Integer.valueOf(funcionario.getId()));
+            st.setString(7, funcionario.getCep());
+            st.setString(8, funcionario.getTelefone());
+            st.setInt(9, funcionario.getCidade().getId());
+            st.setString(10, funcionario.getTipo());
+            st.setInt(11, Integer.valueOf(funcionario.getId()));
             int retorno = st.executeUpdate();
 
             if (retorno == 0) {

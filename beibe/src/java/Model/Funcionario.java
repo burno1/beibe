@@ -21,10 +21,11 @@ public class Funcionario {
     private String tipo;
     private String cpf;
     private String id;
+    private String telefone;
     private LocalDate data;
     private String rua;
     private int numero;
-    private int cep;
+    private String cep;
     private Cidade cidade;
     private Cargo cargo;
     
@@ -104,11 +105,11 @@ public class Funcionario {
         this.numero = numero;
     }
 
-    public int getCep() {
+    public String getCep() {
         return cep;
     }
 
-    public void setCep(int cep) {
+    public void setCep(String cep) {
         this.cep = cep;
     }
 
@@ -136,6 +137,15 @@ public class Funcionario {
         this.cargo = cargo;
     }
 
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    
     
     
 }
